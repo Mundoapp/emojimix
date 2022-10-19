@@ -37,11 +37,17 @@ public class EmojiMixer implements Runnable {
     private String finalbocas;
     private String finalobjetos;
     private String finalmanos;
+    private String finalmanual;
 
     private final Activity mContext;
     private final String LOG = "EMOJI_LOGS";
     public String API = "https://emojimix.queautoescuela.com/panel/images_formas/";
+    public String API3 = "https://emojimix.queautoescuela.com/panel/images_formas/vacio.png";
+
+    public String API2 = "https://emojimix.queautoescuela.com/panel/images_manual/";
+
     public EmojiListener listener;
+
     private String finalURL;
     private String ojos;
     emojismodel totalmodel;
@@ -66,16 +72,18 @@ public class EmojiMixer implements Runnable {
     public void run() {
 
 
-        Log.d(LOG, "Emojis checker started with the following data:\nEmojis 1: " + emoji_1 + "\nEmoji 2: " + emoji_2 + "\nDate: " + creation_date);
+      //  Log.d(LOG, "Emojis checker started with the following data:\nEmojis 1: " + idemote_1 + "\nEmoji 2: " + idemote_2 + "\nDate: " + creation_date);
         if (isConnected()) {
-            createemoji();
+
+            checkIfImageEmojiInServer(idemote_1,idemote_2);
         }
         mContext.runOnUiThread(() -> {
 
             if (isTaskSuccessful) {
+                Log.e("TAG", "run entro: " );
 
-                //listener.onSuccess(finalURL,ojos);
-                if (listener != null) {
+                 if (listener != null) {
+                     listener.onSuccess(finalbase,finalojos,finalcejas,finalobjetos,finalbocas,finalojos_objetos,finalmanos,finalmanual);
 
                 }
             } else {
@@ -88,24 +96,31 @@ public class EmojiMixer implements Runnable {
     public void createemoji() {
 
 
+
+
+
         RequestQueue queue = Volley.newRequestQueue(mContext);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, api_emojismix+"emoji1="+idemote_1+"&emoji2="+idemote_2,
                 (String) null, new Response.Listener<JSONObject>() {
             //  @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onResponse(JSONObject response) {
-                // Successfully called Graph. Process data and send to UI.
-                Gson gson = new Gson();
-                totalmodel = gson.fromJson(response.toString(), emojismodel.class);
-                finalbase = API + totalmodel.getbase();
-                finalojos = API + totalmodel.getojos();
-                finalbocas = API + totalmodel.getbocas();
-                finalojos_objetos = API + totalmodel.getojos_objetos();
-                finalcejas = API + totalmodel.getcejas();
-                finalobjetos = API + totalmodel.getobjetos();
-                finalmanos = API + totalmodel.getmanos();
 
-            enviar();
+
+
+                    // Successfully called Graph. Process data and send to UI.
+                    Gson gson = new Gson();
+                    totalmodel = gson.fromJson(response.toString(), emojismodel.class);
+                    finalbase = API + totalmodel.getbase();
+                    finalojos = API + totalmodel.getojos();
+                    finalbocas = API + totalmodel.getbocas();
+                    finalojos_objetos = API + totalmodel.getojos_objetos();
+                    finalcejas = API + totalmodel.getcejas();
+                    finalobjetos = API + totalmodel.getobjetos();
+                    finalmanos = API + totalmodel.getmanos();
+                    Log.i("tag", "final base" + finalbase);
+
+                    enviar();
 
             }
         }, new Response.ErrorListener() {
@@ -141,103 +156,53 @@ public class EmojiMixer implements Runnable {
 
     }
 
-    public void enviar() {
 
 
 
-        Log.i("tag", "sumat2" + finalURL);
-
-        isTaskSuccessful = true;
-        listener.onSuccess(finalbase,finalojos,finalcejas,finalobjetos,finalbocas,finalojos_objetos,finalmanos);
-
-    }
-
-
-    public void checkIfImageEmojiInServer(String emoji1, String emoji2, String date) {
-
-        String Combination = emoji1+"_"+emoji2+".webp";
-        finalURL = API + Combination;
-        Log.d(LOG, "combination at:  " + finalURL);
-
+    public void checkIfImageEmojiInServer(String emoji1, String emoji2) {
         if (!shouldAbortTask) {
-             finalURL = API + Combination;
+            String Combination = emoji1 + "_" + emoji2 + ".png";
+            finalURL = API2 + Combination;
+
             Log.d(LOG, "Checking url: " + finalURL);
             if (checkImage(finalURL)) {
-                isTaskSuccessful = true;
-                Log.d(LOG, "Found a combination at:  " + finalURL);
+                finalbase = finalURL;
+                finalojos = API3;
+                finalbocas = API3;
+                finalojos_objetos = API3;
+                finalcejas = API3;
+                finalobjetos = API3;
+                finalmanos = API3;
+                 isTaskSuccessful = true;
             } else {
                 Log.d(LOG, "Couldn't find a combination in the regular order, swap emojis then recheck...");
-                checkReversedEmojis(emoji2, emoji1, date);
+                checkReversedEmojis(emoji1,emoji2);
             }
         }
     }
 
-    public void checkReversedEmojis(String emoji1, String emoji2, String date) {
+
+    public void checkReversedEmojis(String emoji1, String emoji2) {
         if (!shouldAbortTask) {
-            String Combination = emoji1+"_"+emoji2+".webp";
-            finalURL = API + Combination;
-            Log.d(LOG, "Checking reversed url: " + finalURL);
+            String Combination2 = emoji2+"_"+emoji1+".png";
+            finalURL = API2 + Combination2;
+            Log.d(LOG, "Checking reversed url: " + finalbase);
             if (checkImage(finalURL)) {
+                finalbase = finalURL;
+                finalojos = API3;
+                finalbocas = API3;
+                finalojos_objetos = API3;
+                finalcejas = API3;
+                finalobjetos = API3;
+                finalmanos = API3;
                 isTaskSuccessful = true;
-                Log.d(LOG, "Found a combination at:  " + finalURL);
             } else {
-                Log.d(LOG, "Couldn't find a combination in the reversed order, task failed.");
-                failure_reason = "No combination found for selected emojis.";
-                isTaskSuccessful = false;
-                checkReversedEmojis2(emoji2, emoji1, "20211115");
+                  createemoji();
 
             }
         }
     }
-    public void checkReversedEmojis2(String emoji1, String emoji2, String date) {
-        if (!shouldAbortTask) {
-            String Combination = "/" + emoji1 + "/" + emoji1 + "_" + emoji2 + ".png";
-            finalURL = API + date + Combination;
-            Log.d(LOG, "Checking reversed url2: " + finalURL);
-            if (checkImage(finalURL)) {
-                isTaskSuccessful = true;
-                Log.d(LOG, "Found a combination at:  " + finalURL);
-            } else {
-                Log.d(LOG, "Couldn't find a combination in the reversed order, task failed.");
-                failure_reason = "No combination found for selected emojis.";
-                isTaskSuccessful = false;
-                checkReversedEmojis3(emoji2, emoji1, "20210218");
 
-            }
-        }
-    }
-    public void checkReversedEmojis3(String emoji1, String emoji2, String date) {
-        if (!shouldAbortTask) {
-            String Combination = "/" + emoji2 + "/" + emoji2 + "_" + emoji1 + ".png";
-            finalURL = API + date + Combination;
-            Log.d(LOG, "Checking reversed url3: " + finalURL);
-            if (checkImage(finalURL)) {
-                isTaskSuccessful = true;
-                Log.d(LOG, "Found a combination at:  " + finalURL);
-            } else {
-                Log.d(LOG, "Couldn't find a combination in the reversed order, task failed.");
-                failure_reason = "No combination found for selected emojis.";
-                isTaskSuccessful = false;
-                checkReversedEmojis4(emoji2, emoji1, "20210521");
-            }
-        }
-    }
-    public void checkReversedEmojis4(String emoji1, String emoji2, String date) {
-        if (!shouldAbortTask) {
-            String Combination = "/" + emoji1 + "/" + emoji1 + "_" + emoji2 + ".png";
-            finalURL = API + date + Combination;
-            Log.d(LOG, "Checking reversed url4: " + finalURL);
-            if (checkImage(finalURL)) {
-                isTaskSuccessful = true;
-                Log.d(LOG, "Found a combination at:  " + finalURL);
-            } else {
-                Log.d(LOG, "Couldn't find a combination in the reversed order, task failed.");
-                failure_reason = "No combination found for selected emojis.";
-                isTaskSuccessful = false;
-//                checkReversedEmojis3(emoji2, emoji1, "20210521");
-            }
-        }
-    }
     public boolean checkImage(String url) {
         if (isConnected()) {
             try {
@@ -251,6 +216,16 @@ public class EmojiMixer implements Runnable {
         } else {
             return false;
         }
+    }
+    public void enviar() {
+
+
+
+        Log.i("tag", "sumat2" + finalbase);
+
+
+        listener.onSuccess(finalbase,finalojos,finalcejas,finalobjetos,finalbocas,finalojos_objetos,finalmanos,finalmanual);
+
     }
 
     public boolean isConnected() {
@@ -274,8 +249,9 @@ public class EmojiMixer implements Runnable {
 
     public interface EmojiListener {
 
-        void onSuccess(String emojiUrl,String ojos,String cejas, String objetos, String bocas, String finalojos_objetos,String manos );
+        void onSuccess(String emojiUrl,String ojos,String cejas, String objetos, String bocas, String finalojos_objetos,String manos,String manual );
 
         void onFailure(String failureReason);
     }
+
 }

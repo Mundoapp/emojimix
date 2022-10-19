@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,7 +111,8 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayoutManager emojisSlider2LayoutManager;
     private SnapHelper emojisSlider1SnapHelper = new LinearSnapHelper();
     private SnapHelper emojisSlider2SnapHelper = new LinearSnapHelper();
-    FrameLayout layoutEmojiCreation,posicioncara;
+    FrameLayout layoutEmojiCreation;
+    FrameLayout posicioncara;
     Activity context;
     emojismodel totalmodel;
     public static String api_emojis ="https://emojimix.queautoescuela.com/panel/api.php?todos=1";
@@ -257,22 +259,28 @@ public class MainActivity extends AppCompatActivity {
             handler.post(() -> {
                 emojisSlider1.setAdapter(new EmojisSliderAdapter(supportedEmojisList, emojisSlider1LayoutManager, MainActivity.this));
                 emojisSlider2.setAdapter(new EmojisSliderAdapter(supportedEmojisList, emojisSlider2LayoutManager, MainActivity.this));
+
                 new Handler().postDelayed(() -> {
                     for (int i = 0; i < 2; i++) {
                         Random rand = new Random();
                         int randomNum = rand.nextInt((supportedEmojisList.size()) - 1);
                         if (i == 0) {
-                            emojisSlider1.smoothScrollToPosition(2);
+                            emojisSlider1.smoothScrollToPosition(6);
                         } else {
-                            emojisSlider2.smoothScrollToPosition(5);
+                            emojisSlider2.smoothScrollToPosition(9);
                         }
                     }
 
-                    shouldShowEmoji(false);
+                 //   shouldShowEmoji(false);
 
-                    emote1 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("emoji_formado")).toString();
-                    emote2 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider2, emojisSlider2SnapHelper, emojisSlider2LayoutManager)).get("emoji_formado")).toString();
-//                    mixEmojis(emote1, emote2, Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("date")).toString());
+//                    emote1 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("emoji_formado")).toString();
+//                    emote2 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider2, emojisSlider2SnapHelper, emojisSlider2LayoutManager)).get("emoji_formado")).toString();
+//
+//                    idemote1 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("Id")).toString();
+//                    idemote2 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider2, emojisSlider2SnapHelper, emojisSlider2LayoutManager)).get("Id")).toString();
+//                    Log.e("TAG", "addDataToSliders: "+idemote1+" dos"+idemote2 );
+                //    mixEmojis(emote1, emote2, Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("Id")).toString());
+
                     registerViewPagersListener();
 
                     isFineToUseListeners = true;
@@ -293,10 +301,12 @@ public class MainActivity extends AppCompatActivity {
 
                 if (isFineToUseListeners && newState == SCROLL_STATE_IDLE) {
                     emote1 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("emoji_formado")).toString();
+                    idemote1 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("Id")).toString();
+
                     shouldShowEmoji(false);
                     mixEmojis(emote1, emote2, Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("Id")).toString());
                     isFineToUseListeners = false;
-                    idemote1 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("Id")).toString();
+                    Log.e("TAG", "addDataToSliders1: "+idemote1+" dos"+idemote2 );
 
                 }
             }
@@ -306,7 +316,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 if (isFineToUseListeners && newState == SCROLL_STATE_IDLE) {
-                    Log.e("TAG", "addDataToSliders1: "+newState );
+                    idemote1 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("Id")).toString();
 
                     idemote2 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider2, emojisSlider2SnapHelper, emojisSlider2LayoutManager)).get("Id")).toString();
 
@@ -314,6 +324,7 @@ public class MainActivity extends AppCompatActivity {
                     shouldShowEmoji(false);
                     mixEmojis(emote1, emote2, Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider2, emojisSlider2SnapHelper, emojisSlider2LayoutManager)).get("Id")).toString());
                     isFineToUseListeners = false;
+                    Log.e("TAG", "addDataToSliders2: "+idemote1+" dos"+idemote2 );
 
                 }
             }
@@ -325,33 +336,37 @@ public class MainActivity extends AppCompatActivity {
 
         shouldEnableSave(false);
         progressBar.setVisibility(View.GONE);
-        Log.e("TAG", "entro1: " );
+              Log.e("TAG", "addDataToSliders: "+idemote1+" dos"+idemote2 );
 
         EmojiMixer em = new EmojiMixer(emoji1, emoji2, idemote2, idemote1, date, this, new EmojiMixer.EmojiListener() {
+
             @Override
-            public void onSuccess(String emojiUrl, String ojos, String cejas, String objetos, String bocas, String finalojos_objetos,String manos) {
+            public void onSuccess(String emojiUrl, String ojos, String cejas, String objetos, String bocas, String finalojos_objetos,String manos,String manual) {
+
+                shouldEnableSave(true);
 
                 finalEmojiURL = emojiUrl;
-                Log.e("TAG", "url final: "+ojos );
 
 //                posicioncara.setLayoutParams(new FrameLayout.LayoutParams(550,550));
 //                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) posicioncara.getLayoutParams();
 //                params.setMargins(100, 102, 3, 4);
 //                posicioncara.setLayoutParams(params);
 
-                        ojosfinal = ojos;
-                shouldEnableSave(true);
-                mixedEmoji.setImageURI(Uri.parse(finalEmojiURL));
-                mixedEmojiojos.setImageURI(Uri.parse(ojosfinal));
-                mixedEmojiojos.setMaxWidth(100);
-                mixedEmojicejas.setImageURI(Uri.parse(cejas));
-                mixedEmojiobjetos.setImageURI(Uri.parse(objetos));
-                mixedEmojibocas.setImageURI(Uri.parse(bocas));
-                mixedEmojiojos_objetos.setImageURI(Uri.parse(finalojos_objetos));
-                mixedEmojimanos.setImageURI(Uri.parse(manos));
+                    ojosfinal = ojos;
+                    mixedEmoji.setImageURI(Uri.parse(finalEmojiURL));
+                    mixedEmojiojos.setImageURI(Uri.parse(ojosfinal));
+                    mixedEmojicejas.setImageURI(Uri.parse(cejas));
+                    mixedEmojiobjetos.setImageURI(Uri.parse(objetos));
+                    mixedEmojibocas.setImageURI(Uri.parse(bocas));
+                    mixedEmojiojos_objetos.setImageURI(Uri.parse(finalojos_objetos));
+                    mixedEmojimanos.setImageURI(Uri.parse(manos));
 
-                // mixedEmoji.setImageURI(Uri.parse("https://emoji.lovpi.com/stickers/"+emoji1+"_"+emoji2+".webp"));
+                    // mixedEmoji.setImageURI(Uri.parse("https://emoji.lovpi.com/stickers/"+emoji1+"_"+emoji2+".webp"));
+
+
+                isFineToUseListeners = true;
                 shouldShowEmoji(true);
+
             }
 
 
@@ -363,7 +378,7 @@ public class MainActivity extends AppCompatActivity {
               //  mixedEmoji.setImageResource(R.drawable.sad);
              //  mixedEmoji.setImageURI(Uri.parse(""));
 
-                shouldShowEmoji(true);
+            //  shouldShowEmoji(true);
             }
         });
         Thread thread = new Thread(em);
@@ -372,7 +387,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void shouldShowEmoji(boolean shouldShow) {
-        isFineToUseListeners = true;
+
         if (shouldShow) {
             Log.e("TAG", "aki entro:+finalEmojiURL " );
 
