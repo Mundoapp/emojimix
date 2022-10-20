@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Objects;
 
 public class EmojiMixer implements Runnable {
 
@@ -37,11 +38,18 @@ public class EmojiMixer implements Runnable {
     private String finalbocas;
     private String finalobjetos;
     private String finalmanos;
-    private String finalmanual;
+    private int finalancho;
+    private int finalleft;
+    private int finaltop;
+    private String finaltipo;
+    private String finalextra;
+    private String finalfondo;
 
     private final Activity mContext;
     private final String LOG = "EMOJI_LOGS";
     public String API = "https://emojimix.queautoescuela.com/panel/images_formas/";
+    public String API4 = "https://emojimix.queautoescuela.com/panel/emoji_formado/";
+
     public String API3 = "https://emojimix.queautoescuela.com/panel/images_formas/vacio.png";
 
     public String API2 = "https://emojimix.queautoescuela.com/panel/images_manual/";
@@ -80,10 +88,9 @@ public class EmojiMixer implements Runnable {
         mContext.runOnUiThread(() -> {
 
             if (isTaskSuccessful) {
-                Log.e("TAG", "run entro: " );
 
                  if (listener != null) {
-                     listener.onSuccess(finalbase,finalojos,finalcejas,finalobjetos,finalbocas,finalojos_objetos,finalmanos,finalmanual);
+                     listener.onSuccess(finalbase,finalojos,finalcejas,finalobjetos,finalbocas,finalojos_objetos,finalmanos,finalancho,finalleft,finaltop,finaltipo,finalextra,finalfondo);
 
                 }
             } else {
@@ -111,14 +118,30 @@ public class EmojiMixer implements Runnable {
                     // Successfully called Graph. Process data and send to UI.
                     Gson gson = new Gson();
                     totalmodel = gson.fromJson(response.toString(), emojismodel.class);
-                    finalbase = API + totalmodel.getbase();
                     finalojos = API + totalmodel.getojos();
                     finalbocas = API + totalmodel.getbocas();
                     finalojos_objetos = API + totalmodel.getojos_objetos();
                     finalcejas = API + totalmodel.getcejas();
                     finalobjetos = API + totalmodel.getobjetos();
                     finalmanos = API + totalmodel.getmanos();
-                    Log.i("tag", "final base" + finalbase);
+                    finalancho = totalmodel.getancho();
+                    finalleft = totalmodel.getleft();
+                    finaltop = totalmodel.gettop();
+                    String tipo1 = totalmodel.gettipo1();
+                    String tipo2 = totalmodel.gettipo2();
+                    if(Objects.equals(tipo1, "objeto") || Objects.equals(tipo2, "objeto")){
+                        finaltipo = "objeto";
+                        finalbase = API4 + totalmodel.getbase();
+                        finalfondo = API + totalmodel.getfondo();
+                        finalextra = API + totalmodel.getextra();
+
+                    }
+                    else
+                        finalbase = API + totalmodel.getbase();
+
+
+
+                Log.i("tag", "final base" + finalextra);
 
                     enviar();
 
@@ -224,7 +247,7 @@ public class EmojiMixer implements Runnable {
         Log.i("tag", "sumat2" + finalbase);
 
 
-        listener.onSuccess(finalbase,finalojos,finalcejas,finalobjetos,finalbocas,finalojos_objetos,finalmanos,finalmanual);
+        listener.onSuccess(finalbase,finalojos,finalcejas,finalobjetos,finalbocas,finalojos_objetos,finalmanos,finalancho,finalleft,finaltop,finaltipo,finalextra,finalfondo);
 
     }
 
@@ -249,7 +272,7 @@ public class EmojiMixer implements Runnable {
 
     public interface EmojiListener {
 
-        void onSuccess(String emojiUrl,String ojos,String cejas, String objetos, String bocas, String finalojos_objetos,String manos,String manual );
+        void onSuccess(String emojiUrl,String ojos,String cejas, String objetos, String bocas, String finalojos_objetos,String manos,int ancho,int left,int top,String tipo,String extra,String fondo );
 
         void onFailure(String failureReason);
     }

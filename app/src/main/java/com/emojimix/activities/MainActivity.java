@@ -24,6 +24,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
@@ -90,7 +91,7 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     private Button saveEmoji;
-    private WrapContentDraweeView mixedEmoji,mixedEmojiojos,mixedEmojiojos_objetos,mixedEmojicejas,mixedEmojibocas,mixedEmojiobjetos,mixedEmojimanos;
+    private WrapContentDraweeView mixedemojiforma,mixedfondo,mixedEmoji,mixedEmojiojos,mixedEmojiojos_objetos,mixedEmojicejas,mixedEmojibocas,mixedEmojiobjetos,mixedEmojimanos;
     private CircularProgressIndicator progressBar;
     private TextView activityDesc;
     private String emote1;
@@ -113,6 +114,9 @@ public class MainActivity extends AppCompatActivity {
     private SnapHelper emojisSlider2SnapHelper = new LinearSnapHelper();
     FrameLayout layoutEmojiCreation;
     FrameLayout posicioncara;
+    FrameLayout posicionemoji;
+    FrameLayout posicionem;
+
     Activity context;
     emojismodel totalmodel;
     public static String api_emojis ="https://emojimix.queautoescuela.com/panel/api.php?todos=1";
@@ -151,6 +155,9 @@ public class MainActivity extends AppCompatActivity {
         mixedEmojibocas = findViewById(R.id.mixedEmojibocas);
         mixedEmojiobjetos = findViewById(R.id.mixedEmojiobjetos);
         mixedEmojimanos = findViewById(R.id.mixedEmojimanos);
+        mixedemojiforma = findViewById(R.id.emojiforma);
+        mixedfondo= findViewById(R.id.emojifondo);
+
 
         saveEmoji = findViewById(R.id.saveEmoji);
         emojisSlider1 = findViewById(R.id.emojisSlider1);
@@ -159,6 +166,9 @@ public class MainActivity extends AppCompatActivity {
         sharedPref = getSharedPreferences("AppData", Activity.MODE_PRIVATE);
         layoutEmojiCreation = (FrameLayout) findViewById(R.id.frame_emoji_creation);
         posicioncara = (FrameLayout) findViewById(R.id.posicioncara);
+        posicionem = (FrameLayout) findViewById(R.id.posicione);
+
+        posicionemoji = (FrameLayout) findViewById(R.id.posicionemoji);
 
         mixedEmoji.setOnClickListener(view -> {
             isFineToUseListeners = false;
@@ -341,27 +351,76 @@ public class MainActivity extends AppCompatActivity {
         EmojiMixer em = new EmojiMixer(emoji1, emoji2, idemote2, idemote1, date, this, new EmojiMixer.EmojiListener() {
 
             @Override
-            public void onSuccess(String emojiUrl, String ojos, String cejas, String objetos, String bocas, String finalojos_objetos,String manos,String manual) {
+            public void onSuccess(String emojiUrl, String ojos, String cejas, String objetos, String bocas, String finalojos_objetos,String manos,int ancho,int left, int top,String tipo,String extra,String fondo) {
 
                 shouldEnableSave(true);
 
                 finalEmojiURL = emojiUrl;
 
-//                posicioncara.setLayoutParams(new FrameLayout.LayoutParams(550,550));
-//                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) posicioncara.getLayoutParams();
-//                params.setMargins(100, 102, 3, 4);
-//                posicioncara.setLayoutParams(params);
+                if (Objects.equals(tipo, "objeto")) {
+                    int ancho2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, ancho, getResources().getDisplayMetrics());
+                    int left2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, left, getResources().getDisplayMetrics());
+                    int top2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, getResources().getDisplayMetrics());
 
-                    ojosfinal = ojos;
-                    mixedEmoji.setImageURI(Uri.parse(finalEmojiURL));
-                    mixedEmojiojos.setImageURI(Uri.parse(ojosfinal));
-                    mixedEmojicejas.setImageURI(Uri.parse(cejas));
-                    mixedEmojiobjetos.setImageURI(Uri.parse(objetos));
-                    mixedEmojibocas.setImageURI(Uri.parse(bocas));
-                    mixedEmojiojos_objetos.setImageURI(Uri.parse(finalojos_objetos));
-                    mixedEmojimanos.setImageURI(Uri.parse(manos));
+                    Log.e("TAG", "aki extra: " + extra );
 
-                    // mixedEmoji.setImageURI(Uri.parse("https://emoji.lovpi.com/stickers/"+emoji1+"_"+emoji2+".webp"));
+                    posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
+                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) posicionemoji.getLayoutParams();
+                    params.setMargins(left2, top2, 0, 0);
+                    posicionemoji.setLayoutParams(params);
+                    posicionemoji.setRotation(0);
+                    mixedemojiforma.setVisibility(View.VISIBLE);
+
+                    mixedemojiforma.setImageURI(Uri.parse(extra));
+                    mixedfondo.setVisibility(View.VISIBLE);
+
+                    mixedfondo.setImageURI(Uri.parse(fondo));
+
+                } else if (ancho > 0) {
+                    int ancho2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, ancho, getResources().getDisplayMetrics());
+                    int left2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, left, getResources().getDisplayMetrics());
+                    int top2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, getResources().getDisplayMetrics());
+
+                    int ancho3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, getResources().getDisplayMetrics());
+                    Log.e("TAG", "aki ancho: " + ancho2 + left);
+                    posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
+                    ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) posicionemoji.getLayoutParams();
+                    params2.setMargins(0, 0, 0, 0);
+                    posicionemoji.setLayoutParams(params2);
+
+                    posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
+                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) posicioncara.getLayoutParams();
+                    params.setMargins(left2, top2, 0, 0);
+                    posicioncara.setLayoutParams(params);
+
+                    mixedfondo.setVisibility(View.GONE);
+                    mixedemojiforma.setVisibility(View.GONE);
+                } else {
+                    int ancho2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, getResources().getDisplayMetrics());
+
+                    posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
+                    ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) posicionemoji.getLayoutParams();
+                    params2.setMargins(0, 0, 0, 0);
+                    posicionemoji.setLayoutParams(params2);
+
+                    posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
+                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) posicioncara.getLayoutParams();
+                    params.setMargins(0, 0, 0, 0);
+                    posicioncara.setLayoutParams(params);
+                    mixedfondo.setVisibility(View.GONE);
+                    mixedemojiforma.setVisibility(View.GONE);
+
+                }
+                ojosfinal = ojos;
+                mixedEmoji.setImageURI(Uri.parse(finalEmojiURL));
+                mixedEmojiojos.setImageURI(Uri.parse(ojosfinal));
+                mixedEmojicejas.setImageURI(Uri.parse(cejas));
+                mixedEmojiobjetos.setImageURI(Uri.parse(objetos));
+                mixedEmojibocas.setImageURI(Uri.parse(bocas));
+                mixedEmojiojos_objetos.setImageURI(Uri.parse(finalojos_objetos));
+                mixedEmojimanos.setImageURI(Uri.parse(manos));
+
+                // mixedEmoji.setImageURI(Uri.parse("https://emoji.lovpi.com/stickers/"+emoji1+"_"+emoji2+".webp"));
 
 
                 isFineToUseListeners = true;

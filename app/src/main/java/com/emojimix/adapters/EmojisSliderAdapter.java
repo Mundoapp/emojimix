@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -56,10 +57,12 @@ public class EmojisSliderAdapter extends RecyclerView.Adapter<EmojisSliderAdapte
         View view = holder.itemView;
 
         String unicode = Objects.requireNonNull(data.get(position).get("emoji_formado")).toString();
+        String idemo = Objects.requireNonNull(data.get(position).get("Id")).toString();
 
         String emojiURL = "https://emojimix.queautoescuela.com/panel/emoji_formado/" + unicode;
         Log.e("TAG", "emoji formado: "+emojiURL );
 
+        holder.idemoji.setText(idemo);
         loadEmojiFromUrl(holder.emoji, holder.progressBar, emojiURL);
 
         holder.emoji.setOnClickListener(v -> {
@@ -102,10 +105,14 @@ public class EmojisSliderAdapter extends RecyclerView.Adapter<EmojisSliderAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView emoji;
         CircularProgressIndicator progressBar;
+        TextView idemoji;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             emoji = itemView.findViewById(R.id.emoji);
+            idemoji = itemView.findViewById(R.id.idemojitxt);
+
             progressBar = itemView.findViewById(R.id.progressBar);
         }
     }

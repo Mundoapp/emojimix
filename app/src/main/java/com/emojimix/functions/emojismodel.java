@@ -10,7 +10,14 @@ public class emojismodel {
     private String cejas;
     private String objetos;
     private String manos;
+    private String tipo1;
+    private String tipo2;
+    private String objetoextra;
+    private String fondo;
 
+    private int width_height;
+    private int left;
+    private int top;
 
     public String getojos() {
         return ojos;
@@ -34,6 +41,28 @@ public class emojismodel {
     public String getmanos() {
         return manos;
     }
+    public int getancho() {
+        return width_height;
+    }
+    public int getleft() {
+        return left;
+    }
+    public int gettop() {
+        return top;
+    }
+    public String gettipo1() {
+        return tipo1;
+    }
+    public String gettipo2() {
+        return tipo2;
+    }
+    public String getextra() {
+        return objetoextra;
+    }
+    public String getfondo() {
+        return fondo;
+    }
+
     public void setSuma(String ojos) {
         this.ojos = ojos;
     }
