@@ -18,6 +18,7 @@ public class emojismodel {
     private int width_height;
     private int left;
     private int top;
+    private float rotacion;
 
     public String getojos() {
         return ojos;
@@ -49,6 +50,9 @@ public class emojismodel {
     }
     public int gettop() {
         return top;
+    }
+    public float getrotacion() {
+        return rotacion;
     }
     public String gettipo1() {
         return tipo1;

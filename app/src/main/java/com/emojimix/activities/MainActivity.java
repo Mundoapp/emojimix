@@ -105,6 +105,11 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView emojisSlider2;
     private ArrayList<HashMap<String, Object>> supportedEmojisList = new ArrayList<>();
     private RequestNetwork requestSupportedEmojis;
+    private RequestNetwork updatevotos;
+
+    private RequestNetwork.RequestListener  updatevotoslistener;
+
+
     private RequestNetwork.RequestListener requestSupportedEmojisListener;
     private SharedPreferences sharedPref;
     private boolean isFineToUseListeners = false;
@@ -120,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
     Activity context;
     emojismodel totalmodel;
     public static String api_emojis ="https://emojimix.queautoescuela.com/panel/api.php?todos=1";
+    public static String APITOP ="https://emojimix.queautoescuela.com/panel/apitop.php?";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -201,20 +207,37 @@ public class MainActivity extends AppCompatActivity {
                 File file = FileUtil.saveEmojiBIG(context, this.layoutEmojiCreation, context.getFilesDir() + "/stickers/");
                 String toastText = "Saved emoji";
                 Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_LONG).show();
+                actualizovotos();
              //   downloadFile(finalEmojiURL);
             } else {
                 if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     String toastText = "Saved emoji";
                     Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_LONG).show();
                     File file = FileUtil.saveEmojiBIG(context, this.layoutEmojiCreation, context.getFilesDir() + "/stickers/");
-
-                  //  downloadFile(finalEmojiURL);
+                    actualizovotos();
+                   //  downloadFile(finalEmojiURL);
                 } else {
                     ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 }
             }
 
         });
+
+        updatevotoslistener = new RequestNetwork.RequestListener() {
+            @Override
+            public void onResponse(String tag, String response, HashMap<String, Object> responseHeaders) {
+                try {
+
+                } catch (Exception ignored) {
+                }
+            }
+
+            @Override
+            public void onErrorResponse(String tag, String message) {
+
+            }
+        };
+
 
         requestSupportedEmojisListener = new RequestNetwork.RequestListener() {
             @Override
@@ -233,6 +256,24 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
+    private void actualizovotos(){
+
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, APITOP+"emoji1="+idemote1+"&"+"emoji2="+idemote2,
+                (String) null, new Response.Listener<JSONObject>() {
+            //  @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onResponse(JSONObject response) {
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+              }
+        });
+          queue.add(request);
+
+    }
 
     private void LOGIC_BACKEND() {
 
@@ -248,14 +289,16 @@ public class MainActivity extends AppCompatActivity {
         emojisSlider2.addItemDecoration(new offsetItemDecoration(this));
 
 
+        requestSupportedEmojis.startRequestNetwork(RequestNetworkController.GET, "https://emojimix.queautoescuela.com/panel/api.php?todos=1", "", requestSupportedEmojisListener);
 
-        if (sharedPref.getString("supportedEmojisList", "").isEmpty()) {
 
-            requestSupportedEmojis.startRequestNetwork(RequestNetworkController.GET, "https://emojimix.queautoescuela.com/panel/api.php?todos=1", "", requestSupportedEmojisListener);
-
-        } else {
-            addDataToSliders(sharedPref.getString("supportedEmojisList", ""));
-        }
+//        if (sharedPref.getString("supportedEmojisList", "").isEmpty()) {
+//
+//            requestSupportedEmojis.startRequestNetwork(RequestNetworkController.GET, "https://emojimix.queautoescuela.com/panel/api.php?todos=1", "", requestSupportedEmojisListener);
+//
+//        } else {
+//            addDataToSliders(sharedPref.getString("supportedEmojisList", ""));
+//        }
     }
 
 
@@ -346,30 +389,38 @@ public class MainActivity extends AppCompatActivity {
 
         shouldEnableSave(false);
         progressBar.setVisibility(View.GONE);
-              Log.e("TAG", "addDataToSliders: "+idemote1+" dos"+idemote2 );
+              Log.e("TAG", "addDataToSliders: "+emoji1+" dos"+idemote2 );
+        if (TextUtils.isEmpty(idemote2)) {
+            idemote2 = "8";
+            Log.e("TAG", "addDataToSliders entrr: "+emoji1+" dos"+idemote2 );
+
+
+        }
 
         EmojiMixer em = new EmojiMixer(emoji1, emoji2, idemote2, idemote1, date, this, new EmojiMixer.EmojiListener() {
 
             @Override
-            public void onSuccess(String emojiUrl, String ojos, String cejas, String objetos, String bocas, String finalojos_objetos,String manos,int ancho,int left, int top,String tipo,String extra,String fondo) {
+            public void onSuccess(String emojiUrl, String ojos, String cejas, String objetos, String bocas, String finalojos_objetos,String manos,int ancho,int left, int top,String tipo,String extra,String fondo,float rotacion) {
 
                 shouldEnableSave(true);
 
-                finalEmojiURL = emojiUrl;
+
 
                 if (Objects.equals(tipo, "objeto")) {
                     int ancho2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, ancho, getResources().getDisplayMetrics());
                     int left2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, left, getResources().getDisplayMetrics());
                     int top2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, getResources().getDisplayMetrics());
 
-                    Log.e("TAG", "aki extra: " + extra );
 
                     posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
                     ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) posicionemoji.getLayoutParams();
                     params.setMargins(left2, top2, 0, 0);
                     posicionemoji.setLayoutParams(params);
-                    posicionemoji.setRotation(0);
+                  posicionemoji.setRotation(rotacion);
+                    Log.e("TAG", "aki rotacion: "+rotacion );
+
                     mixedemojiforma.setVisibility(View.VISIBLE);
+                    posicioncara.setRotation(0);
 
                     mixedemojiforma.setImageURI(Uri.parse(extra));
                     mixedfondo.setVisibility(View.VISIBLE);
@@ -382,7 +433,7 @@ public class MainActivity extends AppCompatActivity {
                     int top2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, getResources().getDisplayMetrics());
 
                     int ancho3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, getResources().getDisplayMetrics());
-                    Log.e("TAG", "aki ancho: " + ancho2 + left);
+                    Log.e("TAG", "aki rotacion: " + rotacion );
                     posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
                     ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) posicionemoji.getLayoutParams();
                     params2.setMargins(0, 0, 0, 0);
@@ -392,11 +443,15 @@ public class MainActivity extends AppCompatActivity {
                     ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) posicioncara.getLayoutParams();
                     params.setMargins(left2, top2, 0, 0);
                     posicioncara.setLayoutParams(params);
+                    posicioncara.setRotation(rotacion);
 
                     mixedfondo.setVisibility(View.GONE);
                     mixedemojiforma.setVisibility(View.GONE);
                 } else {
+                    Log.e("TAG", "aki normal: ");
+
                     int ancho2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, getResources().getDisplayMetrics());
+                    posicioncara.setRotation(0);
 
                     posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
                     ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) posicionemoji.getLayoutParams();
@@ -410,7 +465,11 @@ public class MainActivity extends AppCompatActivity {
                     mixedfondo.setVisibility(View.GONE);
                     mixedemojiforma.setVisibility(View.GONE);
 
+
+
                 }
+
+                finalEmojiURL = emojiUrl;
                 ojosfinal = ojos;
                 mixedEmoji.setImageURI(Uri.parse(finalEmojiURL));
                 mixedEmojiojos.setImageURI(Uri.parse(ojosfinal));
@@ -419,7 +478,6 @@ public class MainActivity extends AppCompatActivity {
                 mixedEmojibocas.setImageURI(Uri.parse(bocas));
                 mixedEmojiojos_objetos.setImageURI(Uri.parse(finalojos_objetos));
                 mixedEmojimanos.setImageURI(Uri.parse(manos));
-
                 // mixedEmoji.setImageURI(Uri.parse("https://emoji.lovpi.com/stickers/"+emoji1+"_"+emoji2+".webp"));
 
 

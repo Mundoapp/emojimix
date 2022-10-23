@@ -44,6 +44,7 @@ public class EmojiMixer implements Runnable {
     private String finaltipo;
     private String finalextra;
     private String finalfondo;
+    private float finalrotacion;
 
     private final Activity mContext;
     private final String LOG = "EMOJI_LOGS";
@@ -90,7 +91,7 @@ public class EmojiMixer implements Runnable {
             if (isTaskSuccessful) {
 
                  if (listener != null) {
-                     listener.onSuccess(finalbase,finalojos,finalcejas,finalobjetos,finalbocas,finalojos_objetos,finalmanos,finalancho,finalleft,finaltop,finaltipo,finalextra,finalfondo);
+                     listener.onSuccess(finalbase,finalojos,finalcejas,finalobjetos,finalbocas,finalojos_objetos,finalmanos,finalancho,finalleft,finaltop,finaltipo,finalextra,finalfondo,finalrotacion);
 
                 }
             } else {
@@ -127,7 +128,9 @@ public class EmojiMixer implements Runnable {
                     finalancho = totalmodel.getancho();
                     finalleft = totalmodel.getleft();
                     finaltop = totalmodel.gettop();
-                    String tipo1 = totalmodel.gettipo1();
+                    finalrotacion= totalmodel.getrotacion();
+
+                String tipo1 = totalmodel.gettipo1();
                     String tipo2 = totalmodel.gettipo2();
                     if(Objects.equals(tipo1, "objeto") || Objects.equals(tipo2, "objeto")){
                         finaltipo = "objeto";
@@ -141,7 +144,7 @@ public class EmojiMixer implements Runnable {
 
 
 
-                Log.i("tag", "final base" + finalextra);
+                Log.i("tag", "final rotacion" + finalrotacion);
 
                     enviar();
 
@@ -247,7 +250,7 @@ public class EmojiMixer implements Runnable {
         Log.i("tag", "sumat2" + finalbase);
 
 
-        listener.onSuccess(finalbase,finalojos,finalcejas,finalobjetos,finalbocas,finalojos_objetos,finalmanos,finalancho,finalleft,finaltop,finaltipo,finalextra,finalfondo);
+        listener.onSuccess(finalbase,finalojos,finalcejas,finalobjetos,finalbocas,finalojos_objetos,finalmanos,finalancho,finalleft,finaltop,finaltipo,finalextra,finalfondo,finalrotacion);
 
     }
 
@@ -272,7 +275,7 @@ public class EmojiMixer implements Runnable {
 
     public interface EmojiListener {
 
-        void onSuccess(String emojiUrl,String ojos,String cejas, String objetos, String bocas, String finalojos_objetos,String manos,int ancho,int left,int top,String tipo,String extra,String fondo );
+        void onSuccess(String emojiUrl,String ojos,String cejas, String objetos, String bocas, String finalojos_objetos,String manos,int ancho,int left,int top,String tipo,String extra,String fondo,float rotacion );
 
         void onFailure(String failureReason);
     }

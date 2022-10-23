@@ -39,6 +39,7 @@ public class RequestNetwork {
         return requestType;
     }
 
+
     public void startRequestNetwork(String method, String url, String tag, RequestListener requestListener) {
         RequestNetworkController.getInstance().execute(this, method, url, tag, requestListener);
     }
