@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name" translatable="false">Emojixer</string>
     <string name="activity_hint_1">Swipe left or right to mix emojis</string>
-    <string name="downloading">Downloading your cool mixed emoji&#8230;</string>
+    <string name="downloading">Downloading your emoji mix&#8230;</string>
     <string name="swipe_left_or_right_to_mix_emojis">Swipe left or right to mix emojis</string>
     <string name="save_emoji">Save emoji</string>
     <string name="add_to_whatsapp">Add to whatsapp</string>
-    <string name="banner_admob" translatable="false">ca-app-pub-1951639631376935/7225539934</string>
-    <string name="intersticial_admob" translatable="false">ca-app-pub-1951639631376935/4491565389</string>
+    <string name="banner_admob" translatable="false">ca-app-pub-4260778504237973/1410083079</string>
+    <string name="intersticial_admob" translatable="false">ca-app-pub-4260778504237973/1457350383</string>
 
 
 </resources>

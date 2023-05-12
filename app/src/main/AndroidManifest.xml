@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.emojimix">
+    package="com.emojixer">
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -32,21 +32,21 @@
         </provider>
 
         <provider
-            android:name="com.emojimix.activities.Provider"
+            android:name="com.emojixer.activities.Provider"
             android:authorities="${contentProviderAuthority}"
             android:enabled="true"
             android:exported="true"
             android:readPermission="com.whatsapp.sticker.READ" />
 
         <activity
-            android:name="com.emojimix.activities.MainActivity"
+            android:name="com.emojixer.activities.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout|uiMode"
             android:screenOrientation="unspecified"
             android:windowSoftInputMode="adjustResize">
 
         </activity>
         <activity
-            android:name="com.emojimix.activities.SplashActivity"
+            android:name="com.emojixer.activities.SplashActivity"
             android:screenOrientation="portrait"
             android:exported="true">
         <intent-filter>
@@ -55,15 +55,15 @@
         </intent-filter>
         </activity>
         <activity
-            android:name="com.emojimix.activities.ImageViewerActivity"
+            android:name="com.emojixer.activities.ImageViewerActivity"
             android:screenOrientation="portrait"
           />
         <activity
-            android:name="com.emojimix.activities.Emojitop"
+            android:name="com.emojixer.activities.Emojitop"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name="com.emojimix.activities.DebugActivity"
+            android:name="com.emojixer.activities.DebugActivity"
             android:screenOrientation="unspecified" />
 
         <uses-library
@@ -71,7 +71,7 @@
             android:required="false" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-1951639631376935~3477866612"/>
+            android:value="ca-app-pub-4260778504237973~7975491425"/>
 
     </application>
 

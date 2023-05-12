@@ -22,14 +22,14 @@
             app:trackThickness="3dp" />
 
         <TextView
-            android:visibility="visible"
+            android:visibility="gone"
             android:id="@+id/idemojitxt"
             android:textSize="8dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Id" />
 
-        <com.emojimix.activities.WrapContentDraweeView
+        <com.emojixer.activities.WrapContentDraweeView
             android:id="@+id/emoji"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -50,7 +50,7 @@
 
 
 
-            <com.emojimix.activities.WrapContentDraweeView
+            <com.emojixer.activities.WrapContentDraweeView
                 android:id="@+id/mixedEmojiojos"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -63,7 +63,7 @@
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop" />
 
-            <com.emojimix.activities.WrapContentDraweeView
+            <com.emojixer.activities.WrapContentDraweeView
                 android:id="@+id/mixedEmojibocas"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -75,7 +75,7 @@
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop" />
-            <com.emojimix.activities.WrapContentDraweeView
+            <com.emojixer.activities.WrapContentDraweeView
                 android:id="@+id/mixedEmojicejas"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -87,7 +87,7 @@
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop" />
-            <com.emojimix.activities.WrapContentDraweeView
+            <com.emojixer.activities.WrapContentDraweeView
                 android:id="@+id/mixedEmojiojos_objetos"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -99,7 +99,7 @@
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop" />
-            <com.emojimix.activities.WrapContentDraweeView
+            <com.emojixer.activities.WrapContentDraweeView
                 android:id="@+id/mixedEmojiobjetos"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -112,7 +112,7 @@
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop" />
 
-        <com.emojimix.activities.WrapContentDraweeView
+        <com.emojixer.activities.WrapContentDraweeView
             android:id="@+id/mixedEmojimanos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
