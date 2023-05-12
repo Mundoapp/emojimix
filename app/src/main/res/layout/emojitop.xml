@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_marginBottom="100dp"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+            <ImageView
+                android:gravity="center"
+
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:src="@drawable/emojixerlogo">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/activityDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="60dp"
+                android:visibility="gone"
+                android:gravity="center"
+                android:text="@string/swipe_left_or_right_to_mix_emojis"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+
+
+ <include layout="@layout/fusion_emoji"></include>
+
+                <ImageView
+                    android:layout_marginTop="-13dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/lineab"></ImageView>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     android:orientation="vertical">
+
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    app:cardBackgroundColor="#84B4FD"
+    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="300dp"
+                        android:layout_height="70dp"
+                        android:layout_margin="5dp"
+
+                        android:orientation="vertical">
+
+                        <androidx.recyclerview.widget.RecyclerView
+
+                            android:id="@+id/emojisSlider1"
+                            android:layout_width="match_parent"
+                            android:fadingEdge="horizontal"
+                            android:fadingEdgeLength="60dp"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+</androidx.cardview.widget.CardView>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/saveEmoji"
+
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="57dp"
+        android:layout_toEndOf="@+id/iconmas"
+        app:lottie_autoPlay="false"
+        app:lottie_fileName="mas.json"
+        app:lottie_loop="false" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/iconmas"
+
+        android:layout_centerHorizontal="true"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:lottie_fileName="mas.json"
+        app:lottie_loop="false"/>
+
+
+</RelativeLayout>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@+id/emojitop"
+            android:onClick="abriremojis"
+            android:text="Mis emojis"
+
+            android:textSize="5pt"
+
+            app:backgroundTint="#84B4FD"
+            app:icon="@drawable/ic_baseline_emoji_emotions_24" />
+
+        <Button
+            android:id="@+id/emojitop"
+            android:layout_width="182dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="10dp"
+
+            android:text="Save emoji"
+            android:textSize="5pt"
+            app:backgroundTint="#B976E8"
+            app:icon="@drawable/ic_outline_save_alt_24" />
+
+        <FrameLayout
+            android:layout_marginBottom="50dp"
+            android:id="@+id/ad_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white" />
+    </RelativeLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

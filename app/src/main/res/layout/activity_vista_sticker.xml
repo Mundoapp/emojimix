@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+<androidx.cardview.widget.CardView
+    android:layout_width="wrap_content"
+    android:layout_margin="10dp"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/bloquesticker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="140dp"
+            android:layout_height="140dp">
+
+
+            <com.emojimix.activities.WrapContentDraweeView
+                android:id="@+id/sticker"
+                android:layout_width="140dp"
+                android:layout_height="125dp"
+                android:layout_gravity="center"
+                android:padding="5dp"
+
+
+                android:background="@android:color/transparent"
+                android:scaleType="centerCrop" />
+
+
+            <!-- <pl.droidsonroids.gif.GifImageView
+                 android:id="@+id/sticker"
+                 android:layout_width="100sp"
+                 android:layout_height="100sp"
+                 tools:ignore="MissingConstraints" />-->
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-18dp"
+            android:background="#84B4FD"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/borrar"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="center"
+                app:srcCompat="@drawable/ic_action_delete_dark"
+                app:tint="#fff" />
+
+
+            <ImageView
+                android:id="@+id/compartir"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="center"
+                app:srcCompat="@drawable/ic_baseline_share_24"
+                app:tint="#fff" />
+
+
+
+        </RelativeLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+</RelativeLayout>
