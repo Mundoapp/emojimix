@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,8 @@ import com.emojixer.functions.StickerPack;
 import com.emojixer.functions.Utility;
 import com.emojixer.functions.VariablesEnMemoria;
 import com.emojixer.functions.WhitelistCheck;
+import com.emojixer.mipublicidad.MiPublicidad;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 
 import java.io.File;
@@ -89,6 +92,7 @@ public class ImageViewerActivity extends BaseActivity {
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             this.file = (File) getArguments().getSerializable("File");
+
 
         }
 
@@ -202,7 +206,7 @@ public class ImageViewerActivity extends BaseActivity {
         addButton = findViewById(R.id.add_to_whatsapp_button);
 
 
-      //  MiPublicidad.baner( (FrameLayout) findViewById(R.id.ad_view_container), this);
+       MiPublicidad.baner( (FrameLayout) findViewById(R.id.ad_view_container), this);
 
 
         Activity activity = this;
@@ -210,7 +214,7 @@ public class ImageViewerActivity extends BaseActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             //       MiPublicidad.verInterstitialAd(activity);
+                 MiPublicidad.verInterstitialAd(activity);
 
                 VariablesEnMemoria.readStickerWhassap(ImageViewerActivity.this);
                 if(GlobalVariable.stickersWhassap.size()>=3) {

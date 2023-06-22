@@ -14,7 +14,9 @@
         <package android:name="com.whatsapp.w4b" />
     </queries>
     <application
+
         android:allowBackup="true"
+        android:largeHeap="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"

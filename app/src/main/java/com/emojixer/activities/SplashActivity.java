@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.emojixer.R;
+import com.emojixer.mipublicidad.MiPublicidad;
 
 public class SplashActivity extends BaseActivity {
     private int cuenta = 0;
@@ -13,7 +14,7 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splash);
-    //    MiPublicidad.Init(this);
+      MiPublicidad.Init(this);
         Log.e("TAG", "aki run1: "+cuenta );
         cargar(this);
     }
@@ -51,7 +52,7 @@ public class SplashActivity extends BaseActivity {
                             public void run() {
                                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                                 startActivity(intent);
-                             //   MiPublicidad.verInterstitialAd(null);
+                             MiPublicidad.verInterstitialAd(null);
                                 finish();
                             }
                         });

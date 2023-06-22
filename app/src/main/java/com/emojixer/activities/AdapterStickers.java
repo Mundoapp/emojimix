@@ -1,5 +1,7 @@
 package com.emojixer.activities;
 
+import static com.facebook.drawee.backends.pipeline.Fresco.hasBeenInitialized;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
@@ -111,13 +113,15 @@ public class AdapterStickers extends RecyclerView.Adapter<AdapterStickers.MViewH
     }
 
     public MViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ImagePipeline imagePipeline = Fresco.getImagePipeline();
-        imagePipeline.clearMemoryCaches();
-        imagePipeline.clearDiskCaches();
-        imagePipeline.clearCaches();
-        View itemView = layoutInflater.inflate(R.layout.activity_vista_sticker, parent, false);
-        MViewHolder vh = new MViewHolder(itemView);
-        return vh;
+        if (!hasBeenInitialized()) {
+            ImagePipeline imagePipeline = Fresco.getImagePipeline();
+            imagePipeline.clearMemoryCaches();
+            imagePipeline.clearDiskCaches();
+            imagePipeline.clearCaches();
+        }
+            View itemView = layoutInflater.inflate(R.layout.activity_vista_sticker, parent, false);
+            MViewHolder vh = new MViewHolder(itemView);
+            return vh;
 
     }
 

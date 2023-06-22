@@ -66,6 +66,7 @@ import com.emojixer.functions.Nemojismodel;
 import com.emojixer.functions.RequestNetwork;
 import com.emojixer.functions.RequestNetworkController;
 import com.emojixer.functions.offsetItemDecoration;
+import com.emojixer.mipublicidad.MiPublicidad;
 import com.facebook.ads.AdSize;
 import com.facebook.ads.AdView;
 import com.facebook.ads.AudienceNetworkAds;
@@ -142,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
         Fresco.initialize(this);
         AudienceNetworkAds.initialize(this);
 
+        AppRater.app_launched(this);
 
 
         setContentView(R.layout.activity_main);
@@ -165,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
         numeroemojis();
 
-  //      MiPublicidad.baner( (FrameLayout) findViewById(R.id.ad_view_container), this);
+     MiPublicidad.baner( (FrameLayout) findViewById(R.id.ad_view_container), this);
 
 //        OneSignal.initWithContext(this);
 //        OneSignal.setAppId("399b14d7-4c2a-4ce3-ab00-ce6358a44afa");
@@ -214,16 +216,7 @@ private void initreview(){
         posicioncara =  findViewById(R.id.posicioncara);
         posicionem = findViewById(R.id.posicione);
 
-        adView = new AdView(this, "3449165948743018_3449166955409584", AdSize.BANNER_HEIGHT_50);
 
-// Find the Ad Container
-        LinearLayout adContainer = findViewById(R.id.banner_container);
-
-// Add the ad view to your activity layout
-        adContainer.addView(adView);
-
-// Request an ad
-        adView.loadAd();
 
         emojitop = findViewById(R.id.emojitop);
         emojitop.setOnClickListener(view -> {
@@ -769,7 +762,7 @@ private void initreview(){
                 mixedEmojiobjetos.setImageURI(Uri.parse(objetos));
                 mixedEmojibocas.setImageURI(Uri.parse(bocas));
                 mixedEmojiojos_objetos.setImageURI(Uri.parse(finalojos_objetos));
-                if (Objects.equals(idemote1, "26") ) {
+                if (Objects.equals(idemote1, "26") || Objects.equals(idemote2, "26")) {
                     mixedEmojimanos2.setVisibility(View.VISIBLE);
                     mixedEmojimanos2.setImageURI(Uri.parse(manos));
                     mixedEmojimanos.setVisibility(View.GONE);
@@ -900,7 +893,7 @@ private void initreview(){
     }
 
     public void abriremojis(View view) {
-       // MiPublicidad.verInterstitialAd(this);
+    //    MiPublicidad.verInterstitialAd(this);
 
         MainActivity.this.startActivity(new Intent(MainActivity.this.getApplicationContext(), ImageViewerActivity.class));
 

@@ -91,6 +91,9 @@ public class EmojimixerAdapter extends RecyclerView.Adapter<EmojimixerAdapter.Vi
             loadEmojiFromUrl(holder.mixedEmojiobjetos, holder.progressBar, emojiURL + objetos);
             loadEmojiFromUrl(holder.mixedEmojiojos_objetos, holder.progressBar, emojiURL + ojos_objetos);
             loadEmojiFromUrl(holder.mixedEmojimanos, holder.progressBar, emojiURL + manos);
+
+            loadEmojiFromUrl(holder.mixedformado, holder.progressBar, emojiURL2 + emoji_formado);
+
         }
         else {
 
@@ -142,7 +145,7 @@ public class EmojimixerAdapter extends RecyclerView.Adapter<EmojimixerAdapter.Vi
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        WrapContentDraweeView emoji,mixedEmojiojos,mixedEmojibocas,mixedEmojicejas,mixedEmojiojos_objetos,mixedEmojiobjetos,mixedEmojimanos;
+        WrapContentDraweeView emoji,mixedEmojiojos,mixedEmojibocas,mixedEmojicejas,mixedEmojiojos_objetos,mixedEmojiobjetos,mixedEmojimanos,mixedformado;
         CircularProgressIndicator progressBar;
         TextView idemoji;
 
@@ -157,6 +160,7 @@ public class EmojimixerAdapter extends RecyclerView.Adapter<EmojimixerAdapter.Vi
             mixedEmojiobjetos = itemView.findViewById(R.id.mixedEmojiobjetos);
             mixedEmojimanos = itemView.findViewById(R.id.mixedEmojimanos);
 
+            mixedformado = itemView.findViewById(R.id.mixedformado);
 
             idemoji = itemView.findViewById(R.id.idemojitxt);
 

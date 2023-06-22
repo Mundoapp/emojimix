@@ -29,8 +29,10 @@ public class MiPublicidad {
 
     public static void verInterstitialAd(Activity activity) {
 
+        if (miPublicidad != null && miPublicidad.admob != null) {
             miPublicidad.admob.verInterstitialAd(activity);
-           }
+        }
+    }
 
     public static void baner(FrameLayout adContainerView, final Activity activity) {
             Admob.baner(adContainerView,activity);
