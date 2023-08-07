@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/fondo_dialogo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:ignore="UselessParent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/image_slider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/flecha_anterior"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignStart="@+id/image_slider"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="izquierda.json"
+                app:lottie_loop="true" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/flecha_sigiente"
+                android:layout_centerVertical="true"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_alignEnd="@+id/image_slider"
+                android:layout_gravity="center"
+                android:layout_marginEnd="10dp"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="derecha.json"
+                app:lottie_loop="true" />
+        </RelativeLayout>
+    </FrameLayout>
+</LinearLayout>

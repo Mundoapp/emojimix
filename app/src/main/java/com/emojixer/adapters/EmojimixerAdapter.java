@@ -75,8 +75,8 @@ public class EmojimixerAdapter extends RecyclerView.Adapter<EmojimixerAdapter.Vi
         String emoji_formado = Objects.requireNonNull(data.get(position).get("emoji_formado")).toString();
         String idemo = Objects.requireNonNull(data.get(position).get("Id")).toString();
 
-        String emojiURL = "http://emojixer.com/panel/images_formas/";
-        String emojiURL2 = "http://emojixer.com/panel/emoji_formado/";
+        String emojiURL = "http://animated.emojixer.com/panel/images_formas/";
+        String emojiURL2 = "http://animated.emojixer.com/panel/emoji_formado/";
 
 
         Log.e("TAG", "emoji posicion: "+position );
@@ -84,13 +84,13 @@ public class EmojimixerAdapter extends RecyclerView.Adapter<EmojimixerAdapter.Vi
         holder.idemoji.setText(idemo);
         //agrego emoji mini en slider
         if(tipo.equals("emoji")) {
-            loadEmojiFromUrl(holder.emoji, holder.progressBar, emojiURL + base);
-            loadEmojiFromUrl(holder.mixedEmojiojos, holder.progressBar, emojiURL + ojos);
-            loadEmojiFromUrl(holder.mixedEmojibocas, holder.progressBar, emojiURL + bocas);
-            loadEmojiFromUrl(holder.mixedEmojicejas, holder.progressBar, emojiURL + cejas);
-            loadEmojiFromUrl(holder.mixedEmojiobjetos, holder.progressBar, emojiURL + objetos);
-            loadEmojiFromUrl(holder.mixedEmojiojos_objetos, holder.progressBar, emojiURL + ojos_objetos);
-            loadEmojiFromUrl(holder.mixedEmojimanos, holder.progressBar, emojiURL + manos);
+            loadEmojiFromUrl(holder.emoji, holder.progressBar, emojiURL2 + emoji_formado);
+            loadEmojiFromUrl(holder.mixedEmojiojos, holder.progressBar, emojiURL);
+            loadEmojiFromUrl(holder.mixedEmojibocas, holder.progressBar, emojiURL);
+            loadEmojiFromUrl(holder.mixedEmojicejas, holder.progressBar, emojiURL);
+            loadEmojiFromUrl(holder.mixedEmojiobjetos, holder.progressBar, emojiURL);
+            loadEmojiFromUrl(holder.mixedEmojiojos_objetos, holder.progressBar, emojiURL);
+            loadEmojiFromUrl(holder.mixedEmojimanos, holder.progressBar, emojiURL);
 
             loadEmojiFromUrl(holder.mixedformado, holder.progressBar, emojiURL2 + emoji_formado);
 

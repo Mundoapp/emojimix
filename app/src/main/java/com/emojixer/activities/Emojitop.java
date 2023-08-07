@@ -115,8 +115,8 @@ public class Emojitop extends AppCompatActivity {
 
     Activity context;
     Nemojismodel totalmodel;
-    public static String api_emojis ="http://emojixer.com/panel/api.php?top=1";
-    public static String APITOP ="http://emojixer.com/panel/apitop.php?";
+    public static String api_emojis ="http://animated.emojixer.com/panel/api.php?top=1";
+    public static String APITOP ="http://animated.emojixer.com/panel/apitop.php?";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

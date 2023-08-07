@@ -47,12 +47,12 @@ public class EmojiMixer implements Runnable {
 
     private final Activity mContext;
     private final String LOG = "EMOJI_LOGS";
-    public String API = "http://emojixer.com/panel/images_formas/";
-    public String API4 = "http://emojixer.com/panel/emoji_formado/";
+    public String API = "http://animated.emojixer.com/panel/images_formas/";
+    public String API4 = "http://animated.emojixer.com/panel/emoji_formado/";
 
-    public String API3 = "http://emojixer.com/panel/images_formas/vacio.png";
+    public String API3 = "http://animated.emojixer.com/panel/images_formas/vacio.png";
 
-    public String API2 = "http://emojixer.com/panel/images_manual/";
+    public String API2 = "http://animated.emojixer.com/panel/images_manual/";
 
     public EmojiListener listener;
 
@@ -63,7 +63,7 @@ public class EmojiMixer implements Runnable {
     private String failure_reason;
     private boolean isTaskSuccessful = false;
     private boolean shouldAbortTask = false;
-    public static String api_emojismix ="http://emojixer.com/panel/api.php?";
+    public static String api_emojismix ="http://animated.emojixer.com/panel/api.php?";
 
     public EmojiMixer(String emoji1, String emoji2,String idemote2,String idemote1, String date, Activity context, EmojiListener emojiListener) {
         this.listener = emojiListener;

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:id="@+id/bloquesticker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/fondo_stickers"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="140dp"
+            android:layout_height="140dp">
+
+
+
+            <com.emojimix.activities.WrapContentDraweeView
+                android:id="@+id/sticker"
+                android:layout_width="130dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/transparent"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/borrar"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="3dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="center"
+                app:srcCompat="@drawable/ic_action_delete_dark"
+                app:tint="#F44336" />
+            <!-- <pl.droidsonroids.gif.GifImageView
+                 android:id="@+id/sticker"
+                 android:layout_width="100sp"
+                 android:layout_height="100sp"
+                 tools:ignore="MissingConstraints" />-->
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-18dp"
+            android:background="@drawable/fondo_azul_botones"
+
+            android:orientation="vertical"
+            android:gravity="center">
+
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/compartir"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="compartir.json"
+                app:lottie_loop="false"
+                android:gravity="center"
+                android:layout_margin="3dp"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

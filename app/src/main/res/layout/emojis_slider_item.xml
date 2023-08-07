@@ -22,7 +22,7 @@
             app:trackThickness="3dp" />
 
         <TextView
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/idemojitxt"
             android:textSize="8dp"
             android:layout_width="match_parent"

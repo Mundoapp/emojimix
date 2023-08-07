@@ -35,23 +35,30 @@
         android:layout_height="250dp">
 
 
-            <com.emojixer.activities.WrapContentDraweeView
-                android:id="@+id/mixedEmoji"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
 
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@android:color/transparent"
-                android:scaleType="centerCrop"  />
-            <FrameLayout
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/mixedEmoji"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            app:lottie_loop="true"/>
+
+
+        <FrameLayout
                 android:id="@+id/posicioncara"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            <com.emojixer.activities.WrapContentDraweeView
+
+
+            <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/mixedEmojiojos"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -62,9 +69,9 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/transparent"
-                android:scaleType="centerCrop" />
-
-            <com.emojixer.activities.WrapContentDraweeView
+                android:scaleType="centerCrop"
+                app:lottie_loop="true"/>
+            <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/mixedEmojibocas"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -75,7 +82,10 @@
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/transparent"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                app:lottie_loop="true"/>
+
+
             <com.emojixer.activities.WrapContentDraweeView
                 android:id="@+id/mixedEmojicejas"
                 android:layout_width="match_parent"
@@ -88,7 +98,9 @@
                 android:layout_marginBottom="5dp"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop" />
-                <com.emojixer.activities.WrapContentDraweeView
+
+
+                <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/mixedEmojiojos_objetos"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -99,7 +111,10 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
                     android:background="@android:color/transparent"
-                    android:scaleType="centerCrop" />
+                    android:scaleType="centerCrop"
+                    app:lottie_loop="true"/>
+
+
                 <com.emojixer.activities.WrapContentDraweeView
                     android:id="@+id/mixedEmojiobjetos"
                     android:layout_width="match_parent"
