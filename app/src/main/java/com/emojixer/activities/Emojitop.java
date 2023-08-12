@@ -42,6 +42,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.airbnb.lottie.LottieCompositionFactory;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -81,8 +82,10 @@ import java.util.concurrent.Executors;
 
 public class Emojitop extends AppCompatActivity {
     private LottieAnimationView saveEmoji;
-    private WrapContentDraweeView mixedemojiforma,mixedfondo,mixedEmoji,mixedEmojiojos,mixedEmojiojos_objetos,mixedEmojicejas,mixedEmojibocas,mixedEmojiobjetos,mixedEmojimanos,mixedEmojimanos2,explosion;
+    private WrapContentDraweeView mixedemojiforma,mixedfondo,mixedEmojicejas,explosion,mixedEmoji0;
     private LottieAnimationView progressBar;
+    LottieAnimationView mixedEmojiojos_objetos,mixedEmoji,mixedEmojiojos,mixedEmojibocas,mixedEmojiobjetos,mixedEmojimanos2,mixedEmojimanos;
+
     private TextView activityDesc;
     private Button emojitop;
     private String emote1;
@@ -609,22 +612,143 @@ public class Emojitop extends AppCompatActivity {
 
                     finalEmojiURL = emojiUrl;
                     ojosfinal = ojos;
-                    mixedEmoji.setImageURI(Uri.parse(finalEmojiURL));
-                    mixedEmojiojos.setImageURI(Uri.parse(ojosfinal));
+
+
+
+                    finalEmojiURL = emojiUrl;
+                    ojosfinal = ojos;
+
+                    String extension = "";
+
+                    int lastIndexOfDot = finalEmojiURL.lastIndexOf('.');
+                    if (lastIndexOfDot != -1) {
+                        extension = finalEmojiURL.substring(lastIndexOfDot + 1);
+                    }
+                    Log.e("TAG", "onSuccess: aki es png "+extension+finalEmojiURL );
+
+                    if ("png".equals(extension)) {
+                        mixedEmoji.setVisibility(View.GONE);
+                        mixedEmoji0.setVisibility(View.VISIBLE);
+
+                        mixedEmoji0.setImageURI(Uri.parse(finalEmojiURL));
+                        Log.e("TAG", "onSuccess: aki es png " );
+                    }
+                    else {
+                        Log.e("TAG", "onSuccess: aki es png no " );
+
+                        LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(finalEmojiURL)))
+                                .addListener(composition -> {
+                                    mixedEmoji0.setVisibility(View.GONE);
+                                    mixedEmoji.setVisibility(View.VISIBLE);
+                                    mixedEmoji.setComposition(composition);
+                                    mixedEmoji.playAnimation();
+                                });
+                    }
+
+
                     mixedEmojicejas.setImageURI(Uri.parse(cejas));
-                    mixedEmojiobjetos.setImageURI(Uri.parse(objetos));
-                    mixedEmojibocas.setImageURI(Uri.parse(bocas));
-                    mixedEmojiojos_objetos.setImageURI(Uri.parse(finalojos_objetos));
+//                mixedEmojiobjetos.setImageURI(Uri.parse(objetos));
+                    if (objetos != null) {
+                        LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(objetos)))
+                                .addListener(composition -> {
+                                    mixedEmojiobjetos.setComposition(composition);
+                                    mixedEmojiobjetos.playAnimation();
+                                })
+                                .addFailureListener(exception -> {
+                                    // Si falla cargar desde la URL, carga el archivo local
+
+                                    mixedEmojiobjetos.setAnimation(R.raw.vacio);
+                                    mixedEmojiobjetos.playAnimation();
+                                    Log.e("LottieError", "Error al cargar animación desde URL. Usando animación local.", exception);
+                                });
+                    }
+
+
+                    if (bocas != null) {
+                        LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(bocas)))
+                                .addListener(composition -> {
+                                    mixedEmojibocas.setComposition(composition);
+                                    mixedEmojibocas.playAnimation();
+                                })
+                                .addFailureListener(exception -> {
+                                    // Si falla cargar desde la URL, carga el archivo local
+
+                                    mixedEmojibocas.setAnimation(R.raw.vacio);
+                                    mixedEmojibocas.playAnimation();
+                                    Log.e("LottieError", "Error al cargar animación desde URL. Usando animación local.", exception);
+                                });
+                    }
+
+                    if (ojosfinal != null) {
+                        LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(ojosfinal)))
+                                .addListener(composition -> {
+                                    mixedEmojiojos.setComposition(composition);
+                                    mixedEmojiojos.playAnimation();
+                                }).addFailureListener(exception -> {
+                                    // Si falla cargar desde la URL, carga el archivo local
+
+                                    mixedEmojibocas.setAnimation(R.raw.vacio);
+                                    mixedEmojibocas.playAnimation();
+                                    Log.e("LottieError", "Error al cargar animación desde URL. Usando animación local.", exception);
+                                });
+                    }
+
+                    Log.e("TAG", "aki emoji final1 ojos_objeto: "+finalojos_objetos+" boca"+bocas+" ojos"+ojosfinal  );
+
+                    if (finalojos_objetos != null) {
+                        Log.e("TAG", "aki emoji final2: "+String.valueOf(Uri.parse(finalojos_objetos)) );
+
+                        LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(finalojos_objetos)))
+                                .addListener(composition -> {
+                                    mixedEmojiojos_objetos.setComposition(composition);
+                                    mixedEmojiojos_objetos.playAnimation();
+                                })
+                                .addFailureListener(exception -> {
+                                    // Si falla cargar desde la URL, carga el archivo local
+
+                                    mixedEmojiojos_objetos.setAnimation(R.raw.vacio);
+                                    mixedEmojiojos_objetos.playAnimation();
+                                    Log.e("LottieError", "Error al cargar animación desde URL. Usando animación local.", exception);
+                                });
+                    }
+
+
+
                     if (Objects.equals(idemote1, "26") || Objects.equals(idemote2, "26")) {
                         mixedEmojimanos2.setVisibility(View.VISIBLE);
                         mixedEmojimanos2.setImageURI(Uri.parse(manos));
                         mixedEmojimanos.setVisibility(View.GONE);
+
+
+                        LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(manos)))
+                                .addListener(composition -> {
+                                    mixedEmojimanos2.setComposition(composition);
+                                    mixedEmojimanos2.playAnimation();
+                                }).addFailureListener(exception -> {
+                                    // Si falla cargar desde la URL, carga el archivo local
+
+                                    mixedEmojimanos2.setAnimation(R.raw.vacio);
+                                    mixedEmojimanos2.playAnimation();
+                                });
+
                     }
                     else {
                         mixedEmojimanos.setVisibility(View.VISIBLE);
-                        mixedEmojimanos.setImageURI(Uri.parse(manos));
+                        //   mixedEmojimanos.setImageURI(Uri.parse(manos));
                         mixedEmojimanos2.setVisibility(View.GONE);
 
+                        Log.e("LottieError", "aki manos."+manos);
+
+                        LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(manos)))
+                                .addListener(composition -> {
+                                    mixedEmojimanos.setComposition(composition);
+                                    mixedEmojimanos.playAnimation();
+                                }).addFailureListener(exception -> {
+                                    // Si falla cargar desde la URL, carga el archivo local
+
+                                    mixedEmojimanos.setAnimation(R.raw.vacio);
+                                    mixedEmojimanos.playAnimation();
+                                });
                     }
 
 

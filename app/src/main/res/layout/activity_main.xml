@@ -147,7 +147,7 @@
             app:icon="@drawable/ic_baseline_emoji_emotions_24" />
 
         <Button
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/emojitop"
             android:layout_width="50dp"
             android:layout_height="50dp"
