@@ -200,7 +200,7 @@ public class ImageViewerActivity extends BaseActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_viewer);
-        tvTitle = (TextView) findViewById(R.id.tv_title);
+      //  tvTitle = (TextView) findViewById(R.id.tv_title);
 //        tvCount = (TextView) findViewById(R.id.tv_count);
 //        viewPager = (ViewPager) findViewById(R.id.view_pager);
         addButton = findViewById(R.id.add_to_whatsapp_button);
@@ -237,7 +237,7 @@ public class ImageViewerActivity extends BaseActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setHasFixedSize(true);
-        final AdapterStickers adapterAvatares = new AdapterStickers(getLayoutInflater(),this,"SImage");
+        final AdapterStickers adapterAvatares = new AdapterStickers(getLayoutInflater(),this,"AImage");
         recyclerView.setAdapter(adapterAvatares);
 
     }
@@ -250,6 +250,7 @@ public class ImageViewerActivity extends BaseActivity {
 
     public void mPostCreate(Intent intent, Context context) {
         List<File> files = FileUtil.getAllFiles(context.getFilesDir() + "/stickers/");
+        Log.e("TAG", "aki emoji files: "+files );
         if (files.isEmpty()) {
 //            this.tvCount.setText("[ 0/0 ]");
             return;

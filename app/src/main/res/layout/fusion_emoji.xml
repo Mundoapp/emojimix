@@ -15,7 +15,9 @@
             android:layout_gravity="center_horizontal"
             android:background="@android:color/transparent"
             android:layout_width="250dp"
-            android:layout_height="250dp">
+        android:layerType="software"
+
+        android:layout_height="250dp">
             <com.emojixer.activities.WrapContentDraweeView
                 android:id="@+id/emojifondo"
                 android:layout_width="250dp"

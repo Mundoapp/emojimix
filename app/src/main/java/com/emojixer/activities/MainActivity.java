@@ -11,19 +11,27 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.CookieManager;
@@ -31,10 +39,13 @@ import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -47,6 +58,7 @@ import com.airbnb.lottie.LottieAnimationView;
 
 import com.airbnb.lottie.LottieComposition;
 import com.airbnb.lottie.LottieCompositionFactory;
+import com.airbnb.lottie.RenderMode;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -60,6 +72,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.emojixer.GifEncoder.AnimatedGifEncoder;
 import com.emojixer.R;
 import com.emojixer.adapters.EmojimixerAdapter;
 import com.emojixer.functions.CenterZoomLayoutManager;
@@ -68,6 +81,7 @@ import com.emojixer.functions.FileUtil;
 import com.emojixer.functions.Nemojismodel;
 import com.emojixer.functions.RequestNetwork;
 import com.emojixer.functions.RequestNetworkController;
+import com.emojixer.functions.Utility;
 import com.emojixer.functions.offsetItemDecoration;
 import com.emojixer.mipublicidad.MiPublicidad;
 import com.facebook.ads.AdView;
@@ -79,35 +93,50 @@ import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.waynejo.androidndkgif.GifEncoder;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import pl.droidsonroids.gif.GifImageView;
 
 public class MainActivity extends AppCompatActivity {
     private Button saveEmoji;
     private WrapContentDraweeView mixedfondo,mixedEmojicejas,explosion,mixedEmoji0;
     private LottieAnimationView progressBar;
     private TextView activityDesc;
+    private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     LottieAnimationView mixedEmojiojos_objetos,mixedEmoji,mixedEmojiojos,mixedEmojibocas,mixedEmojiobjetos,mixedEmojimanos2,mixedEmojimanos,mixedemojiforma;
     private Button emojitop;
     private String emote1;
     private String emote2;
+    private  WrapContentDraweeView img;
     private String idemote1;
     private int idemoji1,idemoji2;
     private LottieAnimationView mas;
+    private  GifImageView prog;
 
     private String idemote2;
     private String finalEmojiURL;
@@ -120,8 +149,9 @@ public class MainActivity extends AppCompatActivity {
     private RequestNetwork updatevotos;
 
     private RequestNetwork.RequestListener  updatevotoslistener;
-
-
+    int i=0;
+    public static int posicionX = 245;
+    ArrayList<Bitmap> savewebp = new ArrayList<>();
     private RequestNetwork.RequestListener requestSupportedEmojisListener;
     private SharedPreferences sharedPref;
     private boolean isFineToUseListeners = false;
@@ -136,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
     String dateTimeKey;
     Activity context;
     long days;
+    private AlertDialog dialog;  // Decláralo aquí
     ReviewInfo reviewInfo;
     Nemojismodel totalmodel;
     public static String api_emojis ="http://animated.emojixer.com/panel/api.php?todos=1";
@@ -145,6 +176,8 @@ public class MainActivity extends AppCompatActivity {
     final int TOTAL_OPERATIONS = 6; // Ajusta este número según cuántas operaciones estás realizando.
     HashMap<String, LottieComposition> compositionsMap = new HashMap<>();
     boolean restraso = false;
+    private RenderMode tipo = RenderMode.valueOf("SOFTWARE");
+    static Bitmap reusableBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +186,8 @@ public class MainActivity extends AppCompatActivity {
         AudienceNetworkAds.initialize(this);
 
         AppRater.app_launched(this);
+
+
 
 
         setContentView(R.layout.activity_main);
@@ -227,7 +262,16 @@ private void initreview(){
         posicioncara =  findViewById(R.id.posicioncara);
         posicionem = findViewById(R.id.posicione);
 
+        layoutEmojiCreation.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
+        mixedEmojiojos_objetos.setRenderMode(tipo);
+        mixedEmoji.setRenderMode(tipo);
+        mixedEmojiojos.setRenderMode(tipo);
+        mixedEmojibocas.setRenderMode(tipo);
+        mixedEmojiobjetos.setRenderMode(tipo);
+        mixedEmojimanos2.setRenderMode(tipo);
+        mixedEmojimanos.setRenderMode(tipo);
+        mixedemojiforma.setRenderMode(tipo);
 
         emojitop = findViewById(R.id.emojitop);
         emojitop.setOnClickListener(view -> {
@@ -296,8 +340,9 @@ private void initreview(){
 
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-
-                File file = FileUtil.saveEmojiBIG(context, this.layoutEmojiCreation, context.getFilesDir() + "/stickers/");
+               showAnimatedFile();
+              //  captureFrames(layoutEmojiCreation);
+            //    File file = FileUtil.saveEmojiBIG(context, this.layoutEmojiCreation, context.getFilesDir() + "/stickers/");
                 String toastText = "Saved emoji";
                 Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_LONG).show();
                 actualizovotos();
@@ -306,6 +351,7 @@ private void initreview(){
                 if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     String toastText = "Saved emoji";
                     Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_LONG).show();
+
                     File file = FileUtil.saveEmojiBIG(context, this.layoutEmojiCreation, context.getFilesDir() + "/stickers/");
                     actualizovotos();
                    //  downloadFile(finalEmojiURL);
@@ -549,7 +595,7 @@ private void initreview(){
         EmojiMixer em = new EmojiMixer(emoji1, emoji2, idemote2, idemote1, date, this, new EmojiMixer.EmojiListener() {
 
             @Override
-            public void onSuccess(String emojiUrl, String ojos, String cejas, String objetos, String bocas, String finalojos_objetos,String manos,int ancho,int left, int top,String tipo,String extra,String fondo,float rotacion,int random) {
+            public void onSuccess(String emojiUrl, String ojos, String cejas, String objetos, String bocas, String finalojos_objetos,String manos,int ancho,int left, int top,String tipo,String extra,String fondo,float rotacion,int random)  {
 
                 shouldEnableSave(true);
 
@@ -1126,7 +1172,293 @@ private void initreview(){
                 )
                 .into(image);
     }
+    private static final long DURATION = 3000;  // Duración total de 3 segundos
+    private final Handler handler = new Handler();
+    private AlertDialog currentDialog;
+    private ImageView dialogImageView; // Para mantener una referencia a la ImageView del AlertDialog.
 
+    private final ArrayList<Bitmap> bitmaps = new ArrayList<>();
+
+    public void captureFrames(final FrameLayout frameLayout) {
+        final long startTime = System.currentTimeMillis();
+        final Timer timer = new Timer();
+        final Handler handler = new Handler(Looper.getMainLooper());
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Captured FrameLayout");
+        ImageView imageView = new ImageView(MainActivity.this);
+        builder.setView(imageView);
+        builder.setPositiveButton("OK", null);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        TimerTask captureTask = new TimerTask() {
+            @Override
+            public void run() {
+                // Crear un bitmap de la vista del FrameLayout
+                Bitmap bitmap = Bitmap.createBitmap(frameLayout.getWidth(), frameLayout.getHeight(), Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(bitmap);
+                frameLayout.draw(canvas);
+
+                // Actualizar el ImageView del AlertDialog con el nuevo bitmap
+                runOnUiThread(() -> {
+                    imageView.setImageBitmap(bitmap);
+
+                });
+            }
+        };
+
+        timer.scheduleAtFixedRate(captureTask, 0, 10);
+    }
+
+    public void showBitmap(Bitmap bitmap) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        dialogImageView = new ImageView(this);
+        dialogImageView.setImageBitmap(bitmap);
+
+        builder.setView(dialogImageView);
+        builder.setPositiveButton("Next", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        currentDialog = builder.show();
+    }
+
+    public void generateGifWithNdkGif(ArrayList<Bitmap> frames, String path) throws FileNotFoundException {
+        GifEncoder gifEncoder = new GifEncoder();
+        if (!frames.isEmpty()) {
+            Bitmap firstFrame = frames.get(0);
+
+            // Comienza la codificación del GIF
+            gifEncoder.init(firstFrame.getWidth(), firstFrame.getHeight(), path, GifEncoder.EncodingType.ENCODING_TYPE_SIMPLE_FAST);
+
+            for (Bitmap frame : frames) {
+                gifEncoder.encodeFrame(frame, 50); // 70ms de delay entre frames
+            }
+
+            gifEncoder.close();
+        }
+    }
+    private Bitmap getBitmapFromView(View view) {
+        Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        Drawable bgDrawable = view.getBackground();
+        if (bgDrawable != null) {
+            bgDrawable.draw(canvas);
+        } else {
+            canvas.drawColor(Color.WHITE);
+        }
+        view.draw(canvas);
+        return returnedBitmap;
+    }
+    private HandlerThread handlerThread;
+    private Handler backgroundHandler;
+    public void initHandlerThread() {
+        handlerThread = new HandlerThread("CaptureThread");
+        handlerThread.start();
+        backgroundHandler = new Handler(handlerThread.getLooper());
+    }
+
+    public void showAnimatedFile() {
+        // ... Resto de tu código ...
+
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_layout, null);
+        ProgressBar progressBar = dialogView.findViewById(R.id.progressBar);
+        ImageView capturedImageView = dialogView.findViewById(R.id.capturedImageView);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+        builder.setTitle("Capturando imágenes");
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        final File[] file = new File[1];
+        i = 0;
+        savewebp.clear();
+
+        reusableBitmap = Bitmap.createBitmap(layoutEmojiCreation.getWidth(), layoutEmojiCreation.getHeight(), Bitmap.Config.ARGB_8888);
+
+        initHandlerThread();
+
+        Runnable captureTask = new Runnable() {
+            @Override
+            public void run() {
+                // Aquí va tu tarea de captura de bitmap
+
+                Bitmap bitmap = captureLottieFrame(layoutEmojiCreation); // Cambio en la captura del frame
+
+                if (bitmap == null) {
+                    Log.e("bitmaps", "Failed");
+                }
+                savewebp.add(bitmap);
+
+                i++;
+                if (i < 15) {
+                    Log.e("TAG", "aki run: " + i);
+                    // Muestra el bitmap capturado en tiempo real en el AlertDialog
+                    runOnUiThread(() -> {
+                        if (capturedImageView.getDrawable() != null) {
+                            Bitmap oldBitmap = ((BitmapDrawable) capturedImageView.getDrawable()).getBitmap();
+                            if (oldBitmap != null && !oldBitmap.isRecycled()) {
+                                oldBitmap.recycle();
+                            }
+                        }
+                        capturedImageView.setImageBitmap(bitmap);
+                        progressBar.setProgress(i + 1);
+                    });
+
+                    backgroundHandler.postDelayed(this, 33); // Esto postea la tarea nuevamente después de 33ms.
+                } else {
+                    // El resto de tu código cuando i==20
+                    file[0] = FileUtil.onCreateWebpFile(savewebp, MainActivity.this, getFilesDir() + "/stickers");
+
+                    runOnUiThread(() -> {
+                        // Cerrar el AlertDialog
+                        alertDialog.dismiss();
+                        Log.e("TAG", "aki run gif ruta: " + Uri.fromFile(file[0]));
+
+                        // Mostrar el GIF en DisplayBitmapActivity
+//                    Intent intent = new Intent(MainActivity.this, DisplayBitmapActivity.class);
+//                    intent.putExtra("gif_path", Uri.fromFile(file[0])); // Enviar la URI del GIF
+//                    startActivity(intent);
+                    });
+
+                    stopHandlerThread();
+                }
+            }
+        };
+        backgroundHandler.post(captureTask); // Comienza la tarea
+    }
+    public static Bitmap captureLottieFrame(View view) {
+        Canvas canvas = new Canvas(reusableBitmap);
+        view.layout(0, 0, view.getLayoutParams().width, view.getLayoutParams().height);
+        view.draw(canvas);
+        return reusableBitmap;
+    }
+    // Cambio en la captura de frames
+
+
+    public void stopHandlerThread() {
+        if (handlerThread != null) {
+            handlerThread.quitSafely();
+            try {
+                handlerThread.join();
+                handlerThread = null;
+                backgroundHandler = null;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    // ... El resto de tu código ...
+
+
+    private class CreateGifTask extends AsyncTask<Void, Void, File> {
+        @Override
+        protected File doInBackground(Void... voids) {
+
+            return FileUtil.onCreateWebpFile(savewebp, MainActivity.this, getFilesDir() + "/stickers/");
+        }
+
+        @Override
+        protected void onPostExecute(File file) {
+            // Actualizar la interfaz de usuario con el GIF creado aquí.
+            TextView ok = dialog.findViewById(R.id.btn_ok);
+            TextView share =  dialog.findViewById(R.id.btn_share);
+
+            share.setVisibility(View.VISIBLE);
+            ok.setVisibility(View.VISIBLE);
+            GifImageView prog =  dialog.findViewById(R.id.progress);
+            prog.setVisibility(View.GONE);
+
+            TextView txtguardado =  dialog.findViewById(R.id.txtguardado);
+            WrapContentDraweeView img =  dialog.findViewById(R.id.iv_emoji);
+            img.setImageURI(Uri.fromFile(file));
+            txtguardado.setText("guardado");
+            dialog.findViewById(R.id.btn_ok).setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+            dialog.findViewById(R.id.btn_share).setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    dialog.dismiss();
+                    try {
+                        Utility.shareFile(MainActivity.this, file);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+    }
+
+    private void createGif(List<Bitmap> frames) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        AnimatedGifEncoder gifEncoder = new AnimatedGifEncoder();
+        gifEncoder.setDelay((int) 0);  // Ajustar el delay del GIF al período para que tenga 30 FPS
+        gifEncoder.start(bos);
+        for (Bitmap frame : frames) {
+            gifEncoder.addFrame(frame);
+            frame.recycle();
+        }
+        gifEncoder.finish();
+
+        File gifFile = new File(getFilesDir() + "/stickers/Gifs/", "filename.gif");
+        try (FileOutputStream fos = new FileOutputStream(gifFile)) {
+            fos.write(bos.toByteArray());
+            fos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        img.setImageURI(Uri.fromFile(gifFile));
+
+
+
+
+    }
+    private void cancelAllAnimations() {
+        if (mixedEmojiojos_objetos != null) {
+            mixedEmojiojos_objetos.cancelAnimation();
+        }
+        if (mixedEmoji != null) {
+            mixedEmoji.cancelAnimation();
+        }
+        if (mixedEmojiojos != null) {
+            mixedEmojiojos.cancelAnimation();
+        }
+        if (mixedEmojibocas != null) {
+            mixedEmojibocas.cancelAnimation();
+        }
+        if (mixedEmojiobjetos != null) {
+            mixedEmojiobjetos.cancelAnimation();
+        }
+        if (mixedEmojimanos2 != null) {
+            mixedEmojimanos2.cancelAnimation();
+        }
+        if (mixedEmojimanos != null) {
+            mixedEmojimanos.cancelAnimation();
+        }
+        if (mixedemojiforma != null) {
+            mixedemojiforma.cancelAnimation();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        cancelAllAnimations();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        cancelAllAnimations();
+        // Aquí puedes liberar otros recursos o detener cualquier otro proceso que ya no sea necesario
+    }
 
 
 
@@ -1155,7 +1487,7 @@ private void initreview(){
     public void abriremojis(View view) {
     //    MiPublicidad.verInterstitialAd(this);
 
-        MainActivity.this.startActivity(new Intent(MainActivity.this.getApplicationContext(), ImageViewerActivity.class));
+        MainActivity.this.startActivity(new Intent(MainActivity.this.getApplicationContext(), Prueba.class));
 
     }
 }
