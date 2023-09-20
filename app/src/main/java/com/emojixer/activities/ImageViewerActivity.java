@@ -214,9 +214,10 @@ public class ImageViewerActivity extends BaseActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 MiPublicidad.verInterstitialAd(activity);
+              //   MiPublicidad.verInterstitialAd(activity);
 
                 VariablesEnMemoria.readStickerWhassap(ImageViewerActivity.this);
+                Log.e("TAG", "tamaño: "+GlobalVariable.stickersWhassap.size() );
                 if(GlobalVariable.stickersWhassap.size()>=3) {
                     GlobalClass.addWhatsapp(activity);
                     for (int i = 1; i <= ((GlobalVariable.stickersWhassap.size() - 1) / 29) + 1; i++) {

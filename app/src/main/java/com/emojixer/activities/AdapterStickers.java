@@ -126,7 +126,7 @@ public class AdapterStickers extends RecyclerView.Adapter<AdapterStickers.MViewH
     }
 
     @Override
-    public void onBindViewHolder(final MViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(final MViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
         Uri uri = Uri.fromFile(new File(mContext.getFilesDir() + "/stickers/" + stickersWhassap.get(position)));
 
 
@@ -166,9 +166,9 @@ public class AdapterStickers extends RecyclerView.Adapter<AdapterStickers.MViewH
             @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View view) {
-                if(new File(uri.getPath()).getName().contains("SImage"))
+                if(new File(uri.getPath()).getName().contains("AImage"))
                 {
-                Bitmap transBmp = Bitmap.createBitmap(2048,2048, Bitmap.Config.ARGB_8888);
+                Bitmap transBmp = Bitmap.createBitmap(512,512, Bitmap.Config.ARGB_8888);
                 transBmp.eraseColor(Color.WHITE);
                 Bitmap bitmap = BitmapFactory.decodeFile(uri.getPath());
                 transBmp = GlobalClass.mergeToPin(transBmp, bitmap,mContext);
@@ -312,8 +312,8 @@ public class AdapterStickers extends RecyclerView.Adapter<AdapterStickers.MViewH
                 @SuppressLint("RestrictedApi")
                 @Override
                 public void onClick(View view) {
-                    if(new File(uri.getPath()).getName().contains("SImage")) {
-                        Bitmap transBmp = Bitmap.createBitmap(2048, 2048, Bitmap.Config.ARGB_8888);
+                    if(new File(uri.getPath()).getName().contains("AImage")) {
+                        Bitmap transBmp = Bitmap.createBitmap(512, 512, Bitmap.Config.ARGB_8888);
                         transBmp.eraseColor(Color.WHITE);
                         Bitmap bitmap = BitmapFactory.decodeFile(uri.getPath());
                         transBmp = GlobalClass.mergeToPin(transBmp, bitmap, mContext);

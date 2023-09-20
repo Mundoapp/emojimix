@@ -1,0 +1,8 @@
+Executable : C:\Users\kaiv\AppData\Local\Android\Sdk\cmake\3.10.2.4988404\bin\ninja.exe
+arguments : 
+-C
+C:\Users\kaiv\Android studio 3.0\emojixer animated\app\.cxx\Debug\3m232k5f\x86_64
+gif_encoder
+webp
+jvmArgs : 
+

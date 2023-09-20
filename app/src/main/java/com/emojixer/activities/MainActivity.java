@@ -1,5 +1,6 @@
 package com.emojixer.activities;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE;
 import static com.emojixer.functions.UIMethods.shadAnim;
 import static com.emojixer.functions.Utils.getRecyclerCurrentItem;
@@ -18,6 +19,9 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -30,6 +34,7 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -104,6 +109,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -122,9 +128,29 @@ import java.util.concurrent.atomic.AtomicInteger;
 import pl.droidsonroids.gif.GifImageView;
 
 public class MainActivity extends AppCompatActivity {
+
+    private AlertDialog alertDialog;
+    ImageView animatedImageView;
+    LottieAnimationView lottieView,lodinglottie;
+    ProgressBar progressdialog;
+    ImageView capturedImageView;
+    TextView texto,textotitulo;
+    FrameLayout guardarbtn , progreso;
+    private LottieAnimationView progressBar;
+    private static final int NUM_FRAMES = 40; // Número total de fotogramas
+    private static final int FRAME_DELAY_MS = 33; // Delay entre fotogramas en milisegundos
+    public WrapContentDraweeView sticker,sticker2;
+
+    private int currentFrame = 0;
+    private ArrayList<Bitmap> capturedImages = new ArrayList<>();
+    private Handler captureHandler = new Handler();
+    static {
+        System.loadLibrary("gif_encoder");
+    }
+    public native int convertFrameToWebP(Bitmap[] bitmaps, String outputPath, int quality);
+
     private Button saveEmoji;
     private WrapContentDraweeView mixedfondo,mixedEmojicejas,explosion,mixedEmoji0;
-    private LottieAnimationView progressBar;
     private TextView activityDesc;
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
@@ -198,8 +224,8 @@ public class MainActivity extends AppCompatActivity {
         days = sharedPref.getLong(dateTimeKey, Activity.MODE_PRIVATE);
 
         if(days <=0){
-        Date dateStr = Calendar.getInstance().getTime();
-        sharedPref.edit().putLong(dateTimeKey, dateStr.getTime()).apply();
+            Date dateStr = Calendar.getInstance().getTime();
+            sharedPref.edit().putLong(dateTimeKey, dateStr.getTime()).apply();
         }
 
 
@@ -211,33 +237,49 @@ public class MainActivity extends AppCompatActivity {
 
         numeroemojis();
 
-     MiPublicidad.baner( (FrameLayout) findViewById(R.id.ad_view_container), this);
+        MiPublicidad.baner( (FrameLayout) findViewById(R.id.ad_view_container), this);
 
 //        OneSignal.initWithContext(this);
 //        OneSignal.setAppId("399b14d7-4c2a-4ce3-ab00-ce6358a44afa");
 
+        //alertdialog
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_layout, null);
+        progressdialog = dialogView.findViewById(R.id.progressBar);
+        sticker = dialogView.findViewById(R.id.sticker);
+
+        capturedImageView = dialogView.findViewById(R.id.capturedImageView);
+        textotitulo = dialogView.findViewById(R.id.textoti);
+
+        texto = dialogView.findViewById(R.id.textoprogress);
+        guardarbtn = dialogView.findViewById(R.id.guardarbtn);
+        progreso = dialogView.findViewById(R.id.progreso);
+        lodinglottie = dialogView.findViewById(R.id.lodinglottie);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(dialogView);
+        builder.setTitle("Guardar Emoji");
+        alertDialog = builder.create();
     }
 
 
-private void initreview(){
-    ReviewManager manager = ReviewManagerFactory.create(this);
-    Task<ReviewInfo> request = manager.requestReviewFlow();
-    request.addOnCompleteListener(task -> {
-        if (task.isSuccessful()) {
-            // We can get the ReviewInfo object
-            reviewInfo = task.getResult();
-        } else {
-            // There was some problem, log or handle the error code.
-        }
-    });
+    private void initreview(){
+        ReviewManager manager = ReviewManagerFactory.create(this);
+        Task<ReviewInfo> request = manager.requestReviewFlow();
+        request.addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                // We can get the ReviewInfo object
+                reviewInfo = task.getResult();
+            } else {
+                // There was some problem, log or handle the error code.
+            }
+        });
 
-}
+    }
 
     public void initLogic() {
 
 
         progressBar = findViewById(R.id.progressBar);
-         mixedEmoji = findViewById(R.id.mixedEmoji);
+        mixedEmoji = findViewById(R.id.mixedEmoji);
         mixedEmoji0 = findViewById(R.id.mixedEmoji0);
 
         mixedEmojiojos = findViewById(R.id.mixedEmojiojos);
@@ -275,7 +317,7 @@ private void initreview(){
 
         emojitop = findViewById(R.id.emojitop);
         emojitop.setOnClickListener(view -> {
-          //  MiPublicidad.verInterstitialAd(this);
+            //  MiPublicidad.verInterstitialAd(this);
             MainActivity.this.startActivity(new Intent(MainActivity.this.getApplicationContext(), Emojitop.class));
 
 
@@ -321,7 +363,7 @@ private void initreview(){
 
         saveEmoji.setOnClickListener(view -> {
 
-         //   MiPublicidad.verInterstitialAd(this);
+            //   MiPublicidad.verInterstitialAd(this);
             Date today = new Date();
             long diff =  today.getTime() - days;
             int numOfDays = 2;
@@ -336,17 +378,19 @@ private void initreview(){
             }
 
 
-          //  Log.e("TAG", "aki min dias: "+days+" actual "+ minutes );
+            //  Log.e("TAG", "aki min dias: "+days+" actual "+ minutes );
 
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-               showAnimatedFile();
-              //  captureFrames(layoutEmojiCreation);
-            //    File file = FileUtil.saveEmojiBIG(context, this.layoutEmojiCreation, context.getFilesDir() + "/stickers/");
+                captureMultipleImages(layoutEmojiCreation);
+
+                //  showAnimatedFile();
+                //  captureFrames(layoutEmojiCreation);
+                //    File file = FileUtil.saveEmojiBIG(context, this.layoutEmojiCreation, context.getFilesDir() + "/stickers/");
                 String toastText = "Saved emoji";
                 Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_LONG).show();
                 actualizovotos();
-             //   downloadFile(finalEmojiURL);
+                //   downloadFile(finalEmojiURL);
             } else {
                 if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                     String toastText = "Saved emoji";
@@ -354,7 +398,7 @@ private void initreview(){
 
                     File file = FileUtil.saveEmojiBIG(context, this.layoutEmojiCreation, context.getFilesDir() + "/stickers/");
                     actualizovotos();
-                   //  downloadFile(finalEmojiURL);
+                    //  downloadFile(finalEmojiURL);
                 } else {
                     ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 }
@@ -408,9 +452,9 @@ private void initreview(){
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-              }
+            }
         });
-          queue.add(request);
+        queue.add(request);
 
     }
 
@@ -432,7 +476,7 @@ private void initreview(){
                 idemoji1 =  totalmodel.getnemoji1();
                 idemoji2 =  totalmodel.getnemoji2();
 
-             //   Log.e("TAG", "aki entro: " );
+                //   Log.e("TAG", "aki entro: " );
                 LOGIC_BACKEND();
 
             }
@@ -501,11 +545,11 @@ private void initreview(){
                         int randomNum = rand.nextInt((supportedEmojisList.size()) - 1);
                         if (i == 0) {
 
-                                    Log.e("TAG", "addDataToSliders id: "+idemoji1+idemoji2 );
-                                    int centerOfScreen = emojisSlider1.getWidth() / 2 ;
-                                    int ancho = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 35, getResources().getDisplayMetrics());
+                            Log.e("TAG", "addDataToSliders id: "+idemoji1+idemoji2 );
+                            int centerOfScreen = emojisSlider1.getWidth() / 2 ;
+                            int ancho = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 35, getResources().getDisplayMetrics());
 
-                                    emojisSlider1LayoutManager.scrollToPositionWithOffset(idemoji1, centerOfScreen+ancho);
+                            emojisSlider1LayoutManager.scrollToPositionWithOffset(idemoji1, centerOfScreen+ancho);
 
                         } else {
 
@@ -514,7 +558,7 @@ private void initreview(){
                         }
                     }
 
-                 //   shouldShowEmoji(false);
+                    //   shouldShowEmoji(false);
 
 //                    emote1 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("emoji_formado")).toString();
 //                    emote2 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider2, emojisSlider2SnapHelper, emojisSlider2LayoutManager)).get("emoji_formado")).toString();
@@ -522,7 +566,7 @@ private void initreview(){
 //                    idemote1 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("Id")).toString();
 //                    idemote2 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider2, emojisSlider2SnapHelper, emojisSlider2LayoutManager)).get("Id")).toString();
 //                    Log.e("TAG", "addDataToSliders: "+idemote1+" dos"+idemote2 );
-                //    mixEmojis(emote1, emote2, Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("Id")).toString());
+                    //    mixEmojis(emote1, emote2, Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("Id")).toString());
 
                     registerViewPagersListener();
 
@@ -578,8 +622,8 @@ private void initreview(){
     private void mixEmojis(String emoji1, String emoji2, String date) {
 
         shouldEnableSave(false);
-       // progressBar.setVisibility(View.GONE);
-              Log.e("TAG", "addDataToSliders: "+emoji1+" dos"+idemote2 );
+        // progressBar.setVisibility(View.GONE);
+        Log.e("TAG", "addDataToSliders: "+emoji1+" dos"+idemote2 );
         if (TextUtils.isEmpty(idemote1)) {
             idemote1 = "26";
             Log.e("TAG", "addDataToSliders entrr: "+emoji1+" dos"+idemote2 );
@@ -648,7 +692,7 @@ private void initreview(){
                         mixedemojiforma.setRotation(0);
                     }
                 }
-               else if (Objects.equals(tipo, "objetodoble")) {
+                else if (Objects.equals(tipo, "objetodoble")) {
                     int ancho2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, getResources().getDisplayMetrics());
                     int left2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics());
                     int top2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, getResources().getDisplayMetrics());
@@ -668,7 +712,7 @@ private void initreview(){
                     mixedfondo.setVisibility(View.VISIBLE);
 
                     mixedfondo.setImageURI(Uri.parse(fondo));
-                        Log.e("TAG", "aki base objeto doble: "+fondo );
+                    Log.e("TAG", "aki base objeto doble: "+fondo );
 
                     mixedemojiforma.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
                     ViewGroup.MarginLayoutParams params4 = (ViewGroup.MarginLayoutParams) mixedemojiforma.getLayoutParams();
@@ -682,7 +726,7 @@ private void initreview(){
 
 
                     //emojis3 iguales y objeto es emojis3 champi frutass....
-                   if(Objects.equals(emote1, emote2) && Objects.equals(tipo, "emojis3")) {
+                    if(Objects.equals(emote1, emote2) && Objects.equals(tipo, "emojis3")) {
 
                         posicionemoji.setRotation(0);
                         posicioncara.setRotation(rotacion);
@@ -707,22 +751,22 @@ private void initreview(){
                     }
 
 
-                        //emojis iguales y objeto es emojis
-                   else if(Objects.equals(emote1, emote2) && Objects.equals(tipo, "emoji")) {
+                    //emojis iguales y objeto es emojis
+                    else if(Objects.equals(emote1, emote2) && Objects.equals(tipo, "emoji")) {
 
 //                        Careta version
                         if(random ==1){
                             mixedemojiforma.setVisibility(View.VISIBLE);
-                           // mixedemojiforma.setImageURI(Uri.parse(extra));
+                            // mixedemojiforma.setImageURI(Uri.parse(extra));
                             LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(extra)))
                                     .addListener(composition -> {
                                         mixedemojiforma.setComposition(composition);
                                         mixedemojiforma.playAnimation();
                                     })
-                                    ;
+                            ;
                             restraso = true;
 
-                        //    Log.e("TAG", "aki igual emoji: "+extra);
+                            //    Log.e("TAG", "aki igual emoji: "+extra);
                             int left2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, left, getResources().getDisplayMetrics());
                             int top2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, getResources().getDisplayMetrics());
                             int ancho3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, ancho, getResources().getDisplayMetrics());
@@ -734,7 +778,7 @@ private void initreview(){
                             mixedemojiforma.setLayoutParams(params2);
                             mixedemojiforma.setRotation(0);
 
-                          Log.e("TAG", "aki rotacion careta: " + extra );
+                            Log.e("TAG", "aki rotacion careta: " + extra );
                             posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho4, ancho4));
                             ViewGroup.MarginLayoutParams params3 = (ViewGroup.MarginLayoutParams) posicionemoji.getLayoutParams();
                             params3.setMargins(left2, top2, 0, 0);
@@ -771,7 +815,7 @@ private void initreview(){
 // Combina las animaciones para ejecutarlas simultáneamente
                                 AnimatorSet animatorSet = new AnimatorSet();
                                 animatorSet.playTogether(rotationAnimator, translateXAnimator, translateYAnimator,alphaAnimator);
-                               // animatorSet.start();
+                                // animatorSet.start();
 
 
 
@@ -790,30 +834,30 @@ private void initreview(){
                         //version doble emoji
                         else {
 
-                        mixedemojiforma.setVisibility(View.VISIBLE);
-                        mixedemojiforma.setImageURI(Uri.parse(extra));
-                        int left2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, left, getResources().getDisplayMetrics());
-                        int top2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, getResources().getDisplayMetrics());
-                        int ancho3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, ancho, getResources().getDisplayMetrics());
+                            mixedemojiforma.setVisibility(View.VISIBLE);
+                            mixedemojiforma.setImageURI(Uri.parse(extra));
+                            int left2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, left, getResources().getDisplayMetrics());
+                            int top2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, getResources().getDisplayMetrics());
+                            int ancho3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, ancho, getResources().getDisplayMetrics());
 
-                        mixedemojiforma.setLayoutParams(new FrameLayout.LayoutParams(ancho3-100, ancho3-100));
-                        ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) mixedemojiforma.getLayoutParams();
-                        params2.setMargins(ancho3-75, top2+top2, 0, 0);
-                        mixedemojiforma.setLayoutParams(params2);
-                        mixedemojiforma.setRotation(-rotacion);
+                            mixedemojiforma.setLayoutParams(new FrameLayout.LayoutParams(ancho3-100, ancho3-100));
+                            ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) mixedemojiforma.getLayoutParams();
+                            params2.setMargins(ancho3-75, top2+top2, 0, 0);
+                            mixedemojiforma.setLayoutParams(params2);
+                            mixedemojiforma.setRotation(-rotacion);
 
-                        Log.e("TAG", "aki rotacion emoji doble: " + rotacion );
-                        posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
-                        ViewGroup.MarginLayoutParams params3 = (ViewGroup.MarginLayoutParams) posicionemoji.getLayoutParams();
-                        params3.setMargins(left2, top2, 0, 0);
-                        posicionemoji.setLayoutParams(params3);
+                            Log.e("TAG", "aki rotacion emoji doble: " + rotacion );
+                            posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
+                            ViewGroup.MarginLayoutParams params3 = (ViewGroup.MarginLayoutParams) posicionemoji.getLayoutParams();
+                            params3.setMargins(left2, top2, 0, 0);
+                            posicionemoji.setLayoutParams(params3);
 
-                        posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
-                        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) posicioncara.getLayoutParams();
-                        params.setMargins(0, 0, 0, 0);
-                        posicioncara.setLayoutParams(params);
-                        posicionemoji.setRotation(rotacion);
-                        posicioncara.setRotation(0);
+                            posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
+                            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) posicioncara.getLayoutParams();
+                            params.setMargins(0, 0, 0, 0);
+                            posicioncara.setLayoutParams(params);
+                            posicionemoji.setRotation(rotacion);
+                            posicioncara.setRotation(0);
                         }
                     }
 
@@ -821,7 +865,7 @@ private void initreview(){
                     else {
 
 
-                       posicionemoji.setRotation(0);
+                        posicionemoji.setRotation(0);
                         posicioncara.setRotation(rotacion);
                         mixedemojiforma.setVisibility(View.GONE);
                         int ancho3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, getResources().getDisplayMetrics());
@@ -1004,7 +1048,7 @@ private void initreview(){
                 }
                 else {
                     mixedEmojimanos.setVisibility(View.VISIBLE);
-                 //   mixedEmojimanos.setImageURI(Uri.parse(manos));
+                    //   mixedEmojimanos.setImageURI(Uri.parse(manos));
                     mixedEmojimanos2.setVisibility(View.GONE);
 
                     Log.e("LottieError", "aki manos."+manos);
@@ -1034,12 +1078,12 @@ private void initreview(){
 
             @Override
             public void onFailure(String failureReason) {
-              //  changeActivityDesc(failureReason);
+                //  changeActivityDesc(failureReason);
                 shouldEnableSave(false);
-              //  mixedEmoji.setImageResource(R.drawable.sad);
-             //  mixedEmoji.setImageURI(Uri.parse(""));
+                //  mixedEmoji.setImageResource(R.drawable.sad);
+                //  mixedEmoji.setImageURI(Uri.parse(""));
 
-            //  shouldShowEmoji(true);
+                //  shouldShowEmoji(true);
             }
         });
         Thread thread = new Thread(em);
@@ -1107,7 +1151,7 @@ private void initreview(){
 
 
         if (shouldShow) {
-          //  Log.e("TAG", "aki entro:+finalEmojiURL " );
+            //  Log.e("TAG", "aki entro:+finalEmojiURL " );
 
             shadAnim(layoutEmojiCreation, "scaleY", 1, 400);
             shadAnim(layoutEmojiCreation, "scaleX", 1, 400);
@@ -1117,15 +1161,15 @@ private void initreview(){
 //           shadAnim(progressBar, "scaleY", 0, 300);
 //           shadAnim(progressBar, "scaleX", 0, 300);
         } else {
-        //    Log.e("TAG", "aki entro2:+finalEmojiURL " );
+            //    Log.e("TAG", "aki entro2:+finalEmojiURL " );
             mas.playAnimation();
-         //   explosion.setImageURI("http://emojixer.emojinew.com/panel/explosion.webp");
+            //   explosion.setImageURI("http://emojixer.emojinew.com/panel/explosion.webp");
             shadAnim(layoutEmojiCreation, "scaleY", 0.2, 400);
             shadAnim(layoutEmojiCreation, "scaleX", 0.2, 400);
 //            shadAnim(layoutEmojiCreation, "rotation", 0f, 400);
             int anc = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 160, getResources().getDisplayMetrics());
 
-            shadAnim(layoutEmojiCreation, "translationY", anc, 400);
+            // shadAnim(layoutEmojiCreation, "translationY", anc, 400);
 
 
 //           shadAnim(progressBar, "scaleY", 1, 300);
@@ -1286,7 +1330,7 @@ private void initreview(){
             public void run() {
                 // Aquí va tu tarea de captura de bitmap
 
-                Bitmap bitmap = captureLottieFrame(layoutEmojiCreation); // Cambio en la captura del frame
+                Bitmap bitmap = getBitmapFromView(layoutEmojiCreation); // Cambio en la captura del frame
 
                 if (bitmap == null) {
                     Log.e("bitmaps", "Failed");
@@ -1294,7 +1338,7 @@ private void initreview(){
                 savewebp.add(bitmap);
 
                 i++;
-                if (i < 15) {
+                if (i < 25) {
                     Log.e("TAG", "aki run: " + i);
                     // Muestra el bitmap capturado en tiempo real en el AlertDialog
                     runOnUiThread(() -> {
@@ -1485,9 +1529,193 @@ private void initreview(){
     }
 
     public void abriremojis(View view) {
-    //    MiPublicidad.verInterstitialAd(this);
+        //    MiPublicidad.verInterstitialAd(this);
 
-        MainActivity.this.startActivity(new Intent(MainActivity.this.getApplicationContext(), Prueba.class));
+        MainActivity.this.startActivity(new Intent(MainActivity.this.getApplicationContext(), ImageViewerActivity.class));
 
     }
+
+    private void captureMultipleImages(FrameLayout layoutEmojiCreation) {
+        // ... (código para configurar el AlertDialog y las vistas)
+        currentFrame = 0;
+
+
+        alertDialog.show();
+        // Crear un ProgressDialog determinado por el progreso
+
+        // Cuando el AlertDialog se muestra, comienza la captura de frames
+        captureNextFrame(layoutEmojiCreation, capturedImages, capturedImageView);
+
+        Log.e("TAG", "captureMultipleImages3: " + capturedImages);
+        progreso.setVisibility(View.VISIBLE);
+        guardarbtn.setVisibility(View.INVISIBLE);
+        textotitulo.setText("Capturando fotogramas");
+        alertDialog.setTitle("Guardar emoji");
+
+        // Luego, cuando estés listo para mostrar el GIF, puedes hacerlo aquí
+
+        runOnUiThread(() -> {
+
+//            Uri gifUri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", new File(gifPath));
+
+            // Establecer la URI en el ImageView
+            // gifImageView.setImageURI(gifUri);
+
+            // alertDialog.dismiss();
+        });
+    }
+
+    private static Bitmap getBitmapFromView(FrameLayout layout) {
+        Bitmap bitmap = Bitmap.createBitmap(layout.getWidth(), layout.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        layout.draw(canvas);
+
+
+        // Convierte de ARGB a RGBA
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+        Bitmap rgbaBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas rgbaCanvas = new Canvas(rgbaBitmap);
+        Paint paint = new Paint();
+        ColorMatrix colorMatrix = new ColorMatrix(new float[]{
+                0, 0, 1, 0, 0, // Red pasa a Blue
+                0, 1, 0, 0, 0, // Green pasa a Green
+                1, 0, 0, 0, 0, // Blue pasa a Red
+                0, 0, 0, 1, 0  // Alpha se mantiene igual
+        });
+        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(colorMatrix);
+        paint.setColorFilter(filter);
+        rgbaCanvas.drawBitmap(bitmap, 0, 0, paint);
+
+        // Escala el bitmap convertido a 512x512
+        int targetSize = 512;
+        Bitmap scaledRgbaBitmap = Bitmap.createScaledBitmap(rgbaBitmap, targetSize, targetSize, false);
+        return scaledRgbaBitmap;
+    }
+
+    private void captureNextFrame(FrameLayout layoutEmojiCreation, ArrayList<Bitmap> capturedImages,
+                                  ImageView capturedImageView) {
+        capturedImageView.setVisibility(View.VISIBLE);
+        sticker.setVisibility(View.INVISIBLE);
+        if (currentFrame < NUM_FRAMES) {
+
+            Pair<Bitmap, Bitmap> bitmaps = FileUtil.captureFrameLayout(layoutEmojiCreation);
+            Bitmap originalBitmap = bitmaps.first;
+            Bitmap convertedBitmap = bitmaps.second;
+
+            //     Bitmap bitmap = getBitmapFromView(layoutEmojiCreation);
+
+// Agrega el bitmap convertido al array
+            capturedImages.add(convertedBitmap);
+//            Bitmap image = captureFrameLayout(layoutEmojiCreation);
+//            capturedImages.add(image);
+            int finalI = currentFrame;
+// Define el número total deseado
+            int total = 100;
+
+// Luego, en tu código donde actualizas el progreso y el texto:
+            runOnUiThread(() -> {
+                Log.e("TAG", "captureMultipleImages2: " + currentFrame);
+
+                capturedImageView.setImageBitmap(originalBitmap);
+
+                // Calcula el progreso actual basado en los elementos actuales y el número total deseado
+                int progress = (currentFrame * total) / 50; // Suponiendo que tienes 50 elementos
+
+                progressdialog.setProgress(progress);
+
+                // Muestra el texto con el progreso actual y el número total deseado
+                texto.setText(progress + "/" + total);
+            });
+
+
+            currentFrame++;
+            if(currentFrame==50){
+                runOnUiThread(() -> {
+                    textotitulo.setText("Convirtiendo archivo");
+                    texto.setText("Espera...");
+                });
+            }
+
+            // Programar la captura del siguiente fotograma
+            captureHandler.postDelayed(() -> captureNextFrame(layoutEmojiCreation, capturedImages, capturedImageView), FRAME_DELAY_MS);
+        } else {
+//            lodinglottie.setVisibility(View.VISIBLE);
+//            lodinglottie.setAnimation(R.raw.loading);
+//
+//            lodinglottie.playAnimation();
+
+
+            runOnUiThread(() -> {
+
+            });
+
+
+            final File[] file = new File[1];
+            //  guardarbtn.setVisibility(View.VISIBLE);
+            // Resto de tu código para generar el GIF y mostrarlo en DisplayBitmapActivity
+            String gifPath = new File(getFilesDir(), "generatedGif_" + System.currentTimeMillis() + ".gif").getAbsolutePath();
+
+            //  file[0] = FileUtil.onCreateWebpFile(capturedImages, MainActivity.this, getFilesDir() + "/stickers");
+
+
+            file[0] = generateGIF(capturedImages, gifPath);
+
+            MainActivity tuClase = new MainActivity();
+            Bitmap[] bitmapArray = capturedImages.toArray(new Bitmap[capturedImages.size()]);
+            Log.e(TAG, "captureNextFrame: "+capturedImages.size()+" otro"+bitmapArray.length );
+            String webpPath = new File(getFilesDir()+ "/stickers/", "AImage" + System.currentTimeMillis() + ".webp").getAbsolutePath();
+
+            File webpfilePath = new File(getFilesDir()+ "/stickers/", "AImage" + System.currentTimeMillis() + ".webp");
+
+            int result = tuClase.convertFrameToWebP(bitmapArray, webpPath, 1);
+            if (result == 0) {
+                progreso.setVisibility(View.INVISIBLE);
+                alertDialog.setTitle("Guardado correctamente");
+                // sticker.setImageURI(webpPath);
+                Uri uri = Uri.fromFile(new File(webpfilePath.getAbsolutePath()));
+
+
+                sticker.setImageURI(uri);
+
+                Log.e(TAG, "path: "+Uri.parse(webpfilePath.getAbsolutePath()) );
+
+//
+                capturedImageView.setVisibility(View.INVISIBLE);
+                sticker.setVisibility(View.VISIBLE);
+
+                Toast.makeText(this, "Conversión exitosa. WebP guardado en: " + gifPath, Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "Error en la conversión: " + result, Toast.LENGTH_SHORT).show();
+            }
+
+            capturedImages.clear();
+        }
+    }
+    public File generateGIF(ArrayList<Bitmap> frames, String path) {
+        if (frames.size() == 0) return null;
+
+        int width = frames.get(0).getWidth();
+        int height = frames.get(0).getHeight();
+
+        GifEncoder encoder = new GifEncoder();
+        try {
+            encoder.init(width, height, path, GifEncoder.EncodingType.ENCODING_TYPE_SIMPLE_FAST);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Configurar la velocidad de reproducción del GIF (en milisegundos)
+        int frameDelay = FRAME_DELAY_MS; // 30 FPS (ajusta según tu FPS deseado)
+
+        for (Bitmap bitmap : frames) {
+            encoder.encodeFrame(bitmap, 55);
+            //   Log.e(TAG, "generateGIF: " );
+        }
+
+        encoder.close();
+        // Devolver el archivo del GIF generado
+        return new File(path);
+    }
+
 }

@@ -11,11 +11,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.media.MediaScannerConnection;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 
@@ -33,13 +38,13 @@ import com.emojixer.GifEncoder.AnimatedGifEncoder;
 import com.emojixer.R;
 import com.emojixer.activities.MainActivity;
 import com.orhanobut.hawk.Hawk;
-import com.waynejo.androidndkgif.GifEncoder;
 
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -208,15 +213,15 @@ public class FileUtil {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inScaled = false;
             String filename = getFileName(true);
-            File file = getOutputMediaFile(path, filename);
+            File file = getOutputMediaFile(path, "/"+filename);
             String result = filename.substring(0, filename.lastIndexOf("."));
-            Log.e("aki run result", filename + "  " + result);
-            File Giffile = getOutputMediaFile(path + "Gifs/", result + ".gif");
+            Log.e("aki run result", filename + "  " + file.getAbsolutePath());
+            File Giffile = getOutputMediaFile(path + "/gif/", result + ".gif");
             Log.e("aki run GifFilepath", Giffile.getAbsolutePath());
 
-            generateGIF(frames, Giffile.getAbsolutePath());
+            generateGIF(frames, Giffile.getAbsolutePath(),100);
             Log.e("Path", Giffile.getAbsolutePath());
-            final String ffmpegCommand = String.format("-hide_banner -i %s %s", Giffile.getAbsolutePath(), "-lossless 0.8 -vf \"scale=512:512:force_original_aspect_ratio=decrease,pad=512:512:-1:-1:color=#00000000\" " + file.getAbsolutePath());
+            final String ffmpegCommand = String.format("-hide_banner -i %s -c:v libwebp -b:v 0.7M -vf \"scale=512:512:force_original_aspect_ratio=decrease,pad=512:512:-1:-1:color=#00000000\" -q:v 70  -lossless 0  -method 0 %s", Giffile.getAbsolutePath(), file.getAbsolutePath());
             FFmpeg.execute(ffmpegCommand);
 
 
@@ -233,7 +238,7 @@ public class FileUtil {
 
         public static String get_selectedSticker(Context context) {
             SharedPreferences sharedPreferences = context.getSharedPreferences(Stickername, 0);
-            return sharedPreferences.getString(SNAMAE, "SImage");
+            return sharedPreferences.getString(SNAMAE, "AImage");
         }
 
         public static ArrayList<Bitmap> GiftoFrames(Context context, Bitmap upperimage) {
@@ -306,51 +311,41 @@ public class FileUtil {
         }*/
             return bitmaps;
         }
-
-    public static void generateGIF(ArrayList<Bitmap> frames, String path) {
-        if (frames.size() == 0) return;
-
-        int width = frames.get(0).getWidth();
-        int height = frames.get(0).getHeight();
-
-        GifEncoder encoder = new GifEncoder();
-
-        // Iniciar el encoder
+    public static void generateGIF(List<Bitmap> frames, String outputPath, int delay) {
         try {
-            encoder.init(width, height, path, GifEncoder.EncodingType.ENCODING_TYPE_SIMPLE_FAST);
-        } catch (FileNotFoundException e) {
+            FileOutputStream outputStream = new FileOutputStream(outputPath);
+            AnimatedGifEncoder gifEncoder = new AnimatedGifEncoder();
+            gifEncoder.start(outputStream);
+            gifEncoder.setDelay(delay); // Especifica el retraso entre los fotogramas en milisegundos
+            gifEncoder.setTransparent(Color.TRANSPARENT); // Establece el color transparente predeterminado
+            gifEncoder.setQuality(0); // Configura la profundidad de color
+            gifEncoder.setRepeat(2);
+
+            for (Bitmap frame : frames) {
+                gifEncoder.addFrame(frame);
+            }
+
+            gifEncoder.finish();
+            outputStream.close();
+     } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        // Puedes ajustar la calidad usando ENCODING_TYPE_SIMPLE_FAST o ENCODING_TYPE_STABLE_HIGH_MEMORY
-
-        for (Bitmap bitmap : frames) {
-            encoder.encodeFrame(bitmap, 70);  // 70 es el tiempo de retardo entre fotogramas
-            Log.e(TAG, "aki run gif: " );
-
-            if (bitmap != null && !bitmap.isRecycled()) {
-                bitmap.recycle();
-            }
-        }
-
-        // Cerrar el encoder
-        encoder.close();
     }
-
-
-   /* public static void saveGif(Activity ctx,String path,Bitmap upperImage) {
-        try {
-            ArrayList<Bitmap> Frames = new ArrayList<>();
-            File giffile = getOutputMediaFile(path,getFileNameGif());
-            Log.e("Gifwriter Path",giffile.getAbsolutePath());
-            Frames = GiftoFrames(ctx,upperImage);
-            FileOutputStream outStream = new FileOutputStream(path+getFileNameGif());
-            outStream.write(generateGIF(Frames));
-            outStream.close();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }*/
+//   public static void saveGif(Activity ctx,String path,Bitmap upperImage) {
+//        try {
+//            ArrayList<Bitmap> Frames = new ArrayList<>();
+//            File giffile = getOutputMediaFile(path,getFileNameGif());
+//            Log.e("Gifwriter Path",giffile.getAbsolutePath());
+//            Frames = GiftoFrames(ctx,upperImage);
+//            FileOutputStream outStream = new FileOutputStream(path+getFileNameGif());
+//            outStream.write(generateGIF(Frames));
+//            outStream.close();
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
         public static Bitmap CombineImage(Bitmap bottomImage, Bitmap topImage) {
             Log.e("Combine frames", "coming here");
@@ -580,4 +575,61 @@ public class FileUtil {
                 return null;
             }
         }
+
+
+
+
+    public static Pair<Bitmap, Bitmap> captureFrameLayout(FrameLayout layout) {
+        // Crear una variable para almacenar el resultado
+        final Pair<Bitmap, Bitmap>[] result = new Pair[1];
+
+        // Crear un nuevo hilo para realizar la captura y el procesamiento
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Bitmap bitmap = Bitmap.createBitmap(layout.getWidth(), layout.getHeight(), Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(bitmap);
+                layout.draw(canvas);
+
+
+                // Convierte de ARGB a RGBA
+                int width = bitmap.getWidth();
+                int height = bitmap.getHeight();
+                Bitmap rgbaBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+                Canvas rgbaCanvas = new Canvas(rgbaBitmap);
+                Paint paint = new Paint();
+                ColorMatrix colorMatrix = new ColorMatrix(new float[]{
+                        0, 0, 1, 0, 0, // Red pasa a Blue
+                        0, 1, 0, 0, 0, // Green pasa a Green
+                        1, 0, 0, 0, 0, // Blue pasa a Red
+                        0, 0, 0, 1, 0  // Alpha se mantiene igual
+                });
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(colorMatrix);
+                paint.setColorFilter(filter);
+                rgbaCanvas.drawBitmap(bitmap, 0, 0, paint);
+
+                // Escala el bitmap convertido a 512x512
+                int targetSize = 512;
+                Bitmap scaledRgbaBitmap = Bitmap.createScaledBitmap(rgbaBitmap, targetSize, targetSize, false);
+
+                // Almacena el resultado en el arreglo
+                result[0] = new Pair<>(bitmap, scaledRgbaBitmap);
+            }
+        });
+
+        // Iniciar el hilo
+        thread.start();
+
+        try {
+            // Esperar a que el hilo termine
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Devolver el resultado
+        return result[0];
     }
+
+
+}

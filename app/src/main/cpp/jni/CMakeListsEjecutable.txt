@@ -1,0 +1,66 @@
+cmake_minimum_required(VERSION 3.10)
+
+project(libwebp)
+
+# Directorio raíz del código fuente de WebP
+set(WEBP_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/)
+
+# Agrega los archivos fuente de WebP al proyecto
+file(GLOB WEBP_DEC_SRCS ${WEBP_SRC_DIR}/src/dec/*.c)
+file(GLOB WEBP_DEMUX_SRCS ${WEBP_SRC_DIR}/src/demux/*.c)
+file(GLOB WEBP_DSP_SRCS ${WEBP_SRC_DIR}/src/dsp/*.c)
+file(GLOB WEBP_DSP_ENC_SRCS ${WEBP_SRC_DIR}/src/dsp/enc/*.c)
+file(GLOB WEBP_ENC_SRCS ${WEBP_SRC_DIR}/src/enc/*.c)
+file(GLOB WEBP_MUX_SRCS ${WEBP_SRC_DIR}/src/mux/*.c)
+file(GLOB WEBP_UTILS_SRCS ${WEBP_SRC_DIR}/src/utils/*.c)
+
+# Agrega los archivos de img2webp al proyecto
+file(GLOB IMG2WEBP_SRCS ${WEBP_SRC_DIR}/examples/img2webp.c)
+
+# Bibliotecas necesarias para enlazar con WebP
+find_library(
+        log-lib
+        log
+)
+
+# Configurar la biblioteca compartida libwebp.so
+add_library(webp SHARED
+        ${WEBP_DEC_SRCS}
+        ${WEBP_DEMUX_SRCS}
+        ${WEBP_DSP_SRCS}
+        ${WEBP_DSP_ENC_SRCS}
+        ${WEBP_ENC_SRCS}
+        ${WEBP_MUX_SRCS}
+        ${WEBP_UTILS_SRCS}
+        )
+
+# Directorio de inclusión de las cabeceras de WebP
+target_include_directories(webp PRIVATE
+        ${WEBP_SRC_DIR}/src
+        ${WEBP_SRC_DIR}/examples
+        )
+
+# Crea un conjunto de arquitecturas soportadas
+set(ANDROID_SUPPORTED_ABIS "armeabi-v7a" "arm64-v8a" "x86" "x86_64")
+
+# Compila img2webp para cada arquitectura
+foreach(ABI ${ANDROID_SUPPORTED_ABIS})
+    if(${ANDROID_ABI} STREQUAL ${ABI})
+        # Si es la arquitectura actual, genera un único ejecutable img2webp
+        add_executable(img2webp ${IMG2WEBP_SRCS})
+        target_link_libraries(img2webp webp)
+
+        # Establece la ubicación de salida del ejecutable
+        set(IMG2WEBP_OUTPUT_DIR "${CMAKE_BINARY_DIR}/${ABI}")
+        set(IMG2WEBP_OUTPUT_PATH "${IMG2WEBP_OUTPUT_DIR}/img2webp")
+
+        # Asegurarse de que el directorio de salida exista
+        file(MAKE_DIRECTORY ${IMG2WEBP_OUTPUT_DIR})
+
+        # Copiar el ejecutable a la ubicación deseada
+        add_custom_command(TARGET img2webp POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:img2webp> ${IMG2WEBP_OUTPUT_PATH}
+                COMMENT "Copying img2webp executable to ${IMG2WEBP_OUTPUT_PATH}"
+                )
+    endif()
+endforeach()

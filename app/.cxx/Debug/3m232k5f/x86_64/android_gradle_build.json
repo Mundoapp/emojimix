@@ -1,0 +1,69 @@
+{
+  "stringTable": {},
+  "buildFiles": [
+    "C:\\Users\\kaiv\\Android studio 3.0\\emojixer animated\\app\\src\\main\\cpp\\jni\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\kaiv\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+      "-C",
+      "C:\\Users\\kaiv\\Android studio 3.0\\emojixer animated\\app\\.cxx\\Debug\\3m232k5f\\x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\kaiv\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+    "-C",
+    "C:\\Users\\kaiv\\Android studio 3.0\\emojixer animated\\app\\.cxx\\Debug\\3m232k5f\\x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "native_app_glue-Debug-x86_64": {
+      "buildCommandComponents": [
+        "C:\\Users\\kaiv\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+        "-C",
+        "C:\\Users\\kaiv\\Android studio 3.0\\emojixer animated\\app\\.cxx\\Debug\\3m232k5f\\x86_64",
+        "native_app_glue"
+      ],
+      "buildType": "debug",
+      "abi": "x86_64",
+      "artifactName": "native_app_glue",
+      "output": "C:\\Users\\kaiv\\Android studio 3.0\\emojixer animated\\app\\.cxx\\Debug\\3m232k5f\\x86_64\\libnative_app_glue.a"
+    },
+    "webp-Debug-x86_64": {
+      "buildCommandComponents": [
+        "C:\\Users\\kaiv\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+        "-C",
+        "C:\\Users\\kaiv\\Android studio 3.0\\emojixer animated\\app\\.cxx\\Debug\\3m232k5f\\x86_64",
+        "webp"
+      ],
+      "buildType": "debug",
+      "abi": "x86_64",
+      "artifactName": "webp",
+      "output": "C:\\Users\\kaiv\\Android studio 3.0\\emojixer animated\\app\\build\\intermediates\\cxx\\Debug\\3m232k5f\\obj\\x86_64\\libwebp.so",
+      "runtimeFiles": []
+    },
+    "gif_encoder-Debug-x86_64": {
+      "buildCommandComponents": [
+        "C:\\Users\\kaiv\\AppData\\Local\\Android\\Sdk\\cmake\\3.10.2.4988404\\bin\\ninja.exe",
+        "-C",
+        "C:\\Users\\kaiv\\Android studio 3.0\\emojixer animated\\app\\.cxx\\Debug\\3m232k5f\\x86_64",
+        "gif_encoder"
+      ],
+      "buildType": "debug",
+      "abi": "x86_64",
+      "artifactName": "gif_encoder",
+      "output": "C:\\Users\\kaiv\\Android studio 3.0\\emojixer animated\\app\\build\\intermediates\\cxx\\Debug\\3m232k5f\\obj\\x86_64\\libgif_encoder.so",
+      "runtimeFiles": [
+        "C:\\Users\\kaiv\\Android studio 3.0\\emojixer animated\\app\\build\\intermediates\\cxx\\Debug\\3m232k5f\\obj\\x86_64\\libwebp.so"
+      ]
+    }
+  },
+  "toolchains": {},
+  "cFileExtensions": [
+    "c"
+  ],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

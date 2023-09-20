@@ -1,0 +1,5 @@
+C:/Users/kaiv/Android studio 3.0/emojixer animated/app/.cxx/Debug/3m232k5f/x86_64/CMakeFiles/webp.dir
+C:/Users/kaiv/Android studio 3.0/emojixer animated/app/.cxx/Debug/3m232k5f/x86_64/CMakeFiles/native_app_glue.dir
+C:/Users/kaiv/Android studio 3.0/emojixer animated/app/.cxx/Debug/3m232k5f/x86_64/CMakeFiles/gif_encoder.dir
+C:/Users/kaiv/Android studio 3.0/emojixer animated/app/.cxx/Debug/3m232k5f/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/kaiv/Android studio 3.0/emojixer animated/app/.cxx/Debug/3m232k5f/x86_64/CMakeFiles/rebuild_cache.dir

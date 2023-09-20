@@ -288,7 +288,7 @@ public class Provider extends ContentProvider {
                         AVOID_CACHE,
                 });
         if(stickertype.equals("AImage")) {*/
-            Log.e("Animatedsticker","Coming true "+stickertype);
+          //  Log.e("Animatedsticker","Coming true "+stickertype);
             MatrixCursor  cursor = new MatrixCursor(
                     new String[]{
                             STICKER_PACK_IDENTIFIER_IN_QUERY,
