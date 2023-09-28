@@ -10,6 +10,8 @@ public class emojismodel {
     private String cejas;
     private String objetos;
     private String manos;
+    private String animacion;
+
     private String tipo1;
     private String tipo2;
     private String objetoextra;
@@ -42,6 +44,9 @@ public class emojismodel {
     }
     public String getmanos() {
         return manos;
+    }
+    public String getanimacion() {
+        return animacion;
     }
     public int getancho() {
         return width_height;

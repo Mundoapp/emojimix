@@ -79,30 +79,30 @@ public class EmojimixerAdapter extends RecyclerView.Adapter<EmojimixerAdapter.Vi
         String emojiURL2 = "http://animated.emojixer.com/panel/emoji_formado/";
 
 
-        Log.e("TAG", "emoji posicion: "+position );
 
         holder.idemoji.setText(idemo);
         //agrego emoji mini en slider
         if(tipo.equals("emoji")) {
             loadEmojiFromUrl(holder.emoji, holder.progressBar, emojiURL2 + emoji_formado);
-            loadEmojiFromUrl(holder.mixedEmojiojos, holder.progressBar, emojiURL);
-            loadEmojiFromUrl(holder.mixedEmojibocas, holder.progressBar, emojiURL);
-            loadEmojiFromUrl(holder.mixedEmojicejas, holder.progressBar, emojiURL);
-            loadEmojiFromUrl(holder.mixedEmojiobjetos, holder.progressBar, emojiURL);
-            loadEmojiFromUrl(holder.mixedEmojiojos_objetos, holder.progressBar, emojiURL);
-            loadEmojiFromUrl(holder.mixedEmojimanos, holder.progressBar, emojiURL);
+//            loadEmojiFromUrl(holder.mixedEmojiojos, holder.progressBar, emojiURL);
+//            loadEmojiFromUrl(holder.mixedEmojibocas, holder.progressBar, emojiURL);
+//            loadEmojiFromUrl(holder.mixedEmojicejas, holder.progressBar, emojiURL);
+//            loadEmojiFromUrl(holder.mixedEmojiobjetos, holder.progressBar, emojiURL);
+//            loadEmojiFromUrl(holder.mixedEmojiojos_objetos, holder.progressBar, emojiURL);
+//            loadEmojiFromUrl(holder.mixedEmojimanos, holder.progressBar, emojiURL);
+    //        Log.e("TAG", "aki emoji url: "+emojiURL );
 
-            loadEmojiFromUrl(holder.mixedformado, holder.progressBar, emojiURL2 + emoji_formado);
+      //      loadEmojiFromUrl(holder.mixedformado, holder.progressBar, emojiURL2 + emoji_formado);
 
         }
         else {
 
-             loadEmojiFromUrl(holder.mixedEmojiojos, holder.progressBar, emojiURL);
-            loadEmojiFromUrl(holder.mixedEmojibocas, holder.progressBar, emojiURL);
-            loadEmojiFromUrl(holder.mixedEmojicejas, holder.progressBar, emojiURL);
-            loadEmojiFromUrl(holder.mixedEmojiobjetos, holder.progressBar, emojiURL);
-            loadEmojiFromUrl(holder.mixedEmojiojos_objetos, holder.progressBar, emojiURL);
-            loadEmojiFromUrl(holder.mixedEmojimanos, holder.progressBar, emojiURL);
+//             loadEmojiFromUrl(holder.mixedEmojiojos, holder.progressBar, emojiURL);
+//            loadEmojiFromUrl(holder.mixedEmojibocas, holder.progressBar, emojiURL);
+//            loadEmojiFromUrl(holder.mixedEmojicejas, holder.progressBar, emojiURL);
+//            loadEmojiFromUrl(holder.mixedEmojiobjetos, holder.progressBar, emojiURL);
+//            loadEmojiFromUrl(holder.mixedEmojiojos_objetos, holder.progressBar, emojiURL);
+//            loadEmojiFromUrl(holder.mixedEmojimanos, holder.progressBar, emojiURL);
 
             loadEmojiFromUrl(holder.emoji, holder.progressBar, emojiURL2 + emoji_formado);
 

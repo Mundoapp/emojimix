@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+
+    >
+
+    <!-- Animación de entrada -->
+    <translate
+        android:fromYDelta="10%p"
+        android:toYDelta="0"
+
+        android:duration="850" />
+
+    <!-- Retraso antes de la animación inversa -->
+    <rotate
+        android:fromDegrees="-10"
+        android:toDegrees="10"
+        android:duration="850"
+        android:pivotX="50%"
+        android:pivotY="50%" />
+
+        <!-- Animación inversa -->
+        <translate
+            android:startOffset="2160"
+            android:fromYDelta="0"
+            android:toYDelta="10%p"
+
+            android:duration="600" />
+    <rotate
+        android:startOffset="2160"
+        android:fromDegrees="10"
+        android:toDegrees="-10"
+        android:duration="600"
+        android:pivotX="50%"
+        android:pivotY="50%" />
+
+</set>

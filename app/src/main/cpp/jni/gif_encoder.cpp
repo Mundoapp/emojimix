@@ -13,7 +13,7 @@ Java_com_emojixer_activities_MainActivity_convertFrameToWebP(JNIEnv *env, jobjec
                                                              jstring outputPath, jint quality) {
     int numBitmaps = env->GetArrayLength(bitmaps);
     __android_log_print(ANDROID_LOG_DEBUG, "Native", "Número de bitmaps recibidos: %d", numBitmaps);
-    int duration = 100;
+    int duration = 72;
     int timestamp_ms = 0;
     int width = 512; // Define el ancho de tu animación aquí
     int height = 512; // Define la altura de tu animación aquí
@@ -34,7 +34,7 @@ Java_com_emojixer_activities_MainActivity_convertFrameToWebP(JNIEnv *env, jobjec
     picture.width = 512;
     picture.height = 512;
     picture.argb_stride = 512;
-    picture.extra_info_type= 2;
+//    picture.extra_info_type= 2;
     for (int i = 0; i < numBitmaps; i++) {
         jobject bitmap = env->GetObjectArrayElement(bitmaps, i);
         void* pixels;
@@ -54,24 +54,27 @@ Java_com_emojixer_activities_MainActivity_convertFrameToWebP(JNIEnv *env, jobjec
 
         config.method = 0;          // Ajusta el método de compresión (3 puede proporcionar una buena calidad)
 
-        config.quality = 40;
-        config.segments = 4;        // Puedes probar con más segmentos para una mayor compresión
-        config.sns_strength = 0;   // Ajusta la fuerza del ruido espacial (50 es un valor moderado)
-        config.filter_strength = 0; // Ajusta la fuerza del filtro (50 es un valor moderado)
-
-        config.near_lossless = 0;   // Desactiva el modo de pérdida cercana
-     //   config.exact = 0;           // Desactiva el modo de compresión exacta
-        config.alpha_compression = 1; // Comprimir el plano alfa con WebP lossless
-
-        config.alpha_quality = 0; // Establece la calidad del canal alfa al máximo
-
-
-
-        timestamp_ms += duration;
+        config.quality = 70;
+//        config.segments = 4;        // Puedes probar con más segmentos para una mayor compresión
+//        config.sns_strength = 0;   // Ajusta la fuerza del ruido espacial (50 es un valor moderado)
+//        config.filter_strength = 0; // Ajusta la fuerza del filtro (50 es un valor moderado)
+//
+//        config.near_lossless = 0;   // Desactiva el modo de pérdida cercana
+//     //   config.exact = 0;           // Desactiva el modo de compresión exacta
+//        config.alpha_compression = 1; // Comprimir el plano alfa con WebP lossless
+//
+//        config.alpha_quality = 0; // Establece la calidad del canal alfa al máximo
+//
+//
+if(i==0) {
+    timestamp_ms += 750;
+} else{
+    timestamp_ms += duration;
+}
 
 
         WebPAnimEncoderAdd(enc, &picture, timestamp_ms, &config);
-        __android_log_print(ANDROID_LOG_DEBUG, "WebPConverter", "agregados %d ", duration);
+      //  __android_log_print(ANDROID_LOG_DEBUG, "WebPConverter", "agregados %d ", duration);
 
     }
 

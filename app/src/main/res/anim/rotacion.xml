@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+
+    >
+
+    <!-- Animación de entrada -->
+    <translate
+        android:fromYDelta="10%p"
+        android:toYDelta="0"
+
+        android:duration="850" />
+
+    <!-- Retraso antes de la animación inversa -->
+
+
+        <!-- Animación inversa -->
+        <translate
+            android:startOffset="2160"
+            android:fromYDelta="0"
+            android:toYDelta="10%p"
+
+            android:duration="600" />
+
+</set>

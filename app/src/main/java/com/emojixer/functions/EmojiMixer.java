@@ -35,6 +35,8 @@ public class EmojiMixer implements Runnable {
     private String finalbocas;
     private String finalobjetos;
     private String finalmanos;
+    private String finalanimacion;
+
     private int finalancho;
     private int finalleft;
     private int finaltop;
@@ -50,7 +52,7 @@ public class EmojiMixer implements Runnable {
     public String API = "http://animated.emojixer.com/panel/images_formas/";
     public String API4 = "http://animated.emojixer.com/panel/emoji_formado/";
 
-    public String API3 = "http://animated.emojixer.com/panel/images_formas/vacio.png";
+    public String API3 = "http://animated.emojixer.com/panel/images_formas/vacio.json";
 
     public String API2 = "http://animated.emojixer.com/panel/images_manual/";
 
@@ -90,7 +92,7 @@ public class EmojiMixer implements Runnable {
             if (isTaskSuccessful) {
 
                  if (listener != null) {
-                     listener.onSuccess(finalbase,finalojos,finalcejas,finalobjetos,finalbocas,finalojos_objetos,finalmanos,finalancho,finalleft,finaltop,finaltipo,finalextra,finalfondo,finalrotacion,finalrandom);
+                     listener.onSuccess(finalbase,finalojos,finalcejas,finalobjetos,finalbocas,finalojos_objetos,finalmanos,finalancho,finalleft,finaltop,finaltipo,finalextra,finalfondo,finalrotacion,finalrandom,finalanimacion);
 
                 }
             } else {
@@ -124,6 +126,7 @@ public class EmojiMixer implements Runnable {
                     finalcejas = API + totalmodel.getcejas();
                     finalobjetos = API + totalmodel.getobjetos();
                     finalmanos = API + totalmodel.getmanos();
+                    finalanimacion = totalmodel.getanimacion();
                     finalancho = totalmodel.getancho();
                     finalleft = totalmodel.getleft();
                     finaltop = totalmodel.gettop();
@@ -171,8 +174,9 @@ public class EmojiMixer implements Runnable {
 
                   else  if(Objects.equals(tipo1, "objeto") || Objects.equals(tipo2, "objeto")){
                         finaltipo = "objeto";
-                        finalbase = API4 + totalmodel.getbase();
+                        finalbase = API + totalmodel.getbase();
                         finalfondo = API + totalmodel.getfondo();
+
 
                     }
 
@@ -212,7 +216,7 @@ public class EmojiMixer implements Runnable {
 
     public void checkIfImageEmojiInServer(String emoji1, String emoji2) {
         if (!shouldAbortTask) {
-            String Combination = emoji1 + "_" + emoji2 + ".png";
+            String Combination = emoji1 + "_" + emoji2 + ".json";
             finalURL = API2 + Combination;
 
             Log.d(LOG, "Checking url: " + finalURL);
@@ -224,6 +228,7 @@ public class EmojiMixer implements Runnable {
                 finalcejas = API3;
                 finalobjetos = API3;
                 finalmanos = API3;
+                finalanimacion = API3;
                  isTaskSuccessful = true;
             } else {
                 Log.d(LOG, "Couldn't find a combination in the regular order, swap emojis then recheck...");
@@ -235,7 +240,7 @@ public class EmojiMixer implements Runnable {
 
     public void checkReversedEmojis(String emoji1, String emoji2) {
         if (!shouldAbortTask) {
-            String Combination2 = emoji2+"_"+emoji1+".png";
+            String Combination2 = emoji2+"_"+emoji1+".json";
             finalURL = API2 + Combination2;
             Log.d(LOG, "Checking reversed url: " + finalbase);
             if (checkImage(finalURL)) {
@@ -246,6 +251,8 @@ public class EmojiMixer implements Runnable {
                 finalcejas = API3;
                 finalobjetos = API3;
                 finalmanos = API3;
+                finalanimacion = API3;
+
                 isTaskSuccessful = true;
             } else {
                   createemoji();
@@ -275,7 +282,7 @@ public class EmojiMixer implements Runnable {
         Log.i("tag", "sumat2" + finalbase);
 
 
-        listener.onSuccess(finalbase,finalojos,finalcejas,finalobjetos,finalbocas,finalojos_objetos,finalmanos,finalancho,finalleft,finaltop,finaltipo,finalextra,finalfondo,finalrotacion,finalrandom);
+        listener.onSuccess(finalbase,finalojos,finalcejas,finalobjetos,finalbocas,finalojos_objetos,finalmanos,finalancho,finalleft,finaltop,finaltipo,finalextra,finalfondo,finalrotacion,finalrandom,finalanimacion);
 
     }
 
@@ -300,7 +307,7 @@ public class EmojiMixer implements Runnable {
 
     public interface EmojiListener {
 
-        void onSuccess(String emojiUrl,String ojos,String cejas, String objetos, String bocas, String finalojos_objetos,String manos,int ancho,int left,int top,String tipo,String extra,String fondo,float rotacion,int random );
+        void onSuccess(String emojiUrl,String ojos,String cejas, String objetos, String bocas, String finalojos_objetos,String manos,int ancho,int left,int top,String tipo,String extra,String fondo,float rotacion,int random, String animacion);
 
         void onFailure(String failureReason);
     }

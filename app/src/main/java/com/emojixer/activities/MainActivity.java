@@ -2,11 +2,14 @@ package com.emojixer.activities;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE;
+import static com.airbnb.lottie.LottieDrawable.INFINITE;
 import static com.emojixer.functions.UIMethods.shadAnim;
 import static com.emojixer.functions.Utils.getRecyclerCurrentItem;
 import static com.emojixer.functions.Utils.setSnapHelper;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -22,6 +25,7 @@ import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -39,6 +43,9 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.webkit.CookieManager;
 import android.webkit.URLUtil;
 import android.widget.Button;
@@ -64,6 +71,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieComposition;
 import com.airbnb.lottie.LottieCompositionFactory;
 import com.airbnb.lottie.RenderMode;
+import com.airbnb.lottie.model.LottieCompositionCache;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -71,13 +79,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-import com.emojixer.GifEncoder.AnimatedGifEncoder;
+
 import com.emojixer.R;
 import com.emojixer.adapters.EmojimixerAdapter;
 import com.emojixer.functions.CenterZoomLayoutManager;
@@ -137,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
     TextView texto,textotitulo;
     FrameLayout guardarbtn , progreso;
     private LottieAnimationView progressBar;
-    private static final int NUM_FRAMES = 40; // Número total de fotogramas
-    private static final int FRAME_DELAY_MS = 33; // Delay entre fotogramas en milisegundos
+    private static final int NUM_FRAMES = 37; // Número total de fotogramas
+    private static final int FRAME_DELAY_MS = 11; // Delay entre fotogramas en milisegundos
     public WrapContentDraweeView sticker,sticker2;
 
     private int currentFrame = 0;
@@ -154,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView activityDesc;
     private ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
-    LottieAnimationView mixedEmojiojos_objetos,mixedEmoji,mixedEmojiojos,mixedEmojibocas,mixedEmojiobjetos,mixedEmojimanos2,mixedEmojimanos,mixedemojiforma;
+    LottieAnimationView mixedEmojiojos_objetos,mixedEmoji,mixedEmojiojos,mixedEmojibocas,mixedEmojiobjetos,mixedEmojimanos2,mixedEmojimanos,mixedemojiforma,marca;
     private Button emojitop;
     private String emote1;
     private String emote2;
@@ -205,6 +207,7 @@ public class MainActivity extends AppCompatActivity {
     private RenderMode tipo = RenderMode.valueOf("SOFTWARE");
     static Bitmap reusableBitmap;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -218,7 +221,10 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         initLogic();
+
+
         dateTimeKey = "com.example.app.datetime";
+        ensureStickersFolderExists(this);
 
 // use a default value using new Date()
         days = sharedPref.getLong(dateTimeKey, Activity.MODE_PRIVATE);
@@ -294,6 +300,7 @@ public class MainActivity extends AppCompatActivity {
         mixedfondo= findViewById(R.id.emojifondo);
         mas = findViewById(R.id.iconmas);
         explosion = findViewById(R.id.explosion);
+        marca = findViewById(R.id.marca);
 
         saveEmoji = findViewById(R.id.saveEmoji);
         emojisSlider1 = findViewById(R.id.emojisSlider1);
@@ -304,16 +311,16 @@ public class MainActivity extends AppCompatActivity {
         posicioncara =  findViewById(R.id.posicioncara);
         posicionem = findViewById(R.id.posicione);
 
-        layoutEmojiCreation.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-
-        mixedEmojiojos_objetos.setRenderMode(tipo);
-        mixedEmoji.setRenderMode(tipo);
-        mixedEmojiojos.setRenderMode(tipo);
-        mixedEmojibocas.setRenderMode(tipo);
-        mixedEmojiobjetos.setRenderMode(tipo);
-        mixedEmojimanos2.setRenderMode(tipo);
-        mixedEmojimanos.setRenderMode(tipo);
-        mixedemojiforma.setRenderMode(tipo);
+//        layoutEmojiCreation.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+//
+//        mixedEmojiojos_objetos.setRenderMode(tipo);
+//        mixedEmoji.setRenderMode(tipo);
+//        mixedEmojiojos.setRenderMode(tipo);
+//        mixedEmojibocas.setRenderMode(tipo);
+//        mixedEmojiobjetos.setRenderMode(tipo);
+//        mixedEmojimanos2.setRenderMode(tipo);
+//        mixedEmojimanos.setRenderMode(tipo);
+//        mixedemojiforma.setRenderMode(tipo);
 
         emojitop = findViewById(R.id.emojitop);
         emojitop.setOnClickListener(view -> {
@@ -637,14 +644,69 @@ public class MainActivity extends AppCompatActivity {
 
         }
         EmojiMixer em = new EmojiMixer(emoji1, emoji2, idemote2, idemote1, date, this, new EmojiMixer.EmojiListener() {
-
+            Animation animation;
             @Override
-            public void onSuccess(String emojiUrl, String ojos, String cejas, String objetos, String bocas, String finalojos_objetos,String manos,int ancho,int left, int top,String tipo,String extra,String fondo,float rotacion,int random)  {
+            public void onSuccess(String emojiUrl, String ojos, String cejas, String objetos, String bocas, String finalojos_objetos,String manos,int ancho,int left, int top,String tipo,String extra,String fondo,float rotacion,int random,String animacion)  {
 
                 shouldEnableSave(true);
 
                 restraso = false;
 
+
+                if (animacion != null) {
+// Obtener el identificador de recurso entero para la animación
+                    int animationResourceId = context.getResources().getIdentifier(animacion, "anim", context.getPackageName());
+
+                    if (animationResourceId != 0) {
+                        // Cargar la animación si se encontró el recurso
+                        animation = AnimationUtils.loadAnimation(context, animationResourceId);
+                        Log.e(TAG, "onSuccess: aki anima "+animation );
+
+
+                        animation.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+                                // No se necesita implementación
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                // La animación de entrada ha terminado
+                                // Inicia la animación inversa después de un retraso
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        posicionemoji.startAnimation(animation);
+
+                                    }
+                                }, 0); // Espera 2000 milisegundos (2 segundos) antes de iniciar la animación inversa
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+                                // No se necesita implementación
+                            }
+                        });
+                        posicionemoji.startAnimation(animation);
+
+
+                        // Aplicar la animación a una vista, si es necesario
+                        // view.startAnimation(animation);
+                    }
+                }
+                else {
+                    //     posicioncara.setRotation(rotacion);
+
+
+                    Animation animation = AnimationUtils.loadAnimation(context, R.anim.animacion);
+
+                    posicionemoji.startAnimation(animation);
+                    posicionemoji.clearAnimation();
+                    posicionemoji.setRotation(rotacion);
+                    // Manejar el caso en el que la animación no se encuentra en los recursos
+                    // Aquí puedes mostrar un mensaje de error o tomar otra acción apropiada.
+                }
 
                 if (Objects.equals(tipo, "objeto")) {
 
@@ -680,7 +742,13 @@ public class MainActivity extends AppCompatActivity {
                         params.setMargins(left2, top2, 0, 0);
                         posicioncara.setLayoutParams(params2);
 
-                        mixedemojiforma.setImageURI(Uri.parse(extra));
+                        LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(extra)))
+                                .addListener(composition -> {
+                                    mixedemojiforma.setComposition(composition);
+                                    mixedemojiforma.playAnimation();
+                                })
+                        ;
+                       // mixedemojiforma.setImageURI(Uri.parse(extra));
                         mixedfondo.setVisibility(View.VISIBLE);
 
                         mixedfondo.setImageURI(Uri.parse(fondo));
@@ -722,7 +790,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 else if (ancho > 0) {
-                    Log.e("TAG", "aki rotacion ANCHO: " + manos );
 
 
                     //emojis3 iguales y objeto es emojis3 champi frutass....
@@ -866,7 +933,40 @@ public class MainActivity extends AppCompatActivity {
 
 
                         posicionemoji.setRotation(0);
-                        posicioncara.setRotation(rotacion);
+                    //    posicioncara.setRotation(rotacion);
+
+//
+//
+//// Define las coordenadas iniciales y finales de la escala
+//                        float scaleFromX = 1.2f; // Escala inicial en el eje X
+//                        float scaleToX = 1.0f;   // Escala final en el eje X
+//                        float scaleFromY = 1.2f; // Escala inicial en el eje Y
+//                        float scaleToY = 1.0f;   // Escala final en el eje Y
+//
+//                        int durationMillis = 1000; // Por ejemplo, 1 segundo
+//
+//                        ScaleAnimation scaleAnimation = new ScaleAnimation(
+//                                scaleFromX, scaleToX, scaleFromY, scaleToY,
+//                                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.2f
+//                        );
+//                        scaleAnimation.setRepeatCount(-1);
+//
+//                        scaleAnimation.setDuration(durationMillis);
+//
+//                        posicioncara.startAnimation(scaleAnimation);
+
+
+//                        AnimationDrawable animationDrawable = (AnimationDrawable) getResources().getDrawable(R.drawable.animacion);
+//                        posicioncara.setBackground(animationDrawable);
+//                        animationDrawable.start();
+
+//                        Animation customAnimation = AnimationUtils.loadAnimation(context, R.anim.animacion);
+//                        customAnimation.setRepeatMode(Animation.INFINITE);
+//                        customAnimation.setRepeatCount(Animation.INFINITE);
+//
+//                        posicioncara.startAnimation(customAnimation);
+
+
                         mixedemojiforma.setVisibility(View.GONE);
                         int ancho3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, getResources().getDisplayMetrics());
                         Log.e("TAG", "aki rotacion normal: " + ancho );
@@ -921,7 +1021,7 @@ public class MainActivity extends AppCompatActivity {
                 if (lastIndexOfDot != -1) {
                     extension = finalEmojiURL.substring(lastIndexOfDot + 1);
                 }
-                Log.e("TAG", "onSuccess: aki es png "+extension+finalEmojiURL );
+                Log.e("TAG", "onSuccess: aki ojos"+extension+extra);
 
 
 
@@ -932,6 +1032,9 @@ public class MainActivity extends AppCompatActivity {
                     mixedEmoji0.setImageURI(Uri.parse(finalEmojiURL));
                     Log.e("TAG", "onSuccess: aki es png ");
                 } else {
+
+                    mixedEmoji.setVisibility(View.VISIBLE);
+                    mixedEmoji0.setVisibility(View.GONE);
                     Log.e("TAG", "onSuccess: aki es png no ");
                     LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(finalEmojiURL)))
                             .addListener(composition -> {
@@ -950,18 +1053,23 @@ public class MainActivity extends AppCompatActivity {
 
                     LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(objetos)))
                             .addListener(composition -> {
+                                mixedEmojiobjetos.setVisibility(View.VISIBLE);
+
                                 compositionsMap.put("objetos", composition);
                                 operationsCompleted.getAndIncrement();
                                 checkAllOperationsCompleted();
                             })
                             .addFailureListener(exception -> {
-                                mixedEmojiobjetos.setAnimation(R.raw.vacio);
-                                mixedEmojiobjetos.playAnimation();
-                                Log.e("LottieError", "Error al cargar animación desde URL. Usando animación local.", exception);
+                                mixedEmojiobjetos.setVisibility(View.INVISIBLE);
+
+
+
+                              //  Log.e("LottieError", "Error al cargar animación desde URL. Usando animación local objetos.", exception);
                                 operationsCompleted.getAndIncrement();
                                 checkAllOperationsCompleted();
                             });
                 }
+
 
 
 
@@ -975,11 +1083,11 @@ public class MainActivity extends AppCompatActivity {
                             .addFailureListener(exception -> {
                                 // Si falla cargar desde la URL, carga el archivo local
 
-                                mixedEmojibocas.setAnimation(R.raw.vacio);
-                                mixedEmojibocas.playAnimation();
+//                                mixedEmojibocas.setAnimation(R.raw.vacio);
+                              //  mixedEmojibocas.playAnimation();
                                 operationsCompleted.getAndIncrement();
                                 checkAllOperationsCompleted();
-                                Log.e("LottieError", "Error al cargar animación desde URL. Usando animación local.", exception);
+                              //  Log.e("LottieError", "Error al cargar animación desde URL. Usando animación local.", exception);
                             });
                 }
 
@@ -992,11 +1100,11 @@ public class MainActivity extends AppCompatActivity {
                             }).addFailureListener(exception -> {
                                 // Si falla cargar desde la URL, carga el archivo local
 
-                                mixedEmojiojos.setAnimation(R.raw.vacio);
-                                mixedEmojiojos.playAnimation();
+//                                mixedEmojiojos.setAnimation(R.raw.vacio);
+                               // mixedEmojiojos.playAnimation();
                                 operationsCompleted.getAndIncrement();
                                 checkAllOperationsCompleted();
-                                Log.e("LottieError", "Error al cargar animación desde URL. Usando animación local.", exception);
+                             //   Log.e("LottieError", "Error al cargar animación desde URL. Usando animación local.", exception);
                             });
                 }
 
@@ -1013,13 +1121,13 @@ public class MainActivity extends AppCompatActivity {
                             })
                             .addFailureListener(exception -> {
                                 // Si falla cargar desde la URL, carga el archivo local
-                                Log.e("TAG", "aki emoji final2: "+String.valueOf(Uri.parse(finalojos_objetos)) );
+                            //    Log.e("TAG", "aki emoji final2: "+String.valueOf(Uri.parse(finalojos_objetos)) );
                                 mixedEmojiojos_objetos.setVisibility(View.INVISIBLE);
                                 mixedEmojiojos_objetos.setAnimation(R.raw.vacio);
-                                mixedEmojiojos_objetos.playAnimation();
+                             //   mixedEmojiojos_objetos.playAnimation();
                                 operationsCompleted.getAndIncrement();
                                 checkAllOperationsCompleted();
-                                Log.e("LottieError", "Error al cargar animación desde URL. Usando animación local.", exception);
+                               // Log.e("LottieError", "Error al cargar animación desde URL. Usando animación local.", exception);
                             });
                 }
 
@@ -1040,7 +1148,7 @@ public class MainActivity extends AppCompatActivity {
                                 // Si falla cargar desde la URL, carga el archivo local
 
                                 mixedEmojimanos2.setAnimation(R.raw.vacio);
-                                mixedEmojimanos2.playAnimation();
+                             //   mixedEmojimanos2.playAnimation();
                                 operationsCompleted.getAndIncrement();
                                 checkAllOperationsCompleted();
                             });
@@ -1062,7 +1170,7 @@ public class MainActivity extends AppCompatActivity {
                                 // Si falla cargar desde la URL, carga el archivo local
 
                                 mixedEmojimanos.setAnimation(R.raw.vacio);
-                                mixedEmojimanos.playAnimation();
+                           //     mixedEmojimanos.playAnimation();
                                 operationsCompleted.getAndIncrement();
                                 checkAllOperationsCompleted();
                             });
@@ -1116,34 +1224,41 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void mostraranimacion(){
-        Log.e("TAG", "careta mas lento: " );
 
         // Todas las operaciones se han completado
         if (compositionsMap.containsKey("finalEmojiURL")) {
+            Log.e(TAG, "mostraranimacion: aki base "+finalEmojiURL );
             mixedEmoji.setComposition(compositionsMap.get("finalEmojiURL"));
             mixedEmoji.playAnimation();
+            mixedEmoji.setRepeatCount(INFINITE);
         }
         if (compositionsMap.containsKey("objetos")) {
+            Log.e(TAG, "mostraranimacion: aki llego " );
             mixedEmojiobjetos.setComposition(compositionsMap.get("objetos"));
             mixedEmojiobjetos.playAnimation();
+            mixedEmojiobjetos.setRepeatCount(INFINITE);
         }
         if (compositionsMap.containsKey("bocas")) {
             mixedEmojibocas.setComposition(compositionsMap.get("bocas"));
             mixedEmojibocas.playAnimation();
-            Log.e("TAG", "aki resultado de todos: " + compositionsMap.get("bocas"));
+            mixedEmojibocas.setRepeatCount(INFINITE);
+            Log.e("TAG", "aki resultado de bocas: " + compositionsMap.get("bocas"));
 
         }
         if (compositionsMap.containsKey("ojosfinal")) {
             mixedEmojiojos.setComposition(compositionsMap.get("ojosfinal"));
             mixedEmojiojos.playAnimation();
+            mixedEmojiojos.setRepeatCount(INFINITE);
         }
         if (compositionsMap.containsKey("finalojos_objetos")) {
             mixedEmojiojos_objetos.setComposition(compositionsMap.get("finalojos_objetos"));
             mixedEmojiojos_objetos.playAnimation();
+            mixedEmojiojos_objetos.setRepeatCount(INFINITE);
         }
         if (compositionsMap.containsKey("manos")) {
             mixedEmojimanos2.setComposition(compositionsMap.get("manos"));
             mixedEmojimanos2.playAnimation();
+            mixedEmojimanos2.setRepeatCount(INFINITE);
         }
     }
 
@@ -1153,10 +1268,12 @@ public class MainActivity extends AppCompatActivity {
         if (shouldShow) {
             //  Log.e("TAG", "aki entro:+finalEmojiURL " );
 
-            shadAnim(layoutEmojiCreation, "scaleY", 1, 400);
-            shadAnim(layoutEmojiCreation, "scaleX", 1, 400);
+//            shadAnim(layoutEmojiCreation, "scaleY", 1, 400);
+//            shadAnim(layoutEmojiCreation, "scaleX", 1, 400);
 //            shadAnim(layoutEmojiCreation, "rotation", 360f, 400);
-            shadAnim(layoutEmojiCreation, "translationY", 0, 400);
+  //     shadAnim(layoutEmojiCreation, "translationX", 1, 400);
+            shadAnim(layoutEmojiCreation, "alpha", 1f, 800); // Cambia el valor "0.5f" según tus necesidades
+
 
 //           shadAnim(progressBar, "scaleY", 0, 300);
 //           shadAnim(progressBar, "scaleX", 0, 300);
@@ -1164,12 +1281,15 @@ public class MainActivity extends AppCompatActivity {
             //    Log.e("TAG", "aki entro2:+finalEmojiURL " );
             mas.playAnimation();
             //   explosion.setImageURI("http://emojixer.emojinew.com/panel/explosion.webp");
-            shadAnim(layoutEmojiCreation, "scaleY", 0.2, 400);
-            shadAnim(layoutEmojiCreation, "scaleX", 0.2, 400);
-//            shadAnim(layoutEmojiCreation, "rotation", 0f, 400);
-            int anc = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 160, getResources().getDisplayMetrics());
+//            shadAnim(layoutEmojiCreation, "scaleY", 0, 400);
+//            shadAnim(layoutEmojiCreation, "scaleX", 0, 400);
+  //          shadAnim(layoutEmojiCreation, "translationX", 0, 400);
+            shadAnim(layoutEmojiCreation, "alpha", 0.0f, 800); // Cambia el valor "0.5f" según tus necesidades
 
-            // shadAnim(layoutEmojiCreation, "translationY", anc, 400);
+//            shadAnim(layoutEmojiCreation, "rotation", 0f, 400);
+//            int anc = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 160, getResources().getDisplayMetrics());
+//
+//           shadAnim(layoutEmojiCreation, "translationY", anc, 400);
 
 
 //           shadAnim(progressBar, "scaleY", 1, 300);
@@ -1194,96 +1314,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void setImageFromUrl(ImageView image, String url) {
-        Glide.with(this)
-                .load(url)
-                .fitCenter()
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .listener(
-                        new RequestListener<Drawable>() {
-                            @Override
-                            public boolean onLoadFailed(GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                                shouldShowEmoji(true);
-                                return false;
-                            }
 
-                            @Override
-                            public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                                shouldShowEmoji(true);
-                                return false;
-                            }
-                        }
-                )
-                .into(image);
-    }
-    private static final long DURATION = 3000;  // Duración total de 3 segundos
-    private final Handler handler = new Handler();
-    private AlertDialog currentDialog;
-    private ImageView dialogImageView; // Para mantener una referencia a la ImageView del AlertDialog.
 
-    private final ArrayList<Bitmap> bitmaps = new ArrayList<>();
-
-    public void captureFrames(final FrameLayout frameLayout) {
-        final long startTime = System.currentTimeMillis();
-        final Timer timer = new Timer();
-        final Handler handler = new Handler(Looper.getMainLooper());
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Captured FrameLayout");
-        ImageView imageView = new ImageView(MainActivity.this);
-        builder.setView(imageView);
-        builder.setPositiveButton("OK", null);
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-        TimerTask captureTask = new TimerTask() {
-            @Override
-            public void run() {
-                // Crear un bitmap de la vista del FrameLayout
-                Bitmap bitmap = Bitmap.createBitmap(frameLayout.getWidth(), frameLayout.getHeight(), Bitmap.Config.ARGB_8888);
-                Canvas canvas = new Canvas(bitmap);
-                frameLayout.draw(canvas);
-
-                // Actualizar el ImageView del AlertDialog con el nuevo bitmap
-                runOnUiThread(() -> {
-                    imageView.setImageBitmap(bitmap);
-
-                });
-            }
-        };
-
-        timer.scheduleAtFixedRate(captureTask, 0, 10);
-    }
-
-    public void showBitmap(Bitmap bitmap) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        dialogImageView = new ImageView(this);
-        dialogImageView.setImageBitmap(bitmap);
-
-        builder.setView(dialogImageView);
-        builder.setPositiveButton("Next", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-
-        currentDialog = builder.show();
-    }
-
-    public void generateGifWithNdkGif(ArrayList<Bitmap> frames, String path) throws FileNotFoundException {
-        GifEncoder gifEncoder = new GifEncoder();
-        if (!frames.isEmpty()) {
-            Bitmap firstFrame = frames.get(0);
-
-            // Comienza la codificación del GIF
-            gifEncoder.init(firstFrame.getWidth(), firstFrame.getHeight(), path, GifEncoder.EncodingType.ENCODING_TYPE_SIMPLE_FAST);
-
-            for (Bitmap frame : frames) {
-                gifEncoder.encodeFrame(frame, 50); // 70ms de delay entre frames
-            }
-
-            gifEncoder.close();
-        }
-    }
     private Bitmap getBitmapFromView(View view) {
         Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(returnedBitmap);
@@ -1304,166 +1336,7 @@ public class MainActivity extends AppCompatActivity {
         backgroundHandler = new Handler(handlerThread.getLooper());
     }
 
-    public void showAnimatedFile() {
-        // ... Resto de tu código ...
 
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_layout, null);
-        ProgressBar progressBar = dialogView.findViewById(R.id.progressBar);
-        ImageView capturedImageView = dialogView.findViewById(R.id.capturedImageView);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(dialogView);
-        builder.setTitle("Capturando imágenes");
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-
-        final File[] file = new File[1];
-        i = 0;
-        savewebp.clear();
-
-        reusableBitmap = Bitmap.createBitmap(layoutEmojiCreation.getWidth(), layoutEmojiCreation.getHeight(), Bitmap.Config.ARGB_8888);
-
-        initHandlerThread();
-
-        Runnable captureTask = new Runnable() {
-            @Override
-            public void run() {
-                // Aquí va tu tarea de captura de bitmap
-
-                Bitmap bitmap = getBitmapFromView(layoutEmojiCreation); // Cambio en la captura del frame
-
-                if (bitmap == null) {
-                    Log.e("bitmaps", "Failed");
-                }
-                savewebp.add(bitmap);
-
-                i++;
-                if (i < 25) {
-                    Log.e("TAG", "aki run: " + i);
-                    // Muestra el bitmap capturado en tiempo real en el AlertDialog
-                    runOnUiThread(() -> {
-                        if (capturedImageView.getDrawable() != null) {
-                            Bitmap oldBitmap = ((BitmapDrawable) capturedImageView.getDrawable()).getBitmap();
-                            if (oldBitmap != null && !oldBitmap.isRecycled()) {
-                                oldBitmap.recycle();
-                            }
-                        }
-                        capturedImageView.setImageBitmap(bitmap);
-                        progressBar.setProgress(i + 1);
-                    });
-
-                    backgroundHandler.postDelayed(this, 33); // Esto postea la tarea nuevamente después de 33ms.
-                } else {
-                    // El resto de tu código cuando i==20
-                    file[0] = FileUtil.onCreateWebpFile(savewebp, MainActivity.this, getFilesDir() + "/stickers");
-
-                    runOnUiThread(() -> {
-                        // Cerrar el AlertDialog
-                        alertDialog.dismiss();
-                        Log.e("TAG", "aki run gif ruta: " + Uri.fromFile(file[0]));
-
-                        // Mostrar el GIF en DisplayBitmapActivity
-//                    Intent intent = new Intent(MainActivity.this, DisplayBitmapActivity.class);
-//                    intent.putExtra("gif_path", Uri.fromFile(file[0])); // Enviar la URI del GIF
-//                    startActivity(intent);
-                    });
-
-                    stopHandlerThread();
-                }
-            }
-        };
-        backgroundHandler.post(captureTask); // Comienza la tarea
-    }
-    public static Bitmap captureLottieFrame(View view) {
-        Canvas canvas = new Canvas(reusableBitmap);
-        view.layout(0, 0, view.getLayoutParams().width, view.getLayoutParams().height);
-        view.draw(canvas);
-        return reusableBitmap;
-    }
-    // Cambio en la captura de frames
-
-
-    public void stopHandlerThread() {
-        if (handlerThread != null) {
-            handlerThread.quitSafely();
-            try {
-                handlerThread.join();
-                handlerThread = null;
-                backgroundHandler = null;
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    // ... El resto de tu código ...
-
-
-    private class CreateGifTask extends AsyncTask<Void, Void, File> {
-        @Override
-        protected File doInBackground(Void... voids) {
-
-            return FileUtil.onCreateWebpFile(savewebp, MainActivity.this, getFilesDir() + "/stickers/");
-        }
-
-        @Override
-        protected void onPostExecute(File file) {
-            // Actualizar la interfaz de usuario con el GIF creado aquí.
-            TextView ok = dialog.findViewById(R.id.btn_ok);
-            TextView share =  dialog.findViewById(R.id.btn_share);
-
-            share.setVisibility(View.VISIBLE);
-            ok.setVisibility(View.VISIBLE);
-            GifImageView prog =  dialog.findViewById(R.id.progress);
-            prog.setVisibility(View.GONE);
-
-            TextView txtguardado =  dialog.findViewById(R.id.txtguardado);
-            WrapContentDraweeView img =  dialog.findViewById(R.id.iv_emoji);
-            img.setImageURI(Uri.fromFile(file));
-            txtguardado.setText("guardado");
-            dialog.findViewById(R.id.btn_ok).setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    dialog.dismiss();
-                }
-            });
-            dialog.findViewById(R.id.btn_share).setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    dialog.dismiss();
-                    try {
-                        Utility.shareFile(MainActivity.this, file);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
-    }
-
-    private void createGif(List<Bitmap> frames) {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        AnimatedGifEncoder gifEncoder = new AnimatedGifEncoder();
-        gifEncoder.setDelay((int) 0);  // Ajustar el delay del GIF al período para que tenga 30 FPS
-        gifEncoder.start(bos);
-        for (Bitmap frame : frames) {
-            gifEncoder.addFrame(frame);
-            frame.recycle();
-        }
-        gifEncoder.finish();
-
-        File gifFile = new File(getFilesDir() + "/stickers/Gifs/", "filename.gif");
-        try (FileOutputStream fos = new FileOutputStream(gifFile)) {
-            fos.write(bos.toByteArray());
-            fos.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        img.setImageURI(Uri.fromFile(gifFile));
-
-
-
-
-    }
     private void cancelAllAnimations() {
         if (mixedEmojiojos_objetos != null) {
             mixedEmojiojos_objetos.cancelAnimation();
@@ -1544,8 +1417,48 @@ public class MainActivity extends AppCompatActivity {
         // Crear un ProgressDialog determinado por el progreso
 
         // Cuando el AlertDialog se muestra, comienza la captura de frames
-        captureNextFrame(layoutEmojiCreation, capturedImages, capturedImageView);
 
+        mixedEmojiojos_objetos.setProgress(0f); // Establece el progreso al principio
+        mixedEmojiojos_objetos.getDuration();
+
+        Log.e(TAG, "captureMultipleImages: duracion ojos objeto "+mixedEmojiojos_objetos.getFrame()+"| objetos "+mixedEmojiobjetos.getDuration()+"| ojos "+mixedEmojiojos.getDuration()+"| bocas"+mixedEmojibocas.getDuration()+"| base"+mixedEmoji.getDuration()+" | manos"+mixedEmojimanos.getDuration()+"| forma "+mixedemojiforma.getDuration() );
+
+        mixedEmojiobjetos.setProgress(0f); // Establece el progreso al principio
+
+        mixedEmojimanos2.setProgress(0f); // Establece el progreso al principio
+
+        mixedEmojimanos.setProgress(0f); // Establece el progreso al principio
+
+        mixedEmojiojos.setProgress(0f); // Establece el progreso al principio
+
+        mixedEmoji.setProgress(0f); // Establece el progreso al principio
+
+        mixedEmojibocas.setProgress(0f); // Establece el progreso al principio
+
+        mixedemojiforma.setProgress(0f); // Establece el progreso al principio
+        mixedEmojibocas.setRepeatCount(0);
+        mixedEmojiobjetos.setRepeatCount(0);
+        mixedEmojimanos2.setRepeatCount(0);
+        mixedEmojimanos.setRepeatCount(0);
+        mixedEmojiojos.setRepeatCount(0);
+        mixedEmoji.setRepeatCount(0);
+        mixedemojiforma.setRepeatCount(0);
+        mixedEmojiojos_objetos.setRepeatCount(0);
+        captureNextFrame(layoutEmojiCreation, capturedImages, capturedImageView);
+         marca.setAnimation(R.raw.marca);
+        marca.setVisibility(View.VISIBLE);
+        marca.playAnimation();
+
+
+
+//        mixedEmojiojos_objetos.cancelAnimation();
+//        mixedEmojiobjetos.cancelAnimation();
+//        mixedEmojimanos.cancelAnimation();
+//        mixedemojiforma.cancelAnimation();
+//        mixedEmojibocas.cancelAnimation();
+//        mixedEmoji.cancelAnimation();
+//        mixedEmojiojos.cancelAnimation();
+//        mixedEmojimanos2.cancelAnimation();
         Log.e("TAG", "captureMultipleImages3: " + capturedImages);
         progreso.setVisibility(View.VISIBLE);
         guardarbtn.setVisibility(View.INVISIBLE);
@@ -1564,7 +1477,19 @@ public class MainActivity extends AppCompatActivity {
             // alertDialog.dismiss();
         });
     }
+    public static void ensureStickersFolderExists(Context context) {
+        File stickersFolder = new File(context.getFilesDir(), "stickers");
 
+        if (!stickersFolder.exists()) {
+            if (stickersFolder.mkdirs()) {
+                Log.d("StickersFolder", "Carpeta stickers creada correctamente.");
+            } else {
+                Log.e("StickersFolder", "No se pudo crear la carpeta stickers.");
+            }
+        } else {
+            Log.d("StickersFolder", "La carpeta stickers ya existe.");
+        }
+    }
     private static Bitmap getBitmapFromView(FrameLayout layout) {
         Bitmap bitmap = Bitmap.createBitmap(layout.getWidth(), layout.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -1615,7 +1540,7 @@ public class MainActivity extends AppCompatActivity {
 
 // Luego, en tu código donde actualizas el progreso y el texto:
             runOnUiThread(() -> {
-                Log.e("TAG", "captureMultipleImages2: " + currentFrame);
+              //  Log.e("TAG", "captureMultipleImages2: " + currentFrame);
 
                 capturedImageView.setImageBitmap(originalBitmap);
 
@@ -1647,6 +1572,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             runOnUiThread(() -> {
+                marca.setVisibility(View.INVISIBLE);
 
             });
 

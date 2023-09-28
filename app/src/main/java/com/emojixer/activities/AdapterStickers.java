@@ -44,17 +44,24 @@ public class AdapterStickers extends RecyclerView.Adapter<AdapterStickers.MViewH
     private Activity mContext;
     public static List<String> stickersWhassap= new ArrayList<>();
 
-    public static void readStickerWhassap(Context context,String filename)
-    {
+    public static void readStickerWhassap(Context context, String filename) {
         List<File> item = new ArrayList<>();
-        File f =  new File(context.getFilesDir(), "stickers");
+        File f = new File(context.getFilesDir(), "stickers");
         File[] files = f.listFiles();
-        if(files!=null) {
+        if (files != null) {
+            long maxSize = 500 * 1024; // 500 KB en bytes
             for (int i = 0; i < files.length; i++) {
                 File file = files[i];
-                if (!file.isDirectory())
-                    item.add(file);
+                if (!file.isDirectory()) {
+                    long fileSize = file.length(); // Tamaño del archivo en bytes
+                    if (fileSize <= maxSize) {
+                        item.add(file);
+                        Log.e("Files aki", file.getName());
+
+                    }
+                }
             }
+
             for (int i = 0; i < item.size() - 1; i++) {
                 for (int j = i + 1; j < item.size(); j++) {
                     if (item.get(i).lastModified() > item.get(j).lastModified()) {
@@ -64,16 +71,24 @@ public class AdapterStickers extends RecyclerView.Adapter<AdapterStickers.MViewH
                     }
                 }
             }
+
             List<String> salida = new ArrayList<>();
-            for (int i = 0; i < item.size(); i++) {
-                if(item.get(i).getName().contains(filename)) {
-                    salida.add(item.get(i).getName());
-                    Log.e("Files", item.get(i).getName());
+
+            if (files != null) {
+                for (File file : files) {
+                    if (!file.isDirectory() && file.getName().contains(filename)) {
+                        long fileSize = file.length(); // Tamaño del archivo en bytes
+                        if (fileSize <= maxSize) {
+                            salida.add(file.getName());
+                            Log.e("Files aki", file.getName());
+                        }
+                    }
                 }
             }
             stickersWhassap = salida;
         }
     }
+
     public static void deleteStickerWhassap(Context context)
     {
         List<File> item = new ArrayList<>();
@@ -133,6 +148,20 @@ public class AdapterStickers extends RecyclerView.Adapter<AdapterStickers.MViewH
         String extension = stickersWhassap.get(position).substring(stickersWhassap.get(position).lastIndexOf("."));
      //   ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithResourceId(R.drawable.base25).build();
         Log.e("files","Gif detected "+uri.getPath());
+        // Verificar el tamaño del archivo
+        File file = new File(uri.getPath());
+        long fileSize = file.length(); // Tamaño del archivo en bytes
+        long maxSize = 500 * 1024; // 500 KB en bytes
+
+        if (fileSize <= maxSize) {
+            // El archivo es menor o igual a 500 KB, lo mostramos
+            viewHolder.sticker.setImageURI(uri);
+            // Resto del código para compartir y otras operaciones
+        } else {
+            // El archivo es mayor a 500 KB, no lo mostramos
+            viewHolder.bloquesticker.setVisibility(View.GONE);
+        }
+
         if(extension.equals(".gif"))
         {
             Log.e("files","Gif detected "+uri.getPath());
@@ -150,8 +179,7 @@ public class AdapterStickers extends RecyclerView.Adapter<AdapterStickers.MViewH
          //   viewHolder.sticker.setImageURI(Uri.parse("file://" + uri.getPath()));
           //  viewHolder.sticker.setImageURI(uri);
         }
-        else
-            viewHolder.sticker.setImageURI(uri);
+
 
         viewHolder.sticker.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("RestrictedApi")
@@ -308,37 +336,41 @@ public class AdapterStickers extends RecyclerView.Adapter<AdapterStickers.MViewH
             View view = LayoutInflater.from(context).inflate(R.layout.dialogo_trasparente_imagen, null);
             WrapContentDraweeView imageView = view.findViewById(R.id.sticker_preview);
             Uri uri = Uri.fromFile(new File(mContext.getFilesDir() + "/stickers/" + stickersWhassap.get(position)));
-            view.findViewById(R.id.compartir).setOnClickListener(new View.OnClickListener() {
-                @SuppressLint("RestrictedApi")
-                @Override
-                public void onClick(View view) {
-                    if(new File(uri.getPath()).getName().contains("AImage")) {
-                        Bitmap transBmp = Bitmap.createBitmap(512, 512, Bitmap.Config.ARGB_8888);
-                        transBmp.eraseColor(Color.WHITE);
-                        Bitmap bitmap = BitmapFactory.decodeFile(uri.getPath());
-                        transBmp = GlobalClass.mergeToPin(transBmp, bitmap, mContext);
-                        if (transBmp != null)
-                            GlobalClass.compartir(mContext, transBmp);
-                    }else{
-                        try {
-                            Utility.shareFile(context,new File(uri.getPath()));
-                        } catch (IOException e) {
-                            e.printStackTrace();
+            // Verificar el tamaño del archivo
+            File file = new File(uri.getPath());
+            long fileSize = file.length(); // Tamaño del archivo en bytes
+            long maxSize = 500 * 1024; // 500 KB en bytes
+
+            if (fileSize <= maxSize) {
+                // El archivo es menor o igual a 500 KB, lo mostramos
+                imageView.setImageURI(uri);
+                container.addView(view);
+                // Resto del código para compartir y otras operaciones
+                view.findViewById(R.id.compartir).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (new File(uri.getPath()).getName().contains("AImage")) {
+                            Bitmap transBmp = Bitmap.createBitmap(512, 512, Bitmap.Config.ARGB_8888);
+                            transBmp.eraseColor(Color.WHITE);
+                            Bitmap bitmap = BitmapFactory.decodeFile(uri.getPath());
+                            transBmp = GlobalClass.mergeToPin(transBmp, bitmap, mContext);
+                            if (transBmp != null)
+                                GlobalClass.compartir(mContext, transBmp);
+                        } else {
+                            try {
+                                Utility.shareFile(context, new File(uri.getPath()));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
-               //     Log.e("Animated gif file",uri.getPath());
-                  /*  Uri imageUri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", new File(uri.getPath()));
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_SEND);
-                    intent.putExtra(Intent.EXTRA_TEXT, context.getString(R.string.compartir) + "\n" + context.getString(R.string.url_corla));
-                    intent.putExtra(Intent.EXTRA_STREAM, imageUri);
-                  //  intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                   intent.setType("image/*");
-                    context.startActivity(intent);*/
-                }
-            });
-            imageView.setImageURI(uri);
-            container.addView(view);
+                });
+            } else {
+                // El archivo es mayor a 500 KB, no lo mostramos
+                container.removeView(view);
+
+            }
+
             return view;
         }
 

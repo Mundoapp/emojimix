@@ -82,9 +82,9 @@ import java.util.concurrent.Executors;
 
 public class Emojitop extends AppCompatActivity {
     private LottieAnimationView saveEmoji;
-    private WrapContentDraweeView mixedemojiforma,mixedfondo,mixedEmojicejas,explosion,mixedEmoji0;
+    private WrapContentDraweeView mixedfondo,mixedEmojicejas,explosion,mixedEmoji0;
     private LottieAnimationView progressBar;
-    LottieAnimationView mixedEmojiojos_objetos,mixedEmoji,mixedEmojiojos,mixedEmojibocas,mixedEmojiobjetos,mixedEmojimanos2,mixedEmojimanos;
+    LottieAnimationView mixedEmojiojos_objetos,mixedEmoji,mixedEmojiojos,mixedEmojibocas,mixedEmojiobjetos,mixedEmojimanos2,mixedEmojimanos,mixedemojiforma;
 
     private TextView activityDesc;
     private Button emojitop;
@@ -404,7 +404,7 @@ public class Emojitop extends AppCompatActivity {
             EmojiMixer em = new EmojiMixer(emoji1, emoji2, idemote2, idemote1, date, this, new EmojiMixer.EmojiListener() {
 
                 @Override
-                public void onSuccess(String emojiUrl, String ojos, String cejas, String objetos, String bocas, String finalojos_objetos, String manos, int ancho, int left, int top, String tipo, String extra, String fondo, float rotacion, int random) {
+                public void onSuccess(String emojiUrl, String ojos, String cejas, String objetos, String bocas, String finalojos_objetos, String manos, int ancho, int left, int top, String tipo, String extra, String fondo, float rotacion, int random,String animacion) {
 
                     shouldEnableSave(true);
 
