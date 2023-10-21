@@ -56,6 +56,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.emojixer.R;
+import com.emojixer.adapters.EmojiTopAdapter;
 import com.emojixer.adapters.EmojimixerAdapter;
 import com.emojixer.functions.CenterZoomLayoutManager;
 import com.emojixer.functions.EmojiMixer;
@@ -186,25 +187,6 @@ public class Emojitop extends AppCompatActivity {
         });
 
 
-        mixedEmoji.setOnClickListener(view -> {
-            isFineToUseListeners = false;
-            int random1 = 0;
-            int random2 = 0;
-            for (int i = 0; i < 2; i++) {
-                Random rand = new Random();
-
-                int randomNum = rand.nextInt((supportedEmojisList.size()) - 1);
-                if (i == 0) {
-                    random1 = randomNum;
-                    emojisSlider1.smoothScrollToPosition(randomNum);
-                }
-            }
-
-//
-
-            emote1 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("emoji_formado")).toString();
-
-        });
 
         saveEmoji.setOnClickListener(view -> {
 
@@ -285,12 +267,15 @@ public class Emojitop extends AppCompatActivity {
 
     private void LOGIC_BACKEND() {
 
-        emojisSlider1LayoutManager = new CenterZoomLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        emojisSlider1LayoutManager = new LinearLayoutManager(this);
+        emojisSlider1LayoutManager.setOrientation(LinearLayoutManager.VERTICAL); // Opcional, para una lista vertical
+
+        emojisSlider1.setLayoutManager(emojisSlider1LayoutManager);
         setSnapHelper(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager);
 
         emojisSlider1.setLayoutManager(emojisSlider1LayoutManager);
 
-        emojisSlider1.addItemDecoration(new offsetItemDecoration(this));
+       // emojisSlider1.addItemDecoration(new offsetItemDecoration(this));
 
 
         requestSupportedEmojis.startRequestNetwork(RequestNetworkController.GET, api_emojis, "", requestSupportedEmojisListener);
@@ -314,7 +299,7 @@ public class Emojitop extends AppCompatActivity {
             supportedEmojisList = new Gson().fromJson(data, new TypeToken<ArrayList<HashMap<String, Object>>>() {
             }.getType());
             handler.post(() -> {
-                emojisSlider1.setAdapter(new EmojimixerAdapter(supportedEmojisList, emojisSlider1LayoutManager, Emojitop.this));
+                emojisSlider1.setAdapter(new EmojiTopAdapter(supportedEmojisList, emojisSlider1LayoutManager, Emojitop.this));
 //                idemoji1 = Objects.requireNonNull(supportedEmojisList.get(1).get("idemoji1").toString());
 //                idemoji2 = Objects.requireNonNull(supportedEmojisList.get(1).get("idemoji2").toString());
 
@@ -336,15 +321,15 @@ public class Emojitop extends AppCompatActivity {
                         }
                     }
 
-                 //   shouldShowEmoji(false);
 
-//                    emote1 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("emoji_formado")).toString();
-//                    emote2 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider2, emojisSlider2SnapHelper, emojisSlider2LayoutManager)).get("emoji_formado")).toString();
-//
-//                    idemote1 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("Id")).toString();
-//                    idemote2 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider2, emojisSlider2SnapHelper, emojisSlider2LayoutManager)).get("Id")).toString();
-//                    Log.e("TAG", "addDataToSliders: "+idemote1+" dos"+idemote2 );
-                //    mixEmojis(emote1, emote2, Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("Id")).toString());
+
+
+
+
+
+
+
+
 
                     registerViewPagersListener();
 
@@ -371,8 +356,7 @@ public class Emojitop extends AppCompatActivity {
                     idemote2 = Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("id_emoji2")).toString();
 
                     shouldShowEmoji(false);
-                    mixEmojis(emote1, emote2, Objects.requireNonNull(supportedEmojisList.get(getRecyclerCurrentItem(emojisSlider1, emojisSlider1SnapHelper, emojisSlider1LayoutManager)).get("Id")).toString());
-                    isFineToUseListeners = false;
+                     isFineToUseListeners = false;
                     Log.e("TAG", "addDataToSliders1: "+idemote1+" dos"+idemote2 );
 
                 }
@@ -384,392 +368,6 @@ public class Emojitop extends AppCompatActivity {
 
 
 
-        private void mixEmojis (String emoji1, String emoji2, String date){
-
-            shouldEnableSave(false);
-            // progressBar.setVisibility(View.GONE);
-            Log.e("TAG", "addDataToSliders: " + emoji1 + " dos" + idemote2);
-            if (TextUtils.isEmpty(idemote1)) {
-                idemote1 = "12";
-                Log.e("TAG", "addDataToSliders entrr: " + emoji1 + " dos" + idemote2);
-
-
-            }
-            if (TextUtils.isEmpty(idemote2)) {
-                idemote2 = "26";
-                Log.e("TAG", "addDataToSliders entrr: " + emoji1 + " dos" + idemote2);
-
-
-            }
-            EmojiMixer em = new EmojiMixer(emoji1, emoji2, idemote2, idemote1, date, this, new EmojiMixer.EmojiListener() {
-
-                @Override
-                public void onSuccess(String emojiUrl, String ojos, String cejas, String objetos, String bocas, String finalojos_objetos, String manos, int ancho, int left, int top, String tipo, String extra, String fondo, float rotacion, int random,String animacion) {
-
-                    shouldEnableSave(true);
-
-
-                    if (Objects.equals(tipo, "objeto")) {
-
-                        if (emoji1 == emoji2) {
-                            mixedemojiforma.setVisibility(View.VISIBLE);
-
-                            mixedemojiforma.setImageURI(Uri.parse(extra));
-                            mixedfondo.setVisibility(View.VISIBLE);
-
-                            mixedfondo.setImageURI(Uri.parse(fondo));
-                            Log.e("TAG", "objeto igual: " + extra);
-                        } else {
-
-                            int ancho2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, ancho, getResources().getDisplayMetrics());
-                            int left2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, left, getResources().getDisplayMetrics());
-                            int top2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, getResources().getDisplayMetrics());
-                            int ancho3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, getResources().getDisplayMetrics());
-
-
-                            posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
-                            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) posicionemoji.getLayoutParams();
-                            params.setMargins(left2, top2, 0, 0);
-                            posicionemoji.setLayoutParams(params);
-                            posicionemoji.setRotation(rotacion);
-                            Log.e("TAG", "aki rotacion objeto: " + rotacion);
-
-                            mixedemojiforma.setVisibility(View.VISIBLE);
-                            posicioncara.setRotation(0);
-
-                            mixedemojiforma.setImageURI(Uri.parse(extra));
-                            mixedfondo.setVisibility(View.VISIBLE);
-
-                            mixedfondo.setImageURI(Uri.parse(fondo));
-
-                            mixedemojiforma.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
-                            ViewGroup.MarginLayoutParams params4 = (ViewGroup.MarginLayoutParams) mixedemojiforma.getLayoutParams();
-                            params4.setMargins(0, 0, 0, 0);
-                            mixedemojiforma.setLayoutParams(params4);
-                            mixedemojiforma.setRotation(0);
-                        }
-                    } else if (Objects.equals(tipo, "objetodoble")) {
-                        int ancho2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, getResources().getDisplayMetrics());
-                        int left2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics());
-                        int top2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, getResources().getDisplayMetrics());
-                        int ancho3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, getResources().getDisplayMetrics());
-
-
-                        posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
-                        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) posicionemoji.getLayoutParams();
-                        params.setMargins(left2, top2, 0, 0);
-                        posicionemoji.setLayoutParams(params);
-                        posicionemoji.setRotation(0);
-
-                        mixedemojiforma.setVisibility(View.VISIBLE);
-                        posicioncara.setRotation(0);
-
-                        mixedemojiforma.setImageURI(Uri.parse(extra));
-                        mixedfondo.setVisibility(View.VISIBLE);
-
-                        mixedfondo.setImageURI(Uri.parse(fondo));
-                        Log.e("TAG", "aki base objeto doble: " + fondo);
-
-                        mixedemojiforma.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
-                        ViewGroup.MarginLayoutParams params4 = (ViewGroup.MarginLayoutParams) mixedemojiforma.getLayoutParams();
-                        params4.setMargins(0, 0, 0, 0);
-                        mixedemojiforma.setLayoutParams(params4);
-                        mixedemojiforma.setRotation(0);
-                    } else if (ancho > 0) {
-                        Log.e("TAG", "aki rotacion ANCHO: " + manos);
-
-
-                        //emojis3 iguales y objeto es emojis3 champi frutass....
-                        if (Objects.equals(emote1, emote2) && Objects.equals(tipo, "emojis3")) {
-
-                            posicionemoji.setRotation(0);
-                            posicioncara.setRotation(rotacion);
-                            mixedemojiforma.setVisibility(View.GONE);
-                            int ancho3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, getResources().getDisplayMetrics());
-                            Log.e("TAG", "aki rotacion emojis3: " + ancho);
-                            posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
-                            ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) posicionemoji.getLayoutParams();
-                            params2.setMargins(0, 0, 0, 0);
-                            posicionemoji.setLayoutParams(params2);
-
-                            int ancho2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, ancho, getResources().getDisplayMetrics());
-                            int left2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, left, getResources().getDisplayMetrics());
-                            int top2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, getResources().getDisplayMetrics());
-
-
-                            posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
-                            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) posicioncara.getLayoutParams();
-                            params.setMargins(left2, top2, 0, 0);
-                            posicioncara.setLayoutParams(params);
-                        }
-
-
-                        //emojis iguales y objeto es emojis
-                        else if (Objects.equals(emote1, emote2) && Objects.equals(tipo, "emoji")) {
-
-//                        Careta version
-                            if (random == 1) {
-                                mixedemojiforma.setVisibility(View.VISIBLE);
-                                mixedemojiforma.setImageURI(Uri.parse(extra));
-                                //    Log.e("TAG", "aki igual emoji: "+extra);
-                                int left2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, left, getResources().getDisplayMetrics());
-                                int top2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, getResources().getDisplayMetrics());
-                                int ancho3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, ancho, getResources().getDisplayMetrics());
-                                int ancho4 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, ancho - 50, getResources().getDisplayMetrics());
-
-                                mixedemojiforma.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
-                                ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) mixedemojiforma.getLayoutParams();
-                                params2.setMargins(0, top2, 0, 0);
-                                mixedemojiforma.setLayoutParams(params2);
-                                mixedemojiforma.setRotation(0);
-
-                                Log.e("TAG", "aki rotacion careta: " + rotacion);
-                                posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho4, ancho4));
-                                ViewGroup.MarginLayoutParams params3 = (ViewGroup.MarginLayoutParams) posicionemoji.getLayoutParams();
-                                params3.setMargins(left2, top2, 0, 0);
-                                posicionemoji.setLayoutParams(params3);
-
-                                posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho4, ancho4));
-                                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) posicioncara.getLayoutParams();
-                                params.setMargins(0, 0, 0, 0);
-                                posicioncara.setLayoutParams(params);
-                                posicionemoji.setRotation(rotacion);
-                                posicioncara.setRotation(0);
-                            }
-                            //version doble emoji
-                            else {
-
-                                mixedemojiforma.setVisibility(View.VISIBLE);
-                                mixedemojiforma.setImageURI(Uri.parse(extra));
-                                int left2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, left, getResources().getDisplayMetrics());
-                                int top2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, getResources().getDisplayMetrics());
-                                int ancho3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, ancho, getResources().getDisplayMetrics());
-
-                                mixedemojiforma.setLayoutParams(new FrameLayout.LayoutParams(ancho3 - 100, ancho3 - 100));
-                                ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) mixedemojiforma.getLayoutParams();
-                                params2.setMargins(ancho3 - 75, top2 + top2, 0, 0);
-                                mixedemojiforma.setLayoutParams(params2);
-                                mixedemojiforma.setRotation(-rotacion);
-
-                                Log.e("TAG", "aki rotacion emoji doble: " + rotacion);
-                                posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
-                                ViewGroup.MarginLayoutParams params3 = (ViewGroup.MarginLayoutParams) posicionemoji.getLayoutParams();
-                                params3.setMargins(left2, top2, 0, 0);
-                                posicionemoji.setLayoutParams(params3);
-
-                                posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
-                                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) posicioncara.getLayoutParams();
-                                params.setMargins(0, 0, 0, 0);
-                                posicioncara.setLayoutParams(params);
-                                posicionemoji.setRotation(rotacion);
-                                posicioncara.setRotation(0);
-                            }
-                        } else {
-
-                            Log.e("TAG", "version normal " + Uri.parse(manos));
-
-                            posicionemoji.setRotation(0);
-                            posicioncara.setRotation(rotacion);
-                            mixedemojiforma.setVisibility(View.GONE);
-                            int ancho3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, getResources().getDisplayMetrics());
-                            posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
-                            ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) posicionemoji.getLayoutParams();
-                            params2.setMargins(0, 0, 0, 0);
-                            posicionemoji.setLayoutParams(params2);
-
-                            int ancho2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, ancho, getResources().getDisplayMetrics());
-                            int left2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, left, getResources().getDisplayMetrics());
-                            int top2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, getResources().getDisplayMetrics());
-
-
-                            posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
-                            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) posicioncara.getLayoutParams();
-                            params.setMargins(left2, top2, 0, 0);
-                            posicioncara.setLayoutParams(params);
-                        }
-                        mixedfondo.setVisibility(View.GONE);
-                    } else {
-
-                        int ancho2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, getResources().getDisplayMetrics());
-                        posicionemoji.setRotation(0);
-                        posicioncara.setRotation(0);
-
-
-                        posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
-                        ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) posicionemoji.getLayoutParams();
-                        params2.setMargins(0, 0, 0, 0);
-                        posicionemoji.setLayoutParams(params2);
-
-                        posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
-                        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) posicioncara.getLayoutParams();
-                        params.setMargins(0, 0, 0, 0);
-                        posicioncara.setLayoutParams(params);
-                        mixedfondo.setVisibility(View.GONE);
-                        mixedemojiforma.setVisibility(View.GONE);
-
-
-                    }
-
-                    finalEmojiURL = emojiUrl;
-                    ojosfinal = ojos;
-
-
-
-                    finalEmojiURL = emojiUrl;
-                    ojosfinal = ojos;
-
-                    String extension = "";
-
-                    int lastIndexOfDot = finalEmojiURL.lastIndexOf('.');
-                    if (lastIndexOfDot != -1) {
-                        extension = finalEmojiURL.substring(lastIndexOfDot + 1);
-                    }
-                    Log.e("TAG", "onSuccess: aki es png "+extension+finalEmojiURL );
-
-                    if ("png".equals(extension)) {
-                        mixedEmoji.setVisibility(View.GONE);
-                        mixedEmoji0.setVisibility(View.VISIBLE);
-
-                        mixedEmoji0.setImageURI(Uri.parse(finalEmojiURL));
-                        Log.e("TAG", "onSuccess: aki es png " );
-                    }
-                    else {
-                        Log.e("TAG", "onSuccess: aki es png no " );
-
-                        LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(finalEmojiURL)))
-                                .addListener(composition -> {
-                                    mixedEmoji0.setVisibility(View.GONE);
-                                    mixedEmoji.setVisibility(View.VISIBLE);
-                                    mixedEmoji.setComposition(composition);
-                                    mixedEmoji.playAnimation();
-                                });
-                    }
-
-
-                    mixedEmojicejas.setImageURI(Uri.parse(cejas));
-//                mixedEmojiobjetos.setImageURI(Uri.parse(objetos));
-                    if (objetos != null) {
-                        LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(objetos)))
-                                .addListener(composition -> {
-                                    mixedEmojiobjetos.setComposition(composition);
-                                    mixedEmojiobjetos.playAnimation();
-                                })
-                                .addFailureListener(exception -> {
-                                    // Si falla cargar desde la URL, carga el archivo local
-
-                                    mixedEmojiobjetos.setAnimation(R.raw.vacio);
-                                    mixedEmojiobjetos.playAnimation();
-                                    Log.e("LottieError", "Error al cargar animación desde URL. Usando animación local.", exception);
-                                });
-                    }
-
-
-                    if (bocas != null) {
-                        LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(bocas)))
-                                .addListener(composition -> {
-                                    mixedEmojibocas.setComposition(composition);
-                                    mixedEmojibocas.playAnimation();
-                                })
-                                .addFailureListener(exception -> {
-                                    // Si falla cargar desde la URL, carga el archivo local
-
-                                    mixedEmojibocas.setAnimation(R.raw.vacio);
-                                    mixedEmojibocas.playAnimation();
-                                    Log.e("LottieError", "Error al cargar animación desde URL. Usando animación local.", exception);
-                                });
-                    }
-
-                    if (ojosfinal != null) {
-                        LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(ojosfinal)))
-                                .addListener(composition -> {
-                                    mixedEmojiojos.setComposition(composition);
-                                    mixedEmojiojos.playAnimation();
-                                }).addFailureListener(exception -> {
-                                    // Si falla cargar desde la URL, carga el archivo local
-
-                                    mixedEmojibocas.setAnimation(R.raw.vacio);
-                                    mixedEmojibocas.playAnimation();
-                                    Log.e("LottieError", "Error al cargar animación desde URL. Usando animación local.", exception);
-                                });
-                    }
-
-                    Log.e("TAG", "aki emoji final1 ojos_objeto: "+finalojos_objetos+" boca"+bocas+" ojos"+ojosfinal  );
-
-                    if (finalojos_objetos != null) {
-                        Log.e("TAG", "aki emoji final2: "+String.valueOf(Uri.parse(finalojos_objetos)) );
-
-                        LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(finalojos_objetos)))
-                                .addListener(composition -> {
-                                    mixedEmojiojos_objetos.setComposition(composition);
-                                    mixedEmojiojos_objetos.playAnimation();
-                                })
-                                .addFailureListener(exception -> {
-                                    // Si falla cargar desde la URL, carga el archivo local
-
-                                    mixedEmojiojos_objetos.setAnimation(R.raw.vacio);
-                                    mixedEmojiojos_objetos.playAnimation();
-                                    Log.e("LottieError", "Error al cargar animación desde URL. Usando animación local.", exception);
-                                });
-                    }
-
-
-
-                    if (Objects.equals(idemote1, "26") || Objects.equals(idemote2, "26")) {
-                        mixedEmojimanos2.setVisibility(View.VISIBLE);
-                        mixedEmojimanos2.setImageURI(Uri.parse(manos));
-                        mixedEmojimanos.setVisibility(View.GONE);
-
-
-                        LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(manos)))
-                                .addListener(composition -> {
-                                    mixedEmojimanos2.setComposition(composition);
-                                    mixedEmojimanos2.playAnimation();
-                                }).addFailureListener(exception -> {
-                                    // Si falla cargar desde la URL, carga el archivo local
-
-                                    mixedEmojimanos2.setAnimation(R.raw.vacio);
-                                    mixedEmojimanos2.playAnimation();
-                                });
-
-                    }
-                    else {
-                        mixedEmojimanos.setVisibility(View.VISIBLE);
-                        //   mixedEmojimanos.setImageURI(Uri.parse(manos));
-                        mixedEmojimanos2.setVisibility(View.GONE);
-
-                        Log.e("LottieError", "aki manos."+manos);
-
-                        LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(manos)))
-                                .addListener(composition -> {
-                                    mixedEmojimanos.setComposition(composition);
-                                    mixedEmojimanos.playAnimation();
-                                }).addFailureListener(exception -> {
-                                    // Si falla cargar desde la URL, carga el archivo local
-
-                                    mixedEmojimanos.setAnimation(R.raw.vacio);
-                                    mixedEmojimanos.playAnimation();
-                                });
-                    }
-
-
-                    isFineToUseListeners = true;
-                    shouldShowEmoji(true);
-                }
-
-
-                @Override
-                public void onFailure(String failureReason) {
-                    //  changeActivityDesc(failureReason);
-                    shouldEnableSave(false);
-                    //  mixedEmoji.setImageResource(R.drawable.sad);
-                    //  mixedEmoji.setImageURI(Uri.parse(""));
-
-                    //  shouldShowEmoji(true);
-                }
-            });
-            Thread thread = new Thread(em);
-            thread.start();
-        }
 
 
 

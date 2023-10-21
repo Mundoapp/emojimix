@@ -62,7 +62,9 @@
 
 <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
-    app:cardBackgroundColor="@color/blue"
+    app:cardBackgroundColor="#C3E3FF"
+    app:cardCornerRadius="15dp"
+    android:layout_margin="5dp"
     android:layout_height="wrap_content">
                     <LinearLayout
                         android:layout_width="300dp"
@@ -81,25 +83,51 @@
                     </LinearLayout>
 </androidx.cardview.widget.CardView>
 <RelativeLayout
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_marginTop="-8dp"
+    android:layout_marginBottom="-5dp"
+
     android:layout_height="wrap_content">
 
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/icbuscar1"
+
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:lottie_fileName="buscar1.json"
+        app:lottie_loop="true" />
 
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/iconmas"
 
-        android:layout_centerHorizontal="true"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_marginStart="70dp"
+        android:layout_toEndOf="@+id/icbuscar1"
         app:lottie_fileName="mas.json"
-        app:lottie_loop="false"/>
+        app:lottie_loop="false" />
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/icbuscar2"
+
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="255dp"
+        android:layout_marginEnd="15dp"
+        app:lottie_fileName="buscar2.json"
+        app:lottie_loop="true" />
+
 
 
 </RelativeLayout>
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
-                        app:cardBackgroundColor="@color/purple"
+                        app:cardBackgroundColor="#E3CBFF"
+                        app:cardCornerRadius="15dp"
+                        android:layout_margin="5dp"
                         android:layout_height="wrap_content">
 
                     <LinearLayout
@@ -130,54 +158,72 @@
         android:layout_width="match_parent"
 
         android:layout_height="match_parent">
-        <Button
-            android:id="@+id/button2"
+
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@+id/saveEmoji"
-            android:onClick="abriremojis"
-            android:text="Mis emojis"
+            android:background="@drawable/fondo_menu"
 
-            android:textSize="5pt"
+            android:layout_height="80dp"
+            android:layout_alignTop="@+id/ad_view_container"
+            >
 
-            app:backgroundTint="@color/blue"
-            app:icon="@drawable/ic_baseline_emoji_emotions_24" />
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="0dp"
 
-        <Button
-            android:visibility="visible"
-            android:id="@+id/emojitop"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_toStartOf="@+id/saveEmoji"
-            android:onClick="abriremojis"
-            android:text="Mis emojis"
 
-            android:textSize="5pt"
+                android:onClick="abriremojis"
 
-            app:backgroundTint="#84B4FD"
-            app:icon="@drawable/ic_baseline_emoji_emotions_24" />
+                android:text="Mi emojis"
+                android:textColor="@color/gris"
+                android:textSize="5pt"
+                android:background="@android:color/transparent"
 
-        <Button
-            android:id="@+id/saveEmoji"
-            android:layout_width="182dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="10dp"
 
-            android:text="Emoji save"
-            android:textSize="5pt"
-            app:backgroundTint="@color/purple"
-            app:icon="@drawable/ic_outline_save_alt_24" />
+                app:icon="@drawable/ic_baseline_emoji_emotions_24"
+                app:iconTint="@color/gris"
+                />
+
+
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/saveEmoji"
+
+                android:layout_centerHorizontal="true"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:lottie_fileName="botondescarga.json"
+                app:lottie_loop="true"/>
+
+
+
+            <Button
+                android:id="@+id/emojitop"
+                android:onClick="abriremojis"
+
+                android:layout_width="140dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/gris"
+                android:drawableEnd="@drawable/ic_baseline_emoji_emotions_24"
+
+                android:text="Emoji Top"
+                android:textSize="5pt"
+                android:background="@android:color/transparent"
+                android:drawableTint="@color/gris"
+
+         />
+        </RelativeLayout>
 
         <FrameLayout
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="80dp"
             android:id="@+id/ad_view_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
