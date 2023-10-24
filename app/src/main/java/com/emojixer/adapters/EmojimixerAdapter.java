@@ -64,7 +64,7 @@ public class EmojimixerAdapter extends RecyclerView.Adapter<EmojimixerAdapter.Vi
 
         String emojiURL2 = "http://animated.emojixer.com/panel/emoji_formado/";
 
-        String pos = String.valueOf(position);
+        String pos = String.valueOf(getEmojiValue(position));
 
 
         holder.idemoji.setText(pos);

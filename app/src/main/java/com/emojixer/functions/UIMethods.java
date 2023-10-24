@@ -8,12 +8,15 @@ import android.view.View;
 
 public class UIMethods {
 
-    public static void shadAnim(final View view, final String propertyName, final double value, final int duration) {
+    public static void shadAnim(final View view, final String propertyName, final double value, final int duration, final int startOffset) {
         ObjectAnimator anim = new ObjectAnimator();
         anim.setTarget(view);
+
         anim.setPropertyName(propertyName);
         anim.setFloatValues((float) value);
         anim.setDuration(duration);
+        anim.setStartDelay(startOffset); // Agrega el startOffset
+
         anim.start();
     }
 

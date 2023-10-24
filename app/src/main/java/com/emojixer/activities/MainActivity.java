@@ -134,7 +134,7 @@ import pl.droidsonroids.gif.GifImageView;
 public class MainActivity extends AppCompatActivity {
 
     private AlertDialog alertDialog;
-    private AlertDialog alertDialogemojis;
+    private AlertDialog alertDialogemojis,alertDialogemojis2;
 
     ImageView animatedImageView;
     LottieAnimationView lottieView,lodinglottie;
@@ -214,7 +214,8 @@ public class MainActivity extends AppCompatActivity {
     boolean restraso = false;
     private RenderMode tipo = RenderMode.valueOf("SOFTWARE");
     static Bitmap reusableBitmap;
-
+    private int posicionanterior = -1;
+    private int posicionanterior2 = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -289,7 +290,90 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    private void configurarDialogoEmojis() {
 
+        // Configura AlertDialog y RecyclerItemClickListener aquí
+        buscar1 = findViewById(R.id.icbuscar1);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View view2 = LayoutInflater.from(this).inflate(R.layout.dialog_emojis1, null);
+        dialogemojisSlider1 = view2.findViewById(R.id.dialogemojisSlider1);
+        buscar1.playAnimation();
+        dialogemojisSlider1.addOnItemTouchListener(new RecyclerItemClickListener(this, dialogemojisSlider1, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+                if (position < 2) {
+                    emojisSlider1.smoothScrollToPosition(position);
+                }
+                else  if (posicionanterior > position) {
+                    emojisSlider1.smoothScrollToPosition(position - 2);
+                } else {
+                    emojisSlider1.smoothScrollToPosition(position + 2);
+                }
+
+                posicionanterior = position;
+
+                alertDialogemojis.dismiss();
+            }
+        }));
+
+
+        builder.setView(view2);
+
+        alertDialogemojis = builder.create();
+
+        buscar1.setOnClickListener(view -> {
+            alertDialogemojis.show();
+
+
+        });
+
+
+        buscar2 = findViewById(R.id.icbuscar2);
+        AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+        View view3 = LayoutInflater.from(this).inflate(R.layout.dialog_emojis1, null);
+        dialogemojisSlider2 = view3.findViewById(R.id.dialogemojisSlider2);
+        buscar2.playAnimation();
+
+        dialogemojisSlider2.addOnItemTouchListener(new RecyclerItemClickListener(this, dialogemojisSlider2, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                // Aquí obtienes la posición del emoji seleccionado
+
+
+                // Puedes usar la posición o el emoji seleccionado según tus necesidades
+                // Por ejemplo, puedes mostrar un mensaje con el emoji o almacenar la posición en una variable
+                registerViewPagersListener();
+
+
+                if (position < 2) {
+                    emojisSlider2.smoothScrollToPosition(position);
+                }
+                else if (posicionanterior2 > position) {
+                    emojisSlider2.smoothScrollToPosition(position - 2);
+                } else {
+                    emojisSlider2.smoothScrollToPosition(position + 2);
+                }
+
+                posicionanterior2 = position;
+
+
+                alertDialogemojis2.dismiss();
+
+            }
+        }));
+
+        builder2.setView(view3);
+
+        alertDialogemojis2 = builder2.create();
+
+        buscar2.setOnClickListener(view -> {
+            alertDialogemojis2.show();
+
+
+        });
+
+    }
     public void initLogic() {
 
 
@@ -321,7 +405,7 @@ public class MainActivity extends AppCompatActivity {
         layoutEmojiCreation =  findViewById(R.id.frame_emoji_creation);
         posicioncara =  findViewById(R.id.posicioncara);
         posicionem = findViewById(R.id.posicione);
-
+        configurarDialogoEmojis();
 //        layoutEmojiCreation.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 //
 //        mixedEmojiojos_objetos.setRenderMode(tipo);
@@ -332,80 +416,6 @@ public class MainActivity extends AppCompatActivity {
 //        mixedEmojimanos2.setRenderMode(tipo);
 //        mixedEmojimanos.setRenderMode(tipo);
 //        mixedemojiforma.setRenderMode(tipo);
-        buscar1 = findViewById(R.id.icbuscar1);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        View view2 = LayoutInflater.from(this).inflate(R.layout.dialog_emojis1, null);
-        dialogemojisSlider1 = view2.findViewById(R.id.dialogemojisSlider1);
-        buscar1.playAnimation();
-
-        dialogemojisSlider1.addOnItemTouchListener(new RecyclerItemClickListener(this, dialogemojisSlider1, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                // Aquí obtienes la posición del emoji seleccionado
-
-
-                // Puedes usar la posición o el emoji seleccionado según tus necesidades
-                // Por ejemplo, puedes mostrar un mensaje con el emoji o almacenar la posición en una variable
-                registerViewPagersListener();
-
-                emojisSlider1.smoothScrollToPosition(position+2);
-
-
-
-
-
-                alertDialogemojis.dismiss();
-
-            }
-        }));
-
-        builder.setView(view2);
-
-        alertDialogemojis = builder.create();
-
-        buscar1.setOnClickListener(view -> {
-            alertDialogemojis.show();
-
-
-        });
-
-
-        buscar2 = findViewById(R.id.icbuscar2);
-        AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
-        View view3 = LayoutInflater.from(this).inflate(R.layout.dialog_emojis1, null);
-        dialogemojisSlider2 = view3.findViewById(R.id.dialogemojisSlider2);
-        buscar2.playAnimation();
-
-        dialogemojisSlider2.addOnItemTouchListener(new RecyclerItemClickListener(this, dialogemojisSlider2, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                // Aquí obtienes la posición del emoji seleccionado
-
-
-                // Puedes usar la posición o el emoji seleccionado según tus necesidades
-                // Por ejemplo, puedes mostrar un mensaje con el emoji o almacenar la posición en una variable
-                registerViewPagersListener();
-
-                emojisSlider2.smoothScrollToPosition(position+2);
-
-
-
-
-
-                alertDialogemojis.dismiss();
-
-            }
-        }));
-
-        builder2.setView(view3);
-
-        alertDialogemojis = builder2.create();
-
-        buscar2.setOnClickListener(view -> {
-            alertDialogemojis.show();
-
-
-        });
 
 
         emojitop = findViewById(R.id.emojitop);
@@ -655,7 +665,6 @@ public class MainActivity extends AppCompatActivity {
 
         setSnapHelper(dialogemojisSlider1, emojisSlider1SnapHelper, emojisSlider1ManagerDialog);
         dialogemojisSlider1.setLayoutManager(emojisSlider1ManagerDialog);
-        dialogemojisSlider1.addItemDecoration(new offsetItemDecoration(this));
 
         dialogemojisSlider1.setAdapter(new EmojimixerAdapter(supportedEmojisList, emojisSlider1ManagerDialog, MainActivity.this));
 
@@ -663,7 +672,6 @@ public class MainActivity extends AppCompatActivity {
 
         setSnapHelper(dialogemojisSlider2, emojisSlider1SnapHelper, emojisSlider2ManagerDialog);
         dialogemojisSlider2.setLayoutManager(emojisSlider2ManagerDialog);
-        dialogemojisSlider2.addItemDecoration(new offsetItemDecoration(this));
 
         dialogemojisSlider2.setAdapter(new EmojimixerAdapter(supportedEmojisList, emojisSlider2ManagerDialog, MainActivity.this));
 
@@ -676,8 +684,6 @@ public class MainActivity extends AppCompatActivity {
         emojisSlider1.setLayoutManager(emojisSlider1LayoutManager);
         emojisSlider2.setLayoutManager(emojisSlider2LayoutManager);
 
-        emojisSlider1.addItemDecoration(new offsetItemDecoration(this));
-        emojisSlider2.addItemDecoration(new offsetItemDecoration(this));
 
 
         requestSupportedEmojis.startRequestNetwork(RequestNetworkController.GET, "http://animated.emojixer.com/panel/api.php?todos=1", "", requestSupportedEmojisListener);
@@ -1352,7 +1358,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 isFineToUseListeners = true;
-                shouldShowEmoji(true);
+
             }
 
 
@@ -1400,18 +1406,18 @@ public class MainActivity extends AppCompatActivity {
 
         // Todas las operaciones se han completado
         if (compositionsMap.containsKey("finalEmojiURL")) {
-            Log.e(TAG, "mostraranimacion: aki base "+finalEmojiURL );
             mixedEmoji.setComposition(compositionsMap.get("finalEmojiURL"));
             mixedEmoji.playAnimation();
             mixedEmoji.setRepeatCount(INFINITE);
         }
         if (compositionsMap.containsKey("objetos")) {
-            Log.e(TAG, "mostraranimacion: aki llego " );
             mixedEmojiobjetos.setComposition(compositionsMap.get("objetos"));
             mixedEmojiobjetos.playAnimation();
             mixedEmojiobjetos.setRepeatCount(INFINITE);
         }
         if (compositionsMap.containsKey("bocas")) {
+            Log.e(TAG, "mostraranimacion: aki bocas "+bocafinal);
+
             mixedEmojibocas.setComposition(compositionsMap.get("bocas"));
             mixedEmojibocas.playAnimation();
             mixedEmojibocas.setRepeatCount(INFINITE);
@@ -1419,6 +1425,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
         if (compositionsMap.containsKey("ojosfinal")) {
+            Log.e(TAG, "mostraranimacion: aki ojos "+ojosfinal );
+
             mixedEmojiojos.setComposition(compositionsMap.get("ojosfinal"));
             mixedEmojiojos.playAnimation();
             mixedEmojiojos.setRepeatCount(INFINITE);
@@ -1433,6 +1441,7 @@ public class MainActivity extends AppCompatActivity {
             mixedEmojimanos2.playAnimation();
             mixedEmojimanos2.setRepeatCount(INFINITE);
         }
+        shouldShowEmoji(true);
     }
 
     private void shouldShowEmoji(boolean shouldShow) {
@@ -1441,11 +1450,11 @@ public class MainActivity extends AppCompatActivity {
         if (shouldShow) {
             //  Log.e("TAG", "aki entro:+finalEmojiURL " );
 
-           shadAnim(layoutEmojiCreation, "scaleY", 1, 400);
-          shadAnim(layoutEmojiCreation, "scaleX", 1, 400);
+           shadAnim(layoutEmojiCreation, "scaleY", 1, 400,50);
+          shadAnim(layoutEmojiCreation, "scaleX", 1, 400,50);
 //            shadAnim(layoutEmojiCreation, "rotation", 360f, 400);
-   shadAnim(layoutEmojiCreation, "translationX", 1, 400);
-            shadAnim(layoutEmojiCreation, "alpha", 1f, 800); // Cambia el valor "0.5f" según tus necesidades
+  // shadAnim(layoutEmojiCreation, "translationX", 1, 400);
+            shadAnim(layoutEmojiCreation, "alpha", 1f, 800,50); // Cambia el valor "0.5f" según tus necesidades
 
 
 //           shadAnim(progressBar, "scaleY", 0, 300);
@@ -1454,10 +1463,10 @@ public class MainActivity extends AppCompatActivity {
             //    Log.e("TAG", "aki entro2:+finalEmojiURL " );
             mas.playAnimation();
             //   explosion.setImageURI("http://emojixer.emojinew.com/panel/explosion.webp");
-            shadAnim(layoutEmojiCreation, "scaleY", 0, 400);
-         shadAnim(layoutEmojiCreation, "scaleX", 0, 400);
-          shadAnim(layoutEmojiCreation, "translationX", 0, 400);
-            shadAnim(layoutEmojiCreation, "alpha", 0.0f, 800); // Cambia el valor "0.5f" según tus necesidades
+            shadAnim(layoutEmojiCreation, "scaleY", 0, 400,0);
+         shadAnim(layoutEmojiCreation, "scaleX", 0, 400,0);
+       //   shadAnim(layoutEmojiCreation, "translationX", 0, 400);
+            shadAnim(layoutEmojiCreation, "alpha", 0.0f, 800,0); // Cambia el valor "0.5f" según tus necesidades
 
 //            shadAnim(layoutEmojiCreation, "rotation", 0f, 400);
 //            int anc = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 160, getResources().getDisplayMetrics());

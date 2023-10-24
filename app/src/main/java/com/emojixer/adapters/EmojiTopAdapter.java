@@ -4,11 +4,13 @@ package com.emojixer.adapters;
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import static com.airbnb.lottie.LottieDrawable.INFINITE;
+import static com.emojixer.activities.MainActivity.APITOP;
 import static com.emojixer.activities.MainActivity.FRAME_DELAY_MS;
 import static com.emojixer.activities.MainActivity.NUM_FRAMES;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -37,6 +39,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieCompositionFactory;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
@@ -48,6 +56,8 @@ import com.emojixer.activities.MainActivity;
 import com.emojixer.activities.WrapContentDraweeView;
 import com.emojixer.functions.FileUtil;
 import com.waynejo.androidndkgif.GifEncoder;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -207,7 +217,7 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
             guardarbtn.setVisibility(View.INVISIBLE);
             textotitulo.setText("Capturando fotogramas");
             alertDialog.setTitle("Guardar emoji");
-
+            actualizovotos(emoji1,emoji2,activity);
             //scrollToCenter(view);
         });
 
@@ -886,6 +896,29 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
             return  Objects.requireNonNull(data.get(position).get("Id")).toString();
         }
         return null; // Devuelve nulo si la posición es inválida    }
+
+    }
+    @SuppressLint("SuspiciousIndentation")
+    private void actualizovotos(Integer idemote1, Integer idemote2, Activity contexto){
+        String fondoTOP = "";
+        String bocaTOP = "";
+        String objetosTOP = "";
+        String manosTOP = "";
+        String ojos_objetosTOP = "";
+
+        RequestQueue queue = Volley.newRequestQueue(contexto);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, APITOP+"emoji1="+idemote1+"&"+"emoji2="+idemote2,
+                (String) null, new Response.Listener<JSONObject>() {
+            //  @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onResponse(JSONObject response) {
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+            }
+        });
+        queue.add(request);
 
     }
 

@@ -377,10 +377,10 @@ public class Emojitop extends AppCompatActivity {
         if (shouldShow) {
           //  Log.e("TAG", "aki entro:+finalEmojiURL " );
 
-            shadAnim(layoutEmojiCreation, "scaleY", 1, 400);
-            shadAnim(layoutEmojiCreation, "scaleX", 1, 400);
+  //          shadAnim(layoutEmojiCreation, "scaleY", 1, 400);
+   //         shadAnim(layoutEmojiCreation, "scaleX", 1, 400);
 //            shadAnim(layoutEmojiCreation, "rotation", 360f, 400);
-            shadAnim(layoutEmojiCreation, "translationY", 0, 400);
+   //         shadAnim(layoutEmojiCreation, "translationY", 0, 400);
 
 //           shadAnim(progressBar, "scaleY", 0, 300);
 //           shadAnim(progressBar, "scaleX", 0, 300);
@@ -388,12 +388,12 @@ public class Emojitop extends AppCompatActivity {
         //    Log.e("TAG", "aki entro2:+finalEmojiURL " );
             mas.playAnimation();
          //   explosion.setImageURI("http://emojixer.emojinew.com/panel/explosion.webp");
-            shadAnim(layoutEmojiCreation, "scaleY", 0.2, 400);
-            shadAnim(layoutEmojiCreation, "scaleX", 0.2, 400);
+   //         shadAnim(layoutEmojiCreation, "scaleY", 0.2, 400);
+     //       shadAnim(layoutEmojiCreation, "scaleX", 0.2, 400);
 //            shadAnim(layoutEmojiCreation, "rotation", 0f, 400);
             int anc = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 160, getResources().getDisplayMetrics());
 
-            shadAnim(layoutEmojiCreation, "translationY", anc, 400);
+    //        shadAnim(layoutEmojiCreation, "translationY", anc, 400);
 
 
 //           shadAnim(progressBar, "scaleY", 1, 300);

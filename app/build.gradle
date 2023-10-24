@@ -70,7 +70,7 @@ dependencies {
 
     implementation 'com.orhanobut:hawk:2.0.1'
     implementation 'com.airbnb.android:lottie:4.1.0'
-    implementation 'com.google.android.gms:play-services-ads:20.6.0'
+    implementation 'com.google.android.gms:play-services-ads:22.0.0'
 //    implementation 'com.onesignal:OneSignal:4.1.0'
 
     implementation 'androidx.work:work-runtime-ktx:2.7.1'
