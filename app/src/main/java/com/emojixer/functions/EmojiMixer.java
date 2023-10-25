@@ -168,7 +168,9 @@ public class EmojiMixer implements Runnable {
                     finaltipo = "objetodoble";
                     finalbase = API + totalmodel.getbase();
                     finalfondo = API + totalmodel.getfondo();
-               //     Log.e("TAG", "aki base objeto: "+finalbase );
+                    finalextra = API + totalmodel.getextra();
+
+                    //     Log.e("TAG", "aki base objeto: "+finalbase );
 
                 }
 

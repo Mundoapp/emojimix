@@ -796,7 +796,7 @@ public class MainActivity extends AppCompatActivity {
     private void mixEmojis(String emoji1, String emoji2, String date) {
 
         shouldEnableSave(false);
-        // progressBar.setVisibility(View.GONE);
+         progressBar.setVisibility(View.GONE);
         Log.e("TAG", "addDataToSliders: "+emoji1+" dos"+idemote2 );
         if (TextUtils.isEmpty(idemote1)) {
             idemote1 = "26";
@@ -814,6 +814,7 @@ public class MainActivity extends AppCompatActivity {
             Animation animation;
             @Override
             public void onSuccess(String emojiUrl, String ojos, String cejas, String objetos, String bocas, String finalojos_objetos,String manos,int ancho,int left, int top,String tipo,String extra,String fondo,float rotacion,int random,String animacion)  {
+                Log.e("TAG", "aki datos api: "+emojiUrl+" ojos"+ojos+objetos+bocas );
 
                 shouldEnableSave(true);
 
@@ -956,16 +957,21 @@ public class MainActivity extends AppCompatActivity {
                     mixedemojiforma.setVisibility(View.VISIBLE);
                     posicioncara.setRotation(0);
 
-                    mixedemojiforma.setImageURI(Uri.parse(extra));
+                    LottieCompositionFactory.fromUrl(context,extra)
+                            .addListener(composition -> {
+                                mixedemojiforma.setComposition(composition);
+                                mixedemojiforma.playAnimation();
+                            })
+                    ;
                     mixedfondo.setVisibility(View.VISIBLE);
 
                     mixedfondo.setImageURI(Uri.parse(fondo));
-                    Log.e("TAG", "aki base objeto doble: "+fondo );
+                    Log.e("TAG", "aki base objeto doble: "+extra );
 
                     mixedemojiforma.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
                     ViewGroup.MarginLayoutParams params4 = (ViewGroup.MarginLayoutParams) mixedemojiforma.getLayoutParams();
                     params4.setMargins(0, 0, 0, 0);
-                    mixedemojiforma.setLayoutParams(params4);
+                   // mixedemojiforma.setLayoutParams(params4);
                     mixedemojiforma.setRotation(0);
                 }
 
@@ -1209,26 +1215,33 @@ public class MainActivity extends AppCompatActivity {
                     mixedEmoji.setVisibility(View.GONE);
                     mixedEmoji0.setVisibility(View.VISIBLE);
                     mixedEmoji0.setImageURI(Uri.parse(finalEmojiURL));
-                    Log.e("TAG", "onSuccess: aki es png ");
+               //     Log.e("TAG", "onSuccess: aki es png ");
+                    operationsCompleted.getAndIncrement();
+                    checkAllOperationsCompleted();
                 } else {
+                    Log.e("xomplete1", "aki base ");
 
                     mixedEmoji.setVisibility(View.VISIBLE);
                     mixedEmoji0.setVisibility(View.GONE);
-                    Log.e("TAG", "onSuccess: aki es png no ");
+               //     Log.e("TAG", "onSuccess: aki es png no ");
                     LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(finalEmojiURL)))
                             .addListener(composition -> {
                                 compositionsMap.put("finalEmojiURL", composition);
                                 operationsCompleted.getAndIncrement();
                                 checkAllOperationsCompleted();
-                            });
+                            })
+                             .addFailureListener(exception -> {
+                                 operationsCompleted.getAndIncrement();
+                        checkAllOperationsCompleted();
+                    });
                 }
 
 
-                mixedEmojicejas.setImageURI(Uri.parse(cejas));
+             //   mixedEmojicejas.setImageURI(Uri.parse(cejas));
 //                mixedEmojiobjetos.setImageURI(Uri.parse(objetos));
 
                 if (objetos != null) {
-                    Log.e("TAG", "aki emoji objeto: "+String.valueOf(Uri.parse(objetos)) );
+                 //   Log.e("xomplete2", "aki pjetos ");
 
                     LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(objetos)))
                             .addListener(composition -> {
@@ -1253,6 +1266,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                 if (bocas != null) {
+                 //   Log.e("xomplete3", "aki bocas ");
+
                     LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(bocas)))
                             .addListener(composition -> {
                                 compositionsMap.put("bocas", composition);
@@ -1271,6 +1286,8 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (ojosfinal != null) {
+                //    Log.e("xomplete4", "aki ojos");
+
                     LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(ojosfinal)))
                             .addListener(composition -> {
                                 compositionsMap.put("ojosfinal", composition);
@@ -1289,6 +1306,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 if (finalojos_objetos != null) {
+                //    Log.e("xomplete5", "aki ojos jetos ");
 
                     LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(finalojos_objetos)))
                             .addListener(composition -> {
@@ -1313,6 +1331,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                 if (Objects.equals(idemote1, "26") || Objects.equals(idemote2, "26")) {
+                 //   Log.e("xomplete6", "aki manos 26."+manos);
+
                     mixedEmojimanos2.setVisibility(View.VISIBLE);
                     mixedEmojimanos2.setImageURI(Uri.parse(manos));
                     mixedEmojimanos.setVisibility(View.GONE);
@@ -1338,7 +1358,7 @@ public class MainActivity extends AppCompatActivity {
                     //   mixedEmojimanos.setImageURI(Uri.parse(manos));
                     mixedEmojimanos2.setVisibility(View.GONE);
 
-                    Log.e("LottieError", "aki manos."+manos);
+                 //   Log.e("xcomplete6", "aki manos."+manos);
 
                     LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(manos)))
                             .addListener(composition -> {
@@ -1348,7 +1368,7 @@ public class MainActivity extends AppCompatActivity {
                             }).addFailureListener(exception -> {
                                 // Si falla cargar desde la URL, carga el archivo local
 
-                                mixedEmojimanos.setAnimation(R.raw.vacio);
+                                mixedEmojimanos.setVisibility(View.GONE);
                                 //     mixedEmojimanos.playAnimation();
                                 operationsCompleted.getAndIncrement();
                                 checkAllOperationsCompleted();
@@ -1385,6 +1405,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
     private void checkAllOperationsCompleted() {
+        Log.e(TAG, "checkAllOperationsCompleted: "+operationsCompleted.get() );
         if (operationsCompleted.get() == TOTAL_OPERATIONS) {
             operationsCompleted.set(0);
 
@@ -1395,7 +1416,7 @@ public class MainActivity extends AppCompatActivity {
                 posicionemoji.setVisibility(View.VISIBLE);
 
                 // Envía una nueva tarea al Handler
-                handler.postDelayed(delayedAnimation, 900);
+                handler.postDelayed(delayedAnimation, 50);
             }
             else {
                 mostraranimacion();
@@ -1440,7 +1461,11 @@ public class MainActivity extends AppCompatActivity {
             mixedEmojimanos2.setComposition(compositionsMap.get("manos"));
             mixedEmojimanos2.playAnimation();
             mixedEmojimanos2.setRepeatCount(INFINITE);
+            mixedEmojimanos.setComposition(compositionsMap.get("manos"));
+            mixedEmojimanos.playAnimation();
+            mixedEmojimanos.setRepeatCount(INFINITE);
         }
+
         shouldShowEmoji(true);
     }
 
@@ -1457,8 +1482,8 @@ public class MainActivity extends AppCompatActivity {
             shadAnim(layoutEmojiCreation, "alpha", 1f, 800,50); // Cambia el valor "0.5f" según tus necesidades
 
 
-//           shadAnim(progressBar, "scaleY", 0, 300);
-//           shadAnim(progressBar, "scaleX", 0, 300);
+           shadAnim(progressBar, "scaleY", 0, 300,1);
+          shadAnim(progressBar, "scaleX", 0, 300,1);
         } else {
             //    Log.e("TAG", "aki entro2:+finalEmojiURL " );
             mas.playAnimation();
@@ -1473,9 +1498,9 @@ public class MainActivity extends AppCompatActivity {
 //
 //           shadAnim(layoutEmojiCreation, "translationY", anc, 400);
 
-
-//           shadAnim(progressBar, "scaleY", 1, 300);
-//            shadAnim(progressBar, "scaleX", 1, 300);
+            progressBar.setVisibility(View.VISIBLE);
+          shadAnim(progressBar, "scaleY", 1, 300,1);
+           shadAnim(progressBar, "scaleX", 1, 300,1);
         }
     }
 

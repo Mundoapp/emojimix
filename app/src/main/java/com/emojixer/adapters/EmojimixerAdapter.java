@@ -25,6 +25,7 @@ import com.bumptech.glide.request.target.Target;
 import com.emojixer.R;
 import com.emojixer.activities.WrapContentDraweeView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.google.android.material.slider.Slider;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -130,6 +131,7 @@ public class EmojimixerAdapter extends RecyclerView.Adapter<EmojimixerAdapter.Vi
         WrapContentDraweeView emoji,mixedEmojiojos,mixedEmojibocas,mixedEmojicejas,mixedEmojiojos_objetos,mixedEmojiobjetos,mixedEmojimanos,mixedformado;
         CircularProgressIndicator progressBar;
         TextView idemoji;
+        private Slider slider;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
