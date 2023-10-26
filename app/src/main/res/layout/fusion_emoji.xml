@@ -15,10 +15,9 @@
             android:layout_gravity="center_horizontal"
             android:background="@android:color/transparent"
             android:layout_width="250dp"
-        android:layerType="software"
 
         android:layout_height="250dp">
-            <com.emojixer.activities.WrapContentDraweeView
+        <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/emojifondo"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
@@ -28,8 +27,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
-                android:background="@android:color/transparent"
-                android:scaleType="centerCrop" />
+            app:lottie_loop="true"
+                />
     <FrameLayout
         android:id="@+id/posicionemoji"
 
