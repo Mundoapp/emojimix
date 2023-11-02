@@ -74,6 +74,8 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
     boolean restraso = false;
     private static ArrayList<HashMap<String, Object>> data;
     public String API_formas = "http://animated.emojixer.com/panel/images_formas/";
+    public String API_manual = "http://animated.emojixer.com/panel/images_manual/";
+
     public String API_formado = "http://animated.emojixer.com/panel/emoji_formado/";
     private AlertDialog alertDialog;
     public WrapContentDraweeView sticker,sticker2;
@@ -222,6 +224,22 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
         });
 
 
+        if (Objects.equals(tipo, "manual")) {
+            holder.mixedEmoji.setVisibility(View.VISIBLE);
+            holder.mixedEmoji0.setVisibility(View.GONE);
+
+            LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_manual+base)))
+                    .addListener(composition -> {
+                        holder.mixedEmoji.setComposition(composition);
+                        holder.mixedEmoji.playAnimation();
+                        holder.mixedEmoji.setRepeatCount(INFINITE);
+                    });
+        }
+        else {
+
+
+
+
         Animation animation;
 
         if (animacion != null) {
@@ -279,16 +297,33 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
             // Aquí puedes mostrar un mensaje de error o tomar otra acción apropiada.
         }
 
-        if (Objects.equals(tipo, "objeto")) {
+     if (Objects.equals(tipo, "objeto")) {
 
             if(emoji1==emoji2) {
                 holder.mixedemojiforma.setVisibility(View.VISIBLE);
 
-                holder.mixedemojiforma.setImageURI(Uri.parse(extra));
+               // holder.mixedemojiforma.setImageURI(Uri.parse(extra));
+
+                LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+extra)))
+                        .addListener(composition -> {
+                            holder.mixedemojiforma.setComposition(composition);
+                            holder.mixedemojiforma.playAnimation();
+                        })
+                ;
                 holder.mixedfondo.setVisibility(View.VISIBLE);
 
-                holder.mixedfondo.setImageURI(Uri.parse(fondo));
-                Log.e("TAG", "objeto igual: "+extra );
+                LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+fondo)))
+                        .addListener(composition -> {
+                            holder.mixedfondo.setComposition(composition);
+                            holder.mixedfondo.playAnimation();
+                        }).addFailureListener(exception -> {
+                            // Si falla cargar desde la URL, carga el archivo local
+                            //    Log.e("TAG", "aki emoji final2: "+String.valueOf(Uri.parse(finalojos_objetos)) );
+                            holder.mixedfondo.setVisibility(View.INVISIBLE);
+                            holder.mixedfondo.setAnimation(R.raw.vacio);
+                        });
+
+                Log.e("TAG", "aki condicion objeto igual: "+position );
             }
             else {
 
@@ -303,7 +338,7 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
                 params.setMargins(left2, top2, 0, 0);
                 holder.posicionemoji.setLayoutParams(params);
                 holder.posicionemoji.setRotation(rotacion);
-                Log.e("TAG", "aki rotacion objeto: " + ancho3);
+                Log.e("TAG", "aki condicion rotacion objeto: " + position+ "fondo"+fondo+"extras "+extra );
 
                 holder.mixedemojiforma.setVisibility(View.VISIBLE);
                 holder.posicioncara.setRotation(0);
@@ -313,7 +348,7 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
                 params.setMargins(left2, top2, 0, 0);
                 holder.posicioncara.setLayoutParams(params2);
 
-                LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(extra)))
+                LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+extra)))
                         .addListener(composition -> {
                             holder.mixedemojiforma.setComposition(composition);
                             holder.mixedemojiforma.playAnimation();
@@ -322,7 +357,16 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
                 // mixedemojiforma.setImageURI(Uri.parse(extra));
                 holder.mixedfondo.setVisibility(View.VISIBLE);
 
-                holder.mixedfondo.setImageURI(Uri.parse(fondo));
+                LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+fondo)))
+                        .addListener(composition -> {
+                            holder.mixedfondo.setComposition(composition);
+                            holder.mixedfondo.playAnimation();
+                        }).addFailureListener(exception -> {
+                            // Si falla cargar desde la URL, carga el archivo local
+                            //    Log.e("TAG", "aki emoji final2: "+String.valueOf(Uri.parse(finalojos_objetos)) );
+                            holder.mixedfondo.setVisibility(View.INVISIBLE);
+                            holder.mixedfondo.setAnimation(R.raw.vacio);
+                        });
 
                 holder.mixedemojiforma.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
                 ViewGroup.MarginLayoutParams params4 = (ViewGroup.MarginLayoutParams) holder.mixedemojiforma.getLayoutParams();
@@ -340,23 +384,37 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
 
             holder.posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
             ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.posicionemoji.getLayoutParams();
-            params.setMargins(left2, top2, 0, 0);
-            holder.posicionemoji.setLayoutParams(params);
+           // params.setMargins(left2, top2, 0, 0);
+            //holder.posicionemoji.setLayoutParams(params);
             holder.posicionemoji.setRotation(0);
 
             holder.mixedemojiforma.setVisibility(View.VISIBLE);
             holder.posicioncara.setRotation(0);
 
-            holder.mixedemojiforma.setImageURI(Uri.parse(extra));
+           // holder.mixedemojiforma.setImageURI(Uri.parse(extra));
             holder.mixedfondo.setVisibility(View.VISIBLE);
-
-            holder.mixedfondo.setImageURI(Uri.parse(fondo));
-            Log.e("TAG", "aki base objeto doble: "+fondo );
+            LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+extra)))
+                    .addListener(composition -> {
+                        holder.mixedemojiforma.setComposition(composition);
+                        holder.mixedemojiforma.playAnimation();
+                    })
+            ;
+             LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+fondo)))
+                    .addListener(composition -> {
+                        holder.mixedfondo.setComposition(composition);
+                        holder.mixedfondo.playAnimation();
+                    }).addFailureListener(exception -> {
+                        // Si falla cargar desde la URL, carga el archivo local
+                        //    Log.e("TAG", "aki emoji final2: "+String.valueOf(Uri.parse(finalojos_objetos)) );
+                        holder.mixedfondo.setVisibility(View.INVISIBLE);
+                        holder.mixedfondo.setAnimation(R.raw.vacio);
+                    });
+            Log.e("TAG", "aki condicion objeto doble: "+position );
 
             holder.mixedemojiforma.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
             ViewGroup.MarginLayoutParams params4 = (ViewGroup.MarginLayoutParams) holder.mixedemojiforma.getLayoutParams();
             params4.setMargins(0, 0, 0, 0);
-            holder.mixedemojiforma.setLayoutParams(params4);
+          //holder.mixedemojiforma.setLayoutParams(params4);
             holder.mixedemojiforma.setRotation(0);
         }
 
@@ -370,7 +428,7 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
                 holder.posicioncara.setRotation(rotacion);
                 holder.mixedemojiforma.setVisibility(View.GONE);
                 int ancho3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, contexto.getResources().getDisplayMetrics());
-                Log.e("TAG", "aki rotacion emojis3: " + ancho );
+                Log.e("TAG", "aki condicion rotacion emojis3: " + position );
                 holder.posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
                 ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) holder.posicionemoji.getLayoutParams();
                 params2.setMargins(0, 0, 0, 0);
@@ -393,10 +451,10 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
             else if(Objects.equals(emoji1, emoji2) && Objects.equals(tipo, "emoji")) {
 
 //                        Careta version
-                if(random ==1){
+
                     holder.mixedemojiforma.setVisibility(View.VISIBLE);
                     // mixedemojiforma.setImageURI(Uri.parse(extra));
-                    LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(extra)))
+                    LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formado+extra)))
                             .addListener(composition -> {
                                 holder.mixedemojiforma.setComposition(composition);
                                 holder.mixedemojiforma.playAnimation();
@@ -416,12 +474,12 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
                     holder.mixedemojiforma.setLayoutParams(params2);
                     holder.mixedemojiforma.setRotation(0);
 
-                    Log.e("TAG", "aki rotacion careta: " + extra );
+                    Log.e("TAG", "aki condicion rotacion careta: " + extra );
                     holder.posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho4, ancho4));
                     ViewGroup.MarginLayoutParams params3 = (ViewGroup.MarginLayoutParams) holder.posicionemoji.getLayoutParams();
                     params3.setMargins(left2, top2, 0, 0);
                     holder.posicionemoji.setLayoutParams(params3);
-                    holder.posicionemoji.setVisibility(View.INVISIBLE);
+                 //   holder.posicionemoji.setVisibility(View.INVISIBLE);
 
                     holder.posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho4, ancho4));
                     ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.posicioncara.getLayoutParams();
@@ -430,73 +488,10 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
 
 
 
-                    Handler handler = new Handler();
-                    handler.postDelayed(() -> {
-
-                        //  posicionemoji.setRotation(rotacion);
-                        ObjectAnimator rotationAnimator = ObjectAnimator.ofFloat(holder.posicionemoji, "rotation", 0f, rotacion);
-
-// Configura la duración de la animación (por ejemplo, 1000 milisegundos)
-                        rotationAnimator.setDuration(1880);
-// Animación de desplazamiento horizontal
-                        ObjectAnimator translateXAnimator = ObjectAnimator.ofFloat(holder.posicionemoji, "translationX", 0f, 30f);
-                        translateXAnimator.setDuration(2880);
-                        translateXAnimator.setRepeatCount(ObjectAnimator.INFINITE);
-
-// Animación de desplazamiento vertical
-                        ObjectAnimator translateYAnimator = ObjectAnimator.ofFloat(holder.posicionemoji, "translationY", 0f, 0f);
-                        translateYAnimator.setDuration(1000);
-// Animación de transparencia (fade out y luego fade in)
-                        ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(holder.posicionemoji, "alpha",  0f, 1f);
-                        alphaAnimator.setDuration(1000);
-
-// Combina las animaciones para ejecutarlas simultáneamente
-                        AnimatorSet animatorSet = new AnimatorSet();
-                        animatorSet.playTogether(rotationAnimator, translateXAnimator, translateYAnimator,alphaAnimator);
-                        // animatorSet.start();
-
-
-
-// Si quieres que la animación se repita indefinidamente, puedes usar los siguientes métodos:
-                        rotationAnimator.setRepeatCount(ObjectAnimator.INFINITE);
-                        rotationAnimator.setRepeatMode(ObjectAnimator.RESTART);
-
-
-                    }, 0); // 5000 milisegundos = 5 segundos
-
-
-
                     holder.posicioncara.setRotation(0);
-                }
 
-                //version doble emoji
-                else {
 
-                    holder.mixedemojiforma.setVisibility(View.VISIBLE);
-                    holder.mixedemojiforma.setImageURI(Uri.parse(extra));
-                    int left2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, left, contexto.getResources().getDisplayMetrics());
-                    int top2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, contexto.getResources().getDisplayMetrics());
-                    int ancho3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, ancho, contexto.getResources().getDisplayMetrics());
 
-                    holder.mixedemojiforma.setLayoutParams(new FrameLayout.LayoutParams(ancho3-100, ancho3-100));
-                    ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) holder.mixedemojiforma.getLayoutParams();
-                    params2.setMargins(ancho3-75, top2+top2, 0, 0);
-                    holder.mixedemojiforma.setLayoutParams(params2);
-                    holder.mixedemojiforma.setRotation(-rotacion);
-
-                    Log.e("TAG", "aki rotacion emoji doble: " + rotacion );
-                    holder.posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
-                    ViewGroup.MarginLayoutParams params3 = (ViewGroup.MarginLayoutParams) holder.posicionemoji.getLayoutParams();
-                    params3.setMargins(left2, top2, 0, 0);
-                    holder.posicionemoji.setLayoutParams(params3);
-
-                    holder.posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
-                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.posicioncara.getLayoutParams();
-                    params.setMargins(0, 0, 0, 0);
-                    holder. posicioncara.setLayoutParams(params);
-                    holder.posicionemoji.setRotation(rotacion);
-                    holder.posicioncara.setRotation(0);
-                }
             }
 
 
@@ -549,7 +544,7 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
                 int left2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, left, contexto.getResources().getDisplayMetrics());
                 int top2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, contexto.getResources().getDisplayMetrics());
 
-                Log.e("TAG", "aki rotacion normal ancho2: " + ancho2 );
+                Log.e("TAG", "aki condicion normal con ancho: " + ancho );
 
                 if (holder.posicioncara != null) {
                     holder.posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
@@ -574,7 +569,7 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
                 holder.posicioncara.setRotation(0);
             }
 
-            Log.e("TAG", "emoji y objeto2: " + ancho2 );
+            Log.e("TAG", "aki condicion emoji y objeto2: " + position );
 
 
             holder.posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
@@ -615,7 +610,7 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
         if ("png".equals(extension)) {
             holder.mixedEmoji.setVisibility(View.GONE);
             holder.mixedEmoji0.setVisibility(View.VISIBLE);
-            holder.mixedEmoji0.setImageURI(Uri.parse(base));
+            holder.mixedEmoji0.setImageURI(Uri.parse(API_formas+base));
             Log.e("TAG", "onSuccess: aki es png ");
         } else {
 
@@ -748,7 +743,7 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
         }
 
 
-
+        }
 
 
 
@@ -968,8 +963,8 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
         return new File(path);
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        LottieAnimationView marca,mixedEmojiojos,mixedEmojibocas,mixedEmojiojos_objetos,mixedEmojiobjetos,mixedEmojimano,mixedemojiformas,mixedEmojimanos,mixedEmoji,mixedEmojimanos2,mixedemojiforma;
-        WrapContentDraweeView emoji,mixedEmoji0,mixedfondo;
+        LottieAnimationView mixedfondo,marca,mixedEmojiojos,mixedEmojibocas,mixedEmojiojos_objetos,mixedEmojiobjetos,mixedEmojimano,mixedemojiformas,mixedEmojimanos,mixedEmoji,mixedEmojimanos2,mixedemojiforma;
+        WrapContentDraweeView emoji,mixedEmoji0;
         TextView idemoji,votostxt;
         FrameLayout posicioncara;
         FrameLayout posicionemoji,layoutEmojiCreation;
@@ -981,6 +976,7 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
             femoji2 = itemView.findViewById(R.id.femoji2);
             layoutEmojiCreation =  itemView.findViewById(R.id.frame_emoji_creation);
             guardar = itemView.findViewById(R.id.guardar);
+            posicioncara =  itemView.findViewById(R.id.posicioncara);
 
 
             emoji = itemView.findViewById(R.id.emoji);
