@@ -225,6 +225,14 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
 
 
         if (Objects.equals(tipo, "manual")) {
+            holder.mixedEmojibocas.setVisibility(View.GONE);
+            holder.mixedEmojiojos.setVisibility(View.GONE);
+            holder.mixedEmojiojos_objetos.setVisibility(View.GONE);
+            holder.mixedEmojimanos.setVisibility(View.GONE);
+            holder.mixedemojiforma.setVisibility(View.GONE);
+            holder.mixedEmojiobjetos.setVisibility(View.GONE);
+
+
             holder.mixedEmoji.setVisibility(View.VISIBLE);
             holder.mixedEmoji0.setVisibility(View.GONE);
 

@@ -1160,7 +1160,7 @@ else {
 //                            posicioncara.setRotation(0);
 //
 //                            Log.e("TAG", "aki condiciones emoji doble: " + rotacion );
-//
+// 
 //                        }
                     }
 
