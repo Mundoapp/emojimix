@@ -1,392 +1,257 @@
 # ninja log v5
-755	977	719411809	CMakeFiles/webp.dir/src/dec/buffer_dec.c.o	a1ffbb3afc19bf1a
-736	1424	719411809	CMakeFiles/webp.dir/src/dsp/upsampling_neon.c.o	b24da4d45d270579
-7	406	719411808	CMakeFiles/webp.dir/src/dec/quant_dec.c.o	9070e25ce4c2e74a
-361	625	719411808	CMakeFiles/webp.dir/src/dsp/filters_msa.c.o	63461577a8a44fc9
-32	317	719411808	CMakeFiles/webp.dir/src/dsp/alpha_processing.c.o	20607f904cce5c44
-34	275	719411808	CMakeFiles/webp.dir/src/dsp/alpha_processing_sse41.c.o	a247364b52f493ca
-59	251	719411808	CMakeFiles/webp.dir/src/dsp/cost_sse2.c.o	593ae3797950d8b
-244	486	719411808	CMakeFiles/webp.dir/src/dsp/dec.c.o	971f581cb38354b1
-22	296	719411808	CMakeFiles/webp.dir/src/dsp/alpha_processing_mips_dsp_r2.c.o	6b28e8a893c17833
-17	615	719411808	CMakeFiles/webp.dir/src/dec/vp8_dec.c.o	6050f319ff2c10f5
-41	455	719411808	CMakeFiles/webp.dir/src/dsp/cost.c.o	3a4e3226d9ed7ec2
-14	496	719411808	CMakeFiles/webp.dir/src/dec/tree_dec.c.o	c5a565b30c9148f6
-266	835	719411809	CMakeFiles/webp.dir/src/dsp/dec_neon.c.o	a1f32bf4d3764e7e
-604	784	719411809	CMakeFiles/webp.dir/src/dsp/rescaler_mips_dsp_r2.c.o	2783be148f966a80
-594	774	719411808	CMakeFiles/webp.dir/src/dsp/rescaler_mips32.c.o	ede1258df1affd24
-45	286	719411808	CMakeFiles/webp.dir/src/dsp/alpha_processing_sse2.c.o	92b95e4b4abf341f
-70	266	719411808	CMakeFiles/webp.dir/src/dsp/dec_mips32.c.o	bbaa165de467a280
-432	550	719411808	CMakeFiles/webp.dir/src/dsp/enc_sse41.c.o	b7e63f8c3ce39f7b
-442	604	719411808	CMakeFiles/webp.dir/src/dsp/enc_sse2.c.o	efa6eaa1157547b0
-27	442	719411808	CMakeFiles/webp.dir/src/demux/anim_decode.c.o	b817c07669f2ae5a
-531	715	719411808	CMakeFiles/webp.dir/src/dsp/lossless_enc_mips_dsp_r2.c.o	70bc459dfee5d7ed
-726	955	719411809	CMakeFiles/webp.dir/src/dsp/ssim_sse2.c.o	912dd344a771b3e6
-29	476	719411808	CMakeFiles/webp.dir/src/demux/demux.c.o	1663191168869726
-476	648	719411808	CMakeFiles/webp.dir/src/dsp/lossless_enc_msa.c.o	c18eb009964b6446
-497	660	719411808	CMakeFiles/webp.dir/src/dsp/lossless_enc_mips32.c.o	23064e57cedb923c
-456	848	719411809	CMakeFiles/webp.dir/src/dsp/filters_neon.c.o	2d50ff2bb122c485
-19	706	719411808	CMakeFiles/webp.dir/src/dec/vp8l_dec.c.o	91cede86aaf33376
-4	561	719411808	CMakeFiles/webp.dir/src/dec/frame_dec.c.o	7f8ccdc2fd005cf4
-12	531	719411808	CMakeFiles/webp.dir/src/dec/io_dec.c.o	1e98bd086d16311c
-683	865	719411809	CMakeFiles/webp.dir/src/dsp/upsampling_mips_dsp_r2.c.o	f13c5e0db5b98149
-306	466	719411808	CMakeFiles/webp.dir/src/dsp/enc_mips32.c.o	a3dbed50e733a5d2
-10	572	719411808	CMakeFiles/webp.dir/src/dec/idec_dec.c.o	764cd5dd1071e77b
-50	258	719411808	CMakeFiles/webp.dir/src/dsp/cost_mips32.c.o	ad6cf40abbdd61f2
-286	394	719411808	CMakeFiles/webp.dir/src/dsp/dec_mips_dsp_r2.c.o	7c3aa025d5d49a97
-24	584	719411808	CMakeFiles/webp.dir/src/dec/webp_dec.c.o	921e237f34bf28b2
-550	736	719411808	CMakeFiles/webp.dir/src/dsp/lossless_enc_sse41.c.o	5f63c12bd1d6467d
-55	306	719411808	CMakeFiles/webp.dir/src/dsp/cost_mips_dsp_r2.c.o	49034e2ff5264ee5
-694	879	719411809	CMakeFiles/webp.dir/src/dsp/ssim.c.o	cfd95b9ff4f35ab9
-276	361	719411808	CMakeFiles/webp.dir/src/dsp/dec_msa.c.o	98e4d1faef878d13
-785	1009	719411809	CMakeFiles/webp.dir/src/enc/config_enc.c.o	ec520010298dd456
-746	966	719411809	CMakeFiles/webp.dir/src/dec/alpha_dec.c.o	b84ab99a80dab1b
-251	331	719411808	CMakeFiles/webp.dir/src/dsp/cpu.c.o	4ca5d82d1e9f7c6
-765	989	719411809	CMakeFiles/webp.dir/src/enc/frame_enc.c.o	920244a8390ef214
-332	520	719411808	CMakeFiles/webp.dir/src/dsp/enc_mips_dsp_r2.c.o	e1524f5e3934144
-258	343	719411808	CMakeFiles/webp.dir/src/dsp/dec_sse2.c.o	36a634c1feeedd1d
-918	1137	719411809	CMakeFiles/webp.dir/src/dsp/upsampling_sse41.c.o	b067bdf2c55526af
-66	244	719411808	CMakeFiles/webp.dir/src/dsp/dec_clip_tables.c.o	b9af3d6c2830e945
-317	509	719411808	CMakeFiles/webp.dir/src/dsp/dec_sse41.c.o	e46d088d44d0210d
-625	794	719411809	CMakeFiles/webp.dir/src/dsp/lossless_sse2.c.o	23ba0b675aed3f89
-296	594	719411808	CMakeFiles/webp.dir/src/dsp/enc.c.o	2c0c47f9b0021d75
-343	540	719411808	CMakeFiles/webp.dir/src/dsp/enc_msa.c.o	5b0392d23bd0fa13
-1199	1435	719411809	CMakeFiles/webp.dir/imageio/imageio_util.c.o	d27baa70fa44067d
-419	683	719411808	CMakeFiles/webp.dir/src/dsp/filters.c.o	605236e3e6172814
-561	746	719411808	CMakeFiles/webp.dir/src/dsp/rescaler.c.o	e70fbaee1a6a2700
-37	418	719411808	CMakeFiles/webp.dir/src/dsp/alpha_processing_neon.c.o	a21086c4deaf2d66
-62	432	719411808	CMakeFiles/webp.dir/src/dsp/cost_neon.c.o	db1b303ad6b0329
-509	671	719411808	CMakeFiles/webp.dir/src/dsp/filters_sse2.c.o	85abd84a371adb6
-394	636	719411808	CMakeFiles/webp.dir/src/dsp/filters_mips_dsp_r2.c.o	57c40fbdb262768
-540	726	719411809	CMakeFiles/webp.dir/src/dsp/lossless.c.o	fb725c494bc00084
-486	890	719411809	CMakeFiles/webp.dir/src/dsp/lossless_enc.c.o	386f2182024f92b8
-520	694	719411808	CMakeFiles/webp.dir/src/dsp/lossless_enc_sse2.c.o	82afa51c9787c68
-637	803	719411809	CMakeFiles/webp.dir/src/dsp/lossless_sse41.c.o	f315a80358acc716
-584	764	719411808	CMakeFiles/webp.dir/src/dsp/lossless_mips_dsp_r2.c.o	803329465f33225e
-880	1097	719411809	CMakeFiles/webp.dir/src/dsp/yuv.c.o	acd044d658fa5d56
-572	755	719411808	CMakeFiles/webp.dir/src/dsp/lossless_msa.c.o	29ff5dec476eb55f
-716	932	719411809	CMakeFiles/webp.dir/src/dsp/rescaler_sse2.c.o	6ff6d8627590d216
-1110	1365	719411809	CMakeFiles/webp.dir/src/enc/iterator_enc.c.o	221e8fc826daf97f
-671	824	719411809	CMakeFiles/webp.dir/src/dsp/upsampling_msa.c.o	c9321a84279b550
-615	1153	719411809	CMakeFiles/webp.dir/src/dsp/lossless_neon.c.o	7f3dae6a672bd99d
-648	814	719411809	CMakeFiles/webp.dir/src/dsp/upsampling.c.o	581b23c1fdc7558d
-706	918	719411809	CMakeFiles/webp.dir/src/dsp/rescaler_msa.c.o	3b5f5c8034b6fbe7
-406	945	719411809	CMakeFiles/webp.dir/src/dsp/enc_neon.c.o	b6f8a59d773c8bec
-865	1086	719411809	CMakeFiles/webp.dir/src/dsp/yuv_mips_dsp_r2.c.o	b505f9c55bcb4c95
-466	904	719411809	CMakeFiles/webp.dir/src/dsp/lossless_enc_neon.c.o	b2cdb372f4db051e
-1076	1328	719411809	CMakeFiles/webp.dir/src/enc/picture_psnr_enc.c.o	c69220a0dbe1c68a
-835	1066	719411809	CMakeFiles/webp.dir/src/dsp/yuv_sse2.c.o	b8c15c881fd6c9e9
-904	1123	719411809	CMakeFiles/webp.dir/src/dsp/upsampling_sse2.c.o	ce7c45bd90fad8a2
-1250	1488	719411809	CMakeFiles/webp.dir/src/utils/huffman_encode_utils.c.o	5cabeef107ede3c8
-848	1076	719411809	CMakeFiles/webp.dir/src/dsp/yuv_mips32.c.o	3cb4d8e4ac65a59b
-932	1172	719411809	CMakeFiles/webp.dir/src/enc/alpha_enc.c.o	9f249b28653eee83
-795	1020	719411809	CMakeFiles/webp.dir/src/enc/analysis_enc.c.o	e1ad48a217231ca7
-945	1186	719411809	CMakeFiles/webp.dir/src/dsp/yuv_sse41.c.o	38ffe9ad799d4aaf
-824	1055	719411809	CMakeFiles/webp.dir/src/enc/cost_enc.c.o	62bd62d73565d20a
-660	1110	719411809	CMakeFiles/webp.dir/src/dsp/rescaler_neon.c.o	1f6df2e1266817fc
-803	1032	719411809	CMakeFiles/webp.dir/src/enc/backward_references_enc.c.o	8abd2ca887cae8
-814	1043	719411809	CMakeFiles/webp.dir/src/enc/backward_references_cost_enc.c.o	20dfe1bce60e5ea7
-774	999	719411809	CMakeFiles/webp.dir/src/enc/filter_enc.c.o	fa19a62ae56532ba
-1043	1288	719411809	CMakeFiles/webp.dir/src/enc/picture_enc.c.o	ba340174c0c31c1e
-1032	1276	719411809	CMakeFiles/webp.dir/src/enc/picture_csp_enc.c.o	f8ea5d5edaff3620
-1086	1340	719411809	CMakeFiles/webp.dir/src/enc/near_lossless_enc.c.o	75536fba04aee4fa
-1137	1377	719411809	CMakeFiles/webp.dir/src/enc/predictor_enc.c.o	e30a87c06f582601
-1098	1352	719411809	CMakeFiles/webp.dir/src/enc/histogram_enc.c.o	8f386076e8d3d9cb
-890	1389	719411809	CMakeFiles/webp.dir/src/dsp/yuv_neon.c.o	d4bfb93cacbf836
-1328	1524	719411809	CMakeFiles/webp.dir/src/mux/muxinternal.c.o	13c0a70577a58d88
-1055	1301	719411809	CMakeFiles/webp.dir/src/enc/picture_rescale_enc.c.o	f7970608f0f430f3
-1009	1250	719411809	CMakeFiles/webp.dir/src/enc/syntax_enc.c.o	c0a243a842971cac
-955	1199	719411809	CMakeFiles/webp.dir/src/enc/tree_enc.c.o	4c8cb03f88c1ce5e
-966	1212	719411809	CMakeFiles/webp.dir/src/enc/token_enc.c.o	9d9f477788e11547
-1066	1316	719411809	CMakeFiles/webp.dir/src/enc/picture_tools_enc.c.o	fad7c7bbc6edb8f8
-989	1226	719411809	CMakeFiles/webp.dir/src/mux/anim_encode.c.o	b87456c1eff835a6
-1020	1263	719411809	CMakeFiles/webp.dir/src/enc/webp_enc.c.o	3618152906665129
-1186	1412	719411809	CMakeFiles/webp.dir/src/utils/random_utils.c.o	f5c57c5c3a05ffd6
-1212	1446	719411809	CMakeFiles/webp.dir/src/utils/quant_levels_utils.c.o	d7ec395442989d7
-1226	1458	719411809	CMakeFiles/webp.dir/src/utils/thread_utils.c.o	2cf0c40987086c35
-1238	1481	719411809	CMakeFiles/webp.dir/src/utils/utils.c.o	384f86f3b6680a6f
-1153	1555	719411809	CMakeFiles/webp.dir/imageio/image_dec.c.o	dac623bb1b1885fb
-1352	1533	719411809	CMakeFiles/webp.dir/src/utils/quant_levels_dec_utils.c.o	a4b3350a2196a3f9
-1172	1400	719411809	CMakeFiles/webp.dir/src/utils/rescaler_utils.c.o	f41b7662cbe72dcc
-1289	1508	719411809	CMakeFiles/webp.dir/src/utils/bit_writer_utils.c.o	9fe489b297e69aa3
-1340	1528	719411809	CMakeFiles/webp.dir/src/mux/muxread.c.o	ced90292e2ba1ab2
-1316	1519	719411809	CMakeFiles/webp.dir/src/utils/bit_reader_utils.c.o	4a528608d0e67a57
-1301	1513	719411809	CMakeFiles/webp.dir/src/utils/color_cache_utils.c.o	57d814f6b28044bc
-1263	1495	719411809	CMakeFiles/webp.dir/src/utils/filters_utils.c.o	6f616834e36b69cd
-978	1470	719411809	CMakeFiles/webp.dir/src/enc/vp8l_enc.c.o	26f50442ded55f35
-999	1238	719411809	CMakeFiles/webp.dir/src/mux/muxedit.c.o	e14441c42a70c7c2
-1365	1537	719411809	CMakeFiles/webp.dir/src/utils/palette.c.o	3dc2de9ccb482280
-1276	1502	719411809	CMakeFiles/webp.dir/src/utils/huffman_utils.c.o	1714b49a61bc1162
-1435	1563	719411809	CMakeFiles/webp.dir/sharpyuv/sharpyuv_gamma.c.o	9d41dec13b6b0929
-1389	1547	719411809	CMakeFiles/webp.dir/sharpyuv/sharpyuv.c.o	bebe9fcd651294c2
-1401	1551	719411809	CMakeFiles/webp.dir/sharpyuv/sharpyuv_cpu.c.o	6a5d3c8a35484569
-1123	1571	719411809	CMakeFiles/webp.dir/src/enc/quant_enc.c.o	f17cfe075bd22ddd
-1377	1542	719411809	CMakeFiles/webp.dir/sharpyuv/sharpyuv_dsp.c.o	25b8ba217a1b635f
-1424	1559	719411809	CMakeFiles/webp.dir/sharpyuv/sharpyuv_csp.c.o	83356f0bba0c089b
-1446	1566	719411809	CMakeFiles/webp.dir/sharpyuv/sharpyuv_sse2.c.o	44ef539fbcda5260
-1458	1800	719411810	CMakeFiles/native_app_glue.dir/C_/Users/kaiv/AppData/Local/Android/Sdk/ndk/21.4.7075529/sources/android/native_app_glue/android_native_app_glue.c.o	8e21698c2e93f71a
-1412	1608	719411809	CMakeFiles/webp.dir/sharpyuv/sharpyuv_neon.c.o	7ea74dcebb83f417
-1608	1808	719411810	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libwebp.so	15124ed5024e88cb
-1801	2027	719411810	libnative_app_glue.a	5e8d86c8e64c11fc
-1470	2150	719411810	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
-2150	2212	719411810	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
-1	25	0	clean	ff0a118baa164399
-21	112	719412863	CMakeFiles/webp.dir/src/dsp/alpha_processing_mips_dsp_r2.c.o	6b28e8a893c17833
-6	118	719412863	CMakeFiles/webp.dir/src/dec/quant_dec.c.o	9070e25ce4c2e74a
-36	142	719412863	CMakeFiles/webp.dir/src/dsp/alpha_processing_sse2.c.o	92b95e4b4abf341f
-27	156	719412863	CMakeFiles/webp.dir/src/dsp/alpha_processing.c.o	20607f904cce5c44
-50	167	719412863	CMakeFiles/webp.dir/src/dsp/cost_mips_dsp_r2.c.o	49034e2ff5264ee5
-23	178	719412863	CMakeFiles/webp.dir/src/dec/tree_dec.c.o	c5a565b30c9148f6
-3	189	719412863	CMakeFiles/webp.dir/src/dec/idec_dec.c.o	764cd5dd1071e77b
-62	199	719412863	CMakeFiles/webp.dir/src/dsp/cost_mips32.c.o	ad6cf40abbdd61f2
-9	211	719412863	CMakeFiles/webp.dir/src/dec/io_dec.c.o	1e98bd086d16311c
-46	222	719412863	CMakeFiles/webp.dir/src/dsp/alpha_processing_sse41.c.o	a247364b52f493ca
-54	231	719412863	CMakeFiles/webp.dir/src/dsp/cost_sse2.c.o	593ae3797950d8b
-39	242	719412863	CMakeFiles/webp.dir/src/dsp/cost.c.o	3a4e3226d9ed7ec2
-17	251	719412863	CMakeFiles/webp.dir/src/dec/webp_dec.c.o	921e237f34bf28b2
-14	262	719412863	CMakeFiles/webp.dir/src/dec/vp8_dec.c.o	6050f319ff2c10f5
-33	271	719412863	CMakeFiles/webp.dir/src/demux/anim_decode.c.o	b817c07669f2ae5a
-12	280	719412863	CMakeFiles/webp.dir/src/dec/frame_dec.c.o	7f8ccdc2fd005cf4
-178	289	719412863	CMakeFiles/webp.dir/src/dsp/dec_msa.c.o	98e4d1faef878d13
-30	298	719412863	CMakeFiles/webp.dir/src/demux/demux.c.o	1663191168869726
-112	307	719412863	CMakeFiles/webp.dir/src/dsp/cpu.c.o	4ca5d82d1e9f7c6
-90	317	719412863	CMakeFiles/webp.dir/src/dsp/dec_clip_tables.c.o	b9af3d6c2830e945
-78	321	719412863	CMakeFiles/webp.dir/src/dsp/dec_mips32.c.o	bbaa165de467a280
-190	326	719412863	CMakeFiles/webp.dir/src/dsp/enc_mips32.c.o	a3dbed50e733a5d2
-199	331	719412863	CMakeFiles/webp.dir/src/dsp/dec_sse41.c.o	e46d088d44d0210d
-142	340	719412863	CMakeFiles/webp.dir/src/dsp/dec_mips_dsp_r2.c.o	7c3aa025d5d49a97
-211	349	719412863	CMakeFiles/webp.dir/src/dsp/enc.c.o	2c0c47f9b0021d75
-156	357	719412863	CMakeFiles/webp.dir/src/dsp/dec_sse2.c.o	36a634c1feeedd1d
-222	368	719412863	CMakeFiles/webp.dir/src/dsp/enc_mips_dsp_r2.c.o	e1524f5e3934144
-231	372	719412863	CMakeFiles/webp.dir/src/dsp/enc_sse2.c.o	efa6eaa1157547b0
-19	382	719412863	CMakeFiles/webp.dir/src/dec/vp8l_dec.c.o	91cede86aaf33376
-119	386	719412863	CMakeFiles/webp.dir/src/dsp/dec.c.o	971f581cb38354b1
-242	398	719412863	CMakeFiles/webp.dir/src/dsp/filters.c.o	605236e3e6172814
-251	410	719412863	CMakeFiles/webp.dir/src/dsp/filters_mips_dsp_r2.c.o	57c40fbdb262768
-262	414	719412863	CMakeFiles/webp.dir/src/dsp/enc_msa.c.o	5b0392d23bd0fa13
-271	419	719412863	CMakeFiles/webp.dir/src/dsp/filters_msa.c.o	63461577a8a44fc9
-42	424	719412863	CMakeFiles/webp.dir/src/dsp/alpha_processing_neon.c.o	a21086c4deaf2d66
-280	438	719412863	CMakeFiles/webp.dir/src/dsp/enc_sse41.c.o	b7e63f8c3ce39f7b
-317	449	719412863	CMakeFiles/webp.dir/src/dsp/lossless_enc_msa.c.o	c18eb009964b6446
-321	454	719412863	CMakeFiles/webp.dir/src/dsp/filters_sse2.c.o	85abd84a371adb6
-326	466	719412863	CMakeFiles/webp.dir/src/dsp/lossless_enc_sse2.c.o	82afa51c9787c68
-69	478	719412863	CMakeFiles/webp.dir/src/dsp/cost_neon.c.o	db1b303ad6b0329
-349	490	719412863	CMakeFiles/webp.dir/src/dsp/lossless_enc_mips_dsp_r2.c.o	70bc459dfee5d7ed
-357	496	719412863	CMakeFiles/webp.dir/src/dsp/lossless_enc_mips32.c.o	23064e57cedb923c
-368	501	719412863	CMakeFiles/webp.dir/src/dsp/lossless_enc_sse41.c.o	5f63c12bd1d6467d
-372	513	719412863	CMakeFiles/webp.dir/src/dsp/lossless_sse41.c.o	f315a80358acc716
-382	519	719412863	CMakeFiles/webp.dir/src/dsp/rescaler_mips_dsp_r2.c.o	2783be148f966a80
-386	531	719412863	CMakeFiles/webp.dir/src/dsp/lossless_msa.c.o	29ff5dec476eb55f
-398	542	719412863	CMakeFiles/webp.dir/src/dsp/rescaler_mips32.c.o	ede1258df1affd24
-410	554	719412863	CMakeFiles/webp.dir/src/dsp/rescaler.c.o	e70fbaee1a6a2700
-419	559	719412863	CMakeFiles/webp.dir/src/dsp/lossless_sse2.c.o	23ba0b675aed3f89
-424	571	719412863	CMakeFiles/webp.dir/src/dsp/lossless_mips_dsp_r2.c.o	803329465f33225e
-438	581	719412863	CMakeFiles/webp.dir/src/dsp/ssim.c.o	cfd95b9ff4f35ab9
-449	586	719412863	CMakeFiles/webp.dir/src/dsp/ssim_sse2.c.o	912dd344a771b3e6
-454	591	719412863	CMakeFiles/webp.dir/src/dsp/upsampling.c.o	581b23c1fdc7558d
-466	595	719412863	CMakeFiles/webp.dir/src/dsp/rescaler_sse2.c.o	6ff6d8627590d216
-478	600	719412863	CMakeFiles/webp.dir/src/dsp/upsampling_mips_dsp_r2.c.o	f13c5e0db5b98149
-331	613	719412863	CMakeFiles/webp.dir/src/dsp/lossless.c.o	fb725c494bc00084
-491	626	719412863	CMakeFiles/webp.dir/src/dsp/upsampling_msa.c.o	c9321a84279b550
-340	640	719412863	CMakeFiles/webp.dir/src/dsp/lossless_enc.c.o	386f2182024f92b8
-298	645	719412863	CMakeFiles/webp.dir/src/dsp/filters_neon.c.o	2d50ff2bb122c485
-514	650	719412863	CMakeFiles/webp.dir/src/dsp/rescaler_msa.c.o	3b5f5c8034b6fbe7
-519	663	719412863	CMakeFiles/webp.dir/src/dec/buffer_dec.c.o	a1ffbb3afc19bf1a
-307	668	719412863	CMakeFiles/webp.dir/src/dsp/lossless_enc_neon.c.o	b2cdb372f4db051e
-531	681	719412863	CMakeFiles/webp.dir/src/dec/alpha_dec.c.o	b84ab99a80dab1b
-167	694	719412863	CMakeFiles/webp.dir/src/dsp/dec_neon.c.o	a1f32bf4d3764e7e
-554	708	719412863	CMakeFiles/webp.dir/src/dsp/yuv.c.o	acd044d658fa5d56
-559	714	719412863	CMakeFiles/webp.dir/src/dsp/yuv_mips_dsp_r2.c.o	b505f9c55bcb4c95
-571	726	719412863	CMakeFiles/webp.dir/src/dsp/upsampling_sse41.c.o	b067bdf2c55526af
-289	731	719412863	CMakeFiles/webp.dir/src/dsp/enc_neon.c.o	b6f8a59d773c8bec
-582	742	719412863	CMakeFiles/webp.dir/src/dsp/upsampling_sse2.c.o	ce7c45bd90fad8a2
-586	753	719412863	CMakeFiles/webp.dir/src/dsp/yuv_sse2.c.o	b8c15c881fd6c9e9
-591	766	719412863	CMakeFiles/webp.dir/src/dsp/yuv_mips32.c.o	3cb4d8e4ac65a59b
-595	779	719412863	CMakeFiles/webp.dir/src/enc/backward_references_cost_enc.c.o	20dfe1bce60e5ea7
-600	792	719412863	CMakeFiles/webp.dir/src/enc/alpha_enc.c.o	9f249b28653eee83
-613	811	719412863	CMakeFiles/webp.dir/src/enc/filter_enc.c.o	fa19a62ae56532ba
-640	817	719412863	CMakeFiles/webp.dir/src/enc/config_enc.c.o	ec520010298dd456
-645	830	719412863	CMakeFiles/webp.dir/src/enc/cost_enc.c.o	62bd62d73565d20a
-650	835	719412863	CMakeFiles/webp.dir/src/dsp/yuv_sse41.c.o	38ffe9ad799d4aaf
-663	848	719412863	CMakeFiles/webp.dir/src/enc/analysis_enc.c.o	e1ad48a217231ca7
-668	862	719412863	CMakeFiles/webp.dir/src/enc/frame_enc.c.o	920244a8390ef214
-681	875	719412863	CMakeFiles/webp.dir/src/enc/webp_enc.c.o	3618152906665129
-694	881	719412863	CMakeFiles/webp.dir/src/enc/tree_enc.c.o	4c8cb03f88c1ce5e
-709	895	719412863	CMakeFiles/webp.dir/src/mux/muxedit.c.o	e14441c42a70c7c2
-714	923	719412863	CMakeFiles/webp.dir/src/enc/syntax_enc.c.o	c0a243a842971cac
-496	935	719412863	CMakeFiles/webp.dir/src/dsp/rescaler_neon.c.o	1f6df2e1266817fc
-731	941	719412863	CMakeFiles/webp.dir/src/enc/token_enc.c.o	9d9f477788e11547
-414	946	719412863	CMakeFiles/webp.dir/src/dsp/lossless_neon.c.o	7f3dae6a672bd99d
-753	952	719412863	CMakeFiles/webp.dir/src/enc/picture_rescale_enc.c.o	f7970608f0f430f3
-767	957	719412863	CMakeFiles/webp.dir/src/enc/near_lossless_enc.c.o	75536fba04aee4fa
-792	963	719412863	CMakeFiles/webp.dir/src/enc/iterator_enc.c.o	221e8fc826daf97f
-542	968	719412863	CMakeFiles/webp.dir/src/dsp/yuv_neon.c.o	d4bfb93cacbf836
-817	974	719412863	CMakeFiles/webp.dir/src/enc/picture_tools_enc.c.o	fad7c7bbc6edb8f8
-626	986	719412863	CMakeFiles/webp.dir/src/enc/backward_references_enc.c.o	8abd2ca887cae8
-830	999	719412863	CMakeFiles/webp.dir/src/enc/picture_psnr_enc.c.o	c69220a0dbe1c68a
-835	1011	719412863	CMakeFiles/webp.dir/src/enc/picture_enc.c.o	ba340174c0c31c1e
-881	1022	719412863	CMakeFiles/webp.dir/src/utils/random_utils.c.o	f5c57c5c3a05ffd6
-895	1026	719412863	CMakeFiles/webp.dir/src/utils/rescaler_utils.c.o	f41b7662cbe72dcc
-923	1037	719412864	CMakeFiles/webp.dir/src/utils/utils.c.o	384f86f3b6680a6f
-935	1048	719412864	CMakeFiles/webp.dir/src/utils/thread_utils.c.o	2cf0c40987086c35
-941	1059	719412864	CMakeFiles/webp.dir/src/utils/quant_levels_utils.c.o	d7ec395442989d7
-947	1064	719412864	CMakeFiles/webp.dir/imageio/imageio_util.c.o	d27baa70fa44067d
-726	1076	719412863	CMakeFiles/webp.dir/src/mux/anim_encode.c.o	b87456c1eff835a6
-957	1087	719412864	CMakeFiles/webp.dir/src/utils/huffman_encode_utils.c.o	5cabeef107ede3c8
-963	1092	719412864	CMakeFiles/webp.dir/src/utils/bit_reader_utils.c.o	4a528608d0e67a57
-969	1102	719412864	CMakeFiles/webp.dir/src/utils/color_cache_utils.c.o	57d814f6b28044bc
-974	1112	719412864	CMakeFiles/webp.dir/src/utils/bit_writer_utils.c.o	9fe489b297e69aa3
-501	1122	719412863	CMakeFiles/webp.dir/src/dsp/upsampling_neon.c.o	b24da4d45d270579
-811	1128	719412863	CMakeFiles/webp.dir/src/enc/picture_csp_enc.c.o	f8ea5d5edaff3620
-779	1134	719412863	CMakeFiles/webp.dir/src/enc/histogram_enc.c.o	8f386076e8d3d9cb
-986	1140	719412864	CMakeFiles/webp.dir/src/mux/muxinternal.c.o	13c0a70577a58d88
-742	1146	719412863	CMakeFiles/webp.dir/src/enc/vp8l_enc.c.o	26f50442ded55f35
-999	1146	719412864	CMakeFiles/webp.dir/src/utils/huffman_utils.c.o	1714b49a61bc1162
-1011	1152	719412864	CMakeFiles/webp.dir/src/utils/filters_utils.c.o	6f616834e36b69cd
-862	1157	719412864	CMakeFiles/webp.dir/src/enc/predictor_enc.c.o	e30a87c06f582601
-1022	1162	719412864	CMakeFiles/webp.dir/src/utils/palette.c.o	3dc2de9ccb482280
-875	1167	719412864	CMakeFiles/webp.dir/imageio/image_dec.c.o	dac623bb1b1885fb
-1026	1173	719412864	CMakeFiles/webp.dir/src/utils/quant_levels_dec_utils.c.o	a4b3350a2196a3f9
-1048	1174	719412864	CMakeFiles/webp.dir/sharpyuv/sharpyuv_csp.c.o	83356f0bba0c089b
-1060	1178	719412864	CMakeFiles/webp.dir/sharpyuv/sharpyuv.c.o	bebe9fcd651294c2
-1076	1179	719412864	CMakeFiles/webp.dir/sharpyuv/sharpyuv_sse2.c.o	44ef539fbcda5260
-952	1184	719412864	CMakeFiles/webp.dir/src/mux/muxread.c.o	ced90292e2ba1ab2
-1087	1185	719412864	CMakeFiles/webp.dir/sharpyuv/sharpyuv_cpu.c.o	6a5d3c8a35484569
-1092	1189	719412864	CMakeFiles/webp.dir/sharpyuv/sharpyuv_dsp.c.o	25b8ba217a1b635f
-1102	1193	719412864	CMakeFiles/webp.dir/sharpyuv/sharpyuv_gamma.c.o	9d41dec13b6b0929
-848	1198	719412864	CMakeFiles/webp.dir/src/enc/quant_enc.c.o	f17cfe075bd22ddd
-1112	1215	719412864	CMakeFiles/native_app_glue.dir/C_/Users/kaiv/AppData/Local/Android/Sdk/ndk/21.4.7075529/sources/android/native_app_glue/android_native_app_glue.c.o	8e21698c2e93f71a
-1064	1254	719412864	CMakeFiles/webp.dir/sharpyuv/sharpyuv_neon.c.o	7ea74dcebb83f417
-1215	1261	719412864	libnative_app_glue.a	5e8d86c8e64c11fc
-1255	1376	719412864	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libwebp.so	15124ed5024e88cb
-1037	1400	719412864	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
-1400	1445	719412864	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
-1	97	719839998	CMakeFiles/webp.dir/src/dec/quant_dec.c.o	9070e25ce4c2e74a
-33	125	719839998	CMakeFiles/webp.dir/src/dsp/alpha_processing_mips_dsp_r2.c.o	6b28e8a893c17833
-24	132	719839998	CMakeFiles/webp.dir/src/dsp/alpha_processing.c.o	20607f904cce5c44
-51	140	719839998	CMakeFiles/webp.dir/src/dsp/cost_sse2.c.o	593ae3797950d8b
-40	148	719839998	CMakeFiles/webp.dir/src/dsp/alpha_processing_sse41.c.o	a247364b52f493ca
-47	154	719839998	CMakeFiles/webp.dir/src/dsp/alpha_processing_sse2.c.o	92b95e4b4abf341f
-62	164	719839998	CMakeFiles/webp.dir/src/dsp/cost_mips_dsp_r2.c.o	49034e2ff5264ee5
-15	169	719839998	CMakeFiles/webp.dir/src/dec/tree_dec.c.o	c5a565b30c9148f6
-4	181	719839998	CMakeFiles/webp.dir/src/dec/io_dec.c.o	1e98bd086d16311c
-36	187	719839998	CMakeFiles/webp.dir/src/dsp/cost.c.o	3a4e3226d9ed7ec2
-70	199	719839998	CMakeFiles/webp.dir/src/dsp/cpu.c.o	4ca5d82d1e9f7c6
-66	204	719839998	CMakeFiles/webp.dir/src/dsp/dec_mips32.c.o	bbaa165de467a280
-54	212	719839998	CMakeFiles/webp.dir/src/dsp/cost_mips32.c.o	ad6cf40abbdd61f2
-27	218	719839998	CMakeFiles/webp.dir/src/demux/anim_decode.c.o	b817c07669f2ae5a
-10	230	719839998	CMakeFiles/webp.dir/src/dec/idec_dec.c.o	764cd5dd1071e77b
-18	242	719839998	CMakeFiles/webp.dir/src/dec/vp8_dec.c.o	6050f319ff2c10f5
-8	251	719839998	CMakeFiles/webp.dir/src/dec/frame_dec.c.o	7f8ccdc2fd005cf4
-187	256	719839998	CMakeFiles/webp.dir/src/dsp/dec_sse41.c.o	e46d088d44d0210d
-30	268	719839998	CMakeFiles/webp.dir/src/demux/demux.c.o	1663191168869726
-204	279	719839998	CMakeFiles/webp.dir/src/dsp/filters_msa.c.o	63461577a8a44fc9
-20	290	719839998	CMakeFiles/webp.dir/src/dec/webp_dec.c.o	921e237f34bf28b2
-212	302	719839998	CMakeFiles/webp.dir/src/dsp/enc_sse2.c.o	efa6eaa1157547b0
-126	306	719839998	CMakeFiles/webp.dir/src/dsp/dec_clip_tables.c.o	b9af3d6c2830e945
-140	317	719839998	CMakeFiles/webp.dir/src/dsp/dec_msa.c.o	98e4d1faef878d13
-218	321	719839998	CMakeFiles/webp.dir/src/dsp/filters.c.o	605236e3e6172814
-148	326	719839998	CMakeFiles/webp.dir/src/dsp/dec_sse2.c.o	36a634c1feeedd1d
-154	331	719839998	CMakeFiles/webp.dir/src/dsp/dec_mips_dsp_r2.c.o	7c3aa025d5d49a97
-97	336	719839998	CMakeFiles/webp.dir/src/dsp/dec.c.o	971f581cb38354b1
-230	347	719839998	CMakeFiles/webp.dir/src/dsp/filters_mips_dsp_r2.c.o	57c40fbdb262768
-169	356	719839998	CMakeFiles/webp.dir/src/dsp/enc_mips32.c.o	a3dbed50e733a5d2
-242	361	719839998	CMakeFiles/webp.dir/src/dsp/enc_msa.c.o	5b0392d23bd0fa13
-13	372	719839998	CMakeFiles/webp.dir/src/dec/vp8l_dec.c.o	91cede86aaf33376
-181	377	719839998	CMakeFiles/webp.dir/src/dsp/enc_mips_dsp_r2.c.o	e1524f5e3934144
-251	382	719839998	CMakeFiles/webp.dir/src/dsp/enc_sse41.c.o	b7e63f8c3ce39f7b
-279	387	719839998	CMakeFiles/webp.dir/src/dsp/lossless_enc_msa.c.o	c18eb009964b6446
-290	393	719839998	CMakeFiles/webp.dir/src/dsp/lossless_enc_mips_dsp_r2.c.o	70bc459dfee5d7ed
-164	405	719839998	CMakeFiles/webp.dir/src/dsp/enc.c.o	2c0c47f9b0021d75
-43	417	719839998	CMakeFiles/webp.dir/src/dsp/alpha_processing_neon.c.o	a21086c4deaf2d66
-302	429	719839998	CMakeFiles/webp.dir/src/dsp/lossless_enc_mips32.c.o	23064e57cedb923c
-317	441	719839998	CMakeFiles/webp.dir/src/dsp/lossless_enc_sse2.c.o	82afa51c9787c68
-58	446	719839998	CMakeFiles/webp.dir/src/dsp/cost_neon.c.o	db1b303ad6b0329
-322	451	719839998	CMakeFiles/webp.dir/src/dsp/filters_sse2.c.o	85abd84a371adb6
-331	457	719839998	CMakeFiles/webp.dir/src/dsp/lossless_enc_sse41.c.o	5f63c12bd1d6467d
-336	462	719839998	CMakeFiles/webp.dir/src/dsp/lossless_msa.c.o	29ff5dec476eb55f
-357	467	719839998	CMakeFiles/webp.dir/src/dsp/rescaler_mips32.c.o	ede1258df1affd24
-362	474	719839998	CMakeFiles/webp.dir/src/dsp/rescaler_mips_dsp_r2.c.o	2783be148f966a80
-372	479	719839998	CMakeFiles/webp.dir/src/dsp/rescaler_msa.c.o	3b5f5c8034b6fbe7
-377	484	719839998	CMakeFiles/webp.dir/src/dsp/lossless_sse41.c.o	f315a80358acc716
-382	489	719839998	CMakeFiles/webp.dir/src/dsp/lossless_sse2.c.o	23ba0b675aed3f89
-388	495	719839998	CMakeFiles/webp.dir/src/dsp/rescaler.c.o	e70fbaee1a6a2700
-393	507	719839998	CMakeFiles/webp.dir/src/dsp/lossless_mips_dsp_r2.c.o	803329465f33225e
-405	512	719839998	CMakeFiles/webp.dir/src/dsp/upsampling_msa.c.o	c9321a84279b550
-417	518	719839998	CMakeFiles/webp.dir/src/dsp/ssim.c.o	cfd95b9ff4f35ab9
-269	530	719839998	CMakeFiles/webp.dir/src/dsp/lossless.c.o	fb725c494bc00084
-441	535	719839998	CMakeFiles/webp.dir/src/dsp/rescaler_sse2.c.o	6ff6d8627590d216
-446	541	719839998	CMakeFiles/webp.dir/src/dsp/ssim_sse2.c.o	912dd344a771b3e6
-452	554	719839998	CMakeFiles/webp.dir/src/dsp/upsampling.c.o	581b23c1fdc7558d
-457	565	719839998	CMakeFiles/webp.dir/src/dsp/upsampling_mips_dsp_r2.c.o	f13c5e0db5b98149
-256	569	719839998	CMakeFiles/webp.dir/src/dsp/filters_neon.c.o	2d50ff2bb122c485
-479	579	719839998	CMakeFiles/webp.dir/src/dsp/yuv_mips32.c.o	3cb4d8e4ac65a59b
-489	585	719839998	CMakeFiles/webp.dir/src/dsp/upsampling_sse41.c.o	b067bdf2c55526af
-495	596	719839998	CMakeFiles/webp.dir/src/dsp/upsampling_sse2.c.o	ce7c45bd90fad8a2
-326	607	719839998	CMakeFiles/webp.dir/src/dsp/lossless_enc.c.o	386f2182024f92b8
-199	613	719839998	CMakeFiles/webp.dir/src/dsp/enc_neon.c.o	b6f8a59d773c8bec
-513	617	719839998	CMakeFiles/webp.dir/src/dsp/yuv_mips_dsp_r2.c.o	b505f9c55bcb4c95
-518	622	719839998	CMakeFiles/webp.dir/src/dsp/yuv_sse2.c.o	b8c15c881fd6c9e9
-531	633	719839998	CMakeFiles/webp.dir/src/enc/config_enc.c.o	ec520010298dd456
-307	646	719839998	CMakeFiles/webp.dir/src/dsp/lossless_enc_neon.c.o	b2cdb372f4db051e
-132	651	719839998	CMakeFiles/webp.dir/src/dsp/dec_neon.c.o	a1f32bf4d3764e7e
-580	664	719839998	CMakeFiles/webp.dir/src/dsp/yuv_sse41.c.o	38ffe9ad799d4aaf
-474	675	719839998	CMakeFiles/webp.dir/src/dec/alpha_dec.c.o	b84ab99a80dab1b
-467	687	719839998	CMakeFiles/webp.dir/src/dec/buffer_dec.c.o	a1ffbb3afc19bf1a
-507	694	719839998	CMakeFiles/webp.dir/src/dsp/yuv.c.o	acd044d658fa5d56
-429	700	719839998	CMakeFiles/webp.dir/src/dsp/rescaler_neon.c.o	1f6df2e1266817fc
-554	715	719839998	CMakeFiles/webp.dir/src/enc/cost_enc.c.o	62bd62d73565d20a
-569	721	719839998	CMakeFiles/webp.dir/src/enc/filter_enc.c.o	fa19a62ae56532ba
-535	730	719839998	CMakeFiles/webp.dir/src/enc/alpha_enc.c.o	9f249b28653eee83
-347	736	719839998	CMakeFiles/webp.dir/src/dsp/lossless_neon.c.o	7f3dae6a672bd99d
-565	742	719839998	CMakeFiles/webp.dir/src/enc/analysis_enc.c.o	e1ad48a217231ca7
-613	752	719839999	CMakeFiles/webp.dir/src/enc/near_lossless_enc.c.o	75536fba04aee4fa
-541	766	719839999	CMakeFiles/webp.dir/src/enc/backward_references_enc.c.o	8abd2ca887cae8
-585	771	719839999	CMakeFiles/webp.dir/src/enc/backward_references_cost_enc.c.o	20dfe1bce60e5ea7
-622	777	719839999	CMakeFiles/webp.dir/src/enc/picture_enc.c.o	ba340174c0c31c1e
-484	782	719839999	CMakeFiles/webp.dir/src/dsp/yuv_neon.c.o	d4bfb93cacbf836
-633	795	719839999	CMakeFiles/webp.dir/src/enc/picture_psnr_enc.c.o	c69220a0dbe1c68a
-597	807	719839999	CMakeFiles/webp.dir/src/enc/frame_enc.c.o	920244a8390ef214
-651	821	719839999	CMakeFiles/webp.dir/src/enc/picture_rescale_enc.c.o	f7970608f0f430f3
-646	834	719839999	CMakeFiles/webp.dir/src/enc/iterator_enc.c.o	221e8fc826daf97f
-664	840	719839999	CMakeFiles/webp.dir/src/enc/picture_tools_enc.c.o	fad7c7bbc6edb8f8
-617	853	719839999	CMakeFiles/webp.dir/src/enc/picture_csp_enc.c.o	f8ea5d5edaff3620
-608	867	719839999	CMakeFiles/webp.dir/src/enc/histogram_enc.c.o	8f386076e8d3d9cb
-716	873	719839999	CMakeFiles/webp.dir/src/enc/tree_enc.c.o	4c8cb03f88c1ce5e
-700	887	719839999	CMakeFiles/webp.dir/src/enc/webp_enc.c.o	3618152906665129
-694	893	719839999	CMakeFiles/webp.dir/src/enc/syntax_enc.c.o	c0a243a842971cac
-731	899	719839999	CMakeFiles/webp.dir/src/enc/token_enc.c.o	9d9f477788e11547
-687	905	719839999	CMakeFiles/webp.dir/src/enc/predictor_enc.c.o	e30a87c06f582601
-736	919	719839999	CMakeFiles/webp.dir/sharpyuv/sharpyuv.c.o	bebe9fcd651294c2
-766	931	719839999	CMakeFiles/webp.dir/src/utils/huffman_encode_utils.c.o	5cabeef107ede3c8
-771	936	719839999	CMakeFiles/webp.dir/src/utils/huffman_utils.c.o	1714b49a61bc1162
-795	948	719839999	CMakeFiles/webp.dir/src/utils/color_cache_utils.c.o	57d814f6b28044bc
-742	960	719839999	CMakeFiles/webp.dir/src/mux/muxedit.c.o	e14441c42a70c7c2
-808	965	719839999	CMakeFiles/webp.dir/src/utils/filters_utils.c.o	6f616834e36b69cd
-777	977	719839999	CMakeFiles/webp.dir/src/mux/muxinternal.c.o	13c0a70577a58d88
-462	982	719839999	CMakeFiles/webp.dir/src/dsp/upsampling_neon.c.o	b24da4d45d270579
-821	987	719839999	CMakeFiles/webp.dir/src/utils/bit_reader_utils.c.o	4a528608d0e67a57
-782	999	719839999	CMakeFiles/webp.dir/src/mux/muxread.c.o	ced90292e2ba1ab2
-854	1000	719839999	CMakeFiles/webp.dir/src/utils/thread_utils.c.o	2cf0c40987086c35
-834	1001	719839999	CMakeFiles/webp.dir/src/utils/bit_writer_utils.c.o	9fe489b297e69aa3
-752	1007	719839999	CMakeFiles/webp.dir/src/mux/anim_encode.c.o	b87456c1eff835a6
-867	1008	719839999	CMakeFiles/webp.dir/src/utils/utils.c.o	384f86f3b6680a6f
-840	1015	719839999	CMakeFiles/webp.dir/src/utils/palette.c.o	3dc2de9ccb482280
-873	1020	719839999	CMakeFiles/webp.dir/imageio/imageio_util.c.o	d27baa70fa44067d
-893	1021	719839999	CMakeFiles/webp.dir/src/utils/random_utils.c.o	f5c57c5c3a05ffd6
-887	1022	719839999	CMakeFiles/webp.dir/src/utils/quant_levels_dec_utils.c.o	a4b3350a2196a3f9
-721	1028	719839999	CMakeFiles/webp.dir/src/enc/vp8l_enc.c.o	26f50442ded55f35
-905	1029	719839999	CMakeFiles/webp.dir/src/utils/quant_levels_utils.c.o	d7ec395442989d7
-899	1034	719839999	CMakeFiles/webp.dir/src/utils/rescaler_utils.c.o	f41b7662cbe72dcc
-936	1034	719839999	CMakeFiles/webp.dir/sharpyuv/sharpyuv_cpu.c.o	6a5d3c8a35484569
-948	1035	719839999	CMakeFiles/webp.dir/sharpyuv/sharpyuv_sse2.c.o	44ef539fbcda5260
-960	1040	719839999	CMakeFiles/webp.dir/sharpyuv/sharpyuv_dsp.c.o	25b8ba217a1b635f
-676	1046	719839999	CMakeFiles/webp.dir/src/enc/quant_enc.c.o	f17cfe075bd22ddd
-982	1050	719839999	CMakeFiles/webp.dir/sharpyuv/sharpyuv_csp.c.o	83356f0bba0c089b
-965	1055	719839999	CMakeFiles/webp.dir/sharpyuv/sharpyuv_gamma.c.o	9d41dec13b6b0929
-919	1060	719839999	CMakeFiles/webp.dir/imageio/image_dec.c.o	dac623bb1b1885fb
-987	1090	719839999	CMakeFiles/native_app_glue.dir/C_/Users/kaiv/AppData/Local/Android/Sdk/ndk/21.4.7075529/sources/android/native_app_glue/android_native_app_glue.c.o	8e21698c2e93f71a
-1090	1141	719839999	libnative_app_glue.a	5e8d86c8e64c11fc
-977	1148	719839999	CMakeFiles/webp.dir/sharpyuv/sharpyuv_neon.c.o	7ea74dcebb83f417
-1148	1273	719839999	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libwebp.so	15124ed5024e88cb
-932	1293	719839999	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
-1293	1339	719839999	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+9	130	721051440	CMakeFiles/webp.dir/src/dec/quant_dec.c.o	9070e25ce4c2e74a
+474	987	721051441	CMakeFiles/webp.dir/src/dsp/upsampling_neon.c.o	b24da4d45d270579
+479	644	721051441	CMakeFiles/webp.dir/src/dec/buffer_dec.c.o	a1ffbb3afc19bf1a
+220	350	721051441	CMakeFiles/webp.dir/src/dsp/filters_msa.c.o	63461577a8a44fc9
+28	141	721051440	CMakeFiles/webp.dir/src/dsp/alpha_processing.c.o	20607f904cce5c44
+41	135	721051440	CMakeFiles/webp.dir/src/dsp/alpha_processing_sse41.c.o	a247364b52f493ca
+55	153	721051441	CMakeFiles/webp.dir/src/dsp/cost_sse2.c.o	593ae3797950d8b
+125	377	721051441	CMakeFiles/webp.dir/src/dsp/dec.c.o	971f581cb38354b1
+12	85	721051440	CMakeFiles/webp.dir/src/dsp/alpha_processing_mips_dsp_r2.c.o	6b28e8a893c17833
+44	255	721051441	CMakeFiles/webp.dir/src/dsp/cost.c.o	3a4e3226d9ed7ec2
+19	289	721051441	CMakeFiles/webp.dir/src/dec/vp8_dec.c.o	6050f319ff2c10f5
+16	165	721051441	CMakeFiles/webp.dir/src/dec/tree_dec.c.o	c5a565b30c9148f6
+141	606	721051441	CMakeFiles/webp.dir/src/dsp/dec_neon.c.o	a1f32bf4d3764e7e
+34	124	721051440	CMakeFiles/webp.dir/src/dsp/alpha_processing_sse2.c.o	92b95e4b4abf341f
+388	519	721051441	CMakeFiles/webp.dir/src/dsp/rescaler_mips32.c.o	ede1258df1affd24
+339	473	721051441	CMakeFiles/webp.dir/src/dsp/rescaler_mips_dsp_r2.c.o	2783be148f966a80
+243	388	721051441	CMakeFiles/webp.dir/src/dsp/enc_sse2.c.o	efa6eaa1157547b0
+64	193	721051441	CMakeFiles/webp.dir/src/dsp/dec_mips32.c.o	bbaa165de467a280
+204	329	721051441	CMakeFiles/webp.dir/src/dsp/enc_sse41.c.o	b7e63f8c3ce39f7b
+31	182	721051441	CMakeFiles/webp.dir/src/demux/anim_decode.c.o	b817c07669f2ae5a
+276	415	721051441	CMakeFiles/webp.dir/src/dsp/lossless_enc_mips_dsp_r2.c.o	70bc459dfee5d7ed
+315	450	721051441	CMakeFiles/webp.dir/src/dsp/lossless_enc_mips32.c.o	23064e57cedb923c
+25	299	721051441	CMakeFiles/webp.dir/src/demux/demux.c.o	1663191168869726
+299	433	721051441	CMakeFiles/webp.dir/src/dsp/lossless_enc_msa.c.o	c18eb009964b6446
+450	558	721051441	CMakeFiles/webp.dir/src/dsp/ssim_sse2.c.o	912dd344a771b3e6
+1	215	721051441	CMakeFiles/webp.dir/src/dec/frame_dec.c.o	7f8ccdc2fd005cf4
+14	402	721051441	CMakeFiles/webp.dir/src/dec/vp8l_dec.c.o	91cede86aaf33376
+266	596	721051441	CMakeFiles/webp.dir/src/dsp/filters_neon.c.o	2d50ff2bb122c485
+7	204	721051441	CMakeFiles/webp.dir/src/dec/io_dec.c.o	1e98bd086d16311c
+4	232	721051441	CMakeFiles/webp.dir/src/dec/idec_dec.c.o	764cd5dd1071e77b
+182	294	721051441	CMakeFiles/webp.dir/src/dsp/enc_mips32.c.o	a3dbed50e733a5d2
+445	541	721051441	CMakeFiles/webp.dir/src/dsp/upsampling_mips_dsp_r2.c.o	f13c5e0db5b98149
+52	170	721051441	CMakeFiles/webp.dir/src/dsp/cost_mips32.c.o	ad6cf40abbdd61f2
+130	333	721051441	CMakeFiles/webp.dir/src/dsp/dec_mips_dsp_r2.c.o	7c3aa025d5d49a97
+22	310	721051441	CMakeFiles/webp.dir/src/dec/webp_dec.c.o	921e237f34bf28b2
+59	243	721051441	CMakeFiles/webp.dir/src/dsp/cost_mips_dsp_r2.c.o	49034e2ff5264ee5
+333	470	721051441	CMakeFiles/webp.dir/src/dsp/lossless_enc_sse41.c.o	5f63c12bd1d6467d
+135	319	721051441	CMakeFiles/webp.dir/src/dsp/dec_msa.c.o	98e4d1faef878d13
+421	529	721051441	CMakeFiles/webp.dir/src/dsp/ssim.c.o	cfd95b9ff4f35ab9
+85	276	721051441	CMakeFiles/webp.dir/src/dsp/cpu.c.o	4ca5d82d1e9f7c6
+519	631	721051441	CMakeFiles/webp.dir/src/enc/config_enc.c.o	ec520010298dd456
+484	624	721051441	CMakeFiles/webp.dir/src/dec/alpha_dec.c.o	b84ab99a80dab1b
+497	717	721051441	CMakeFiles/webp.dir/src/enc/frame_enc.c.o	920244a8390ef214
+170	266	721051441	CMakeFiles/webp.dir/src/dsp/enc_mips_dsp_r2.c.o	e1524f5e3934144
+153	361	721051441	CMakeFiles/webp.dir/src/dsp/dec_sse2.c.o	36a634c1feeedd1d
+564	677	721051441	CMakeFiles/webp.dir/src/dsp/upsampling_sse41.c.o	b067bdf2c55526af
+69	219	721051441	CMakeFiles/webp.dir/src/dsp/dec_clip_tables.c.o	b9af3d6c2830e945
+165	238	721051441	CMakeFiles/webp.dir/src/dsp/dec_sse41.c.o	e46d088d44d0210d
+362	484	721051441	CMakeFiles/webp.dir/src/dsp/lossless_sse2.c.o	23ba0b675aed3f89
+193	315	721051441	CMakeFiles/webp.dir/src/dsp/enc.c.o	2c0c47f9b0021d75
+232	366	721051441	CMakeFiles/webp.dir/src/dsp/enc_msa.c.o	5b0392d23bd0fa13
+762	918	721051441	CMakeFiles/webp.dir/imageio/imageio_util.c.o	d27baa70fa44067d
+238	372	721051441	CMakeFiles/webp.dir/src/dsp/filters.c.o	605236e3e6172814
+372	502	721051441	CMakeFiles/webp.dir/src/dsp/rescaler.c.o	e70fbaee1a6a2700
+38	421	721051441	CMakeFiles/webp.dir/src/dsp/alpha_processing_neon.c.o	a21086c4deaf2d66
+48	445	721051441	CMakeFiles/webp.dir/src/dsp/cost_neon.c.o	db1b303ad6b0329
+215	338	721051441	CMakeFiles/webp.dir/src/dsp/filters_mips_dsp_r2.c.o	57c40fbdb262768
+329	459	721051441	CMakeFiles/webp.dir/src/dsp/filters_sse2.c.o	85abd84a371adb6
+294	553	721051441	CMakeFiles/webp.dir/src/dsp/lossless.c.o	fb725c494bc00084
+289	584	721051441	CMakeFiles/webp.dir/src/dsp/lossless_enc.c.o	386f2182024f92b8
+319	454	721051441	CMakeFiles/webp.dir/src/dsp/lossless_enc_sse2.c.o	82afa51c9787c68
+377	514	721051441	CMakeFiles/webp.dir/src/dsp/lossless_sse41.c.o	f315a80358acc716
+350	479	721051441	CMakeFiles/webp.dir/src/dsp/lossless_mips_dsp_r2.c.o	803329465f33225e
+596	731	721051441	CMakeFiles/webp.dir/src/dsp/yuv.c.o	acd044d658fa5d56
+366	497	721051441	CMakeFiles/webp.dir/src/dsp/lossless_msa.c.o	29ff5dec476eb55f
+433	534	721051441	CMakeFiles/webp.dir/src/dsp/rescaler_sse2.c.o	6ff6d8627590d216
+455	564	721051441	CMakeFiles/webp.dir/src/dsp/upsampling_msa.c.o	c9321a84279b550
+671	828	721051441	CMakeFiles/webp.dir/src/enc/iterator_enc.c.o	221e8fc826daf97f
+415	524	721051441	CMakeFiles/webp.dir/src/dsp/upsampling.c.o	581b23c1fdc7558d
+402	762	721051441	CMakeFiles/webp.dir/src/dsp/lossless_neon.c.o	7f3dae6a672bd99d
+459	570	721051441	CMakeFiles/webp.dir/src/dsp/rescaler_msa.c.o	3b5f5c8034b6fbe7
+255	612	721051441	CMakeFiles/webp.dir/src/dsp/enc_neon.c.o	b6f8a59d773c8bec
+541	649	721051441	CMakeFiles/webp.dir/src/dsp/yuv_mips_dsp_r2.c.o	b505f9c55bcb4c95
+310	601	721051441	CMakeFiles/webp.dir/src/dsp/lossless_enc_neon.c.o	b2cdb372f4db051e
+553	659	721051441	CMakeFiles/webp.dir/src/dsp/yuv_sse2.c.o	b8c15c881fd6c9e9
+649	816	721051441	CMakeFiles/webp.dir/src/enc/picture_psnr_enc.c.o	c69220a0dbe1c68a
+558	654	721051441	CMakeFiles/webp.dir/src/dsp/upsampling_sse2.c.o	ce7c45bd90fad8a2
+570	699	721051441	CMakeFiles/webp.dir/src/dsp/yuv_mips32.c.o	3cb4d8e4ac65a59b
+851	999	721051441	CMakeFiles/webp.dir/src/utils/huffman_encode_utils.c.o	5cabeef107ede3c8
+601	774	721051441	CMakeFiles/webp.dir/src/enc/alpha_enc.c.o	9f249b28653eee83
+502	671	721051441	CMakeFiles/webp.dir/src/enc/analysis_enc.c.o	e1ad48a217231ca7
+606	724	721051441	CMakeFiles/webp.dir/src/dsp/yuv_sse41.c.o	38ffe9ad799d4aaf
+529	694	721051441	CMakeFiles/webp.dir/src/enc/cost_enc.c.o	62bd62d73565d20a
+470	744	721051441	CMakeFiles/webp.dir/src/dsp/rescaler_neon.c.o	1f6df2e1266817fc
+524	756	721051441	CMakeFiles/webp.dir/src/enc/backward_references_enc.c.o	8abd2ca887cae8
+514	705	721051441	CMakeFiles/webp.dir/src/enc/backward_references_cost_enc.c.o	20dfe1bce60e5ea7
+535	689	721051441	CMakeFiles/webp.dir/src/enc/filter_enc.c.o	fa19a62ae56532ba
+612	786	721051441	CMakeFiles/webp.dir/src/enc/picture_enc.c.o	ba340174c0c31c1e
+654	851	721051441	CMakeFiles/webp.dir/src/enc/picture_csp_enc.c.o	f8ea5d5edaff3620
+659	822	721051441	CMakeFiles/webp.dir/src/enc/near_lossless_enc.c.o	75536fba04aee4fa
+631	897	721051441	CMakeFiles/webp.dir/src/enc/histogram_enc.c.o	8f386076e8d3d9cb
+677	885	721051441	CMakeFiles/webp.dir/src/enc/predictor_enc.c.o	e30a87c06f582601
+584	931	721051441	CMakeFiles/webp.dir/src/dsp/yuv_neon.c.o	d4bfb93cacbf836
+625	798	721051441	CMakeFiles/webp.dir/src/enc/picture_rescale_enc.c.o	f7970608f0f430f3
+822	1005	721051441	CMakeFiles/webp.dir/src/mux/muxinternal.c.o	13c0a70577a58d88
+717	909	721051441	CMakeFiles/webp.dir/src/enc/syntax_enc.c.o	c0a243a842971cac
+689	836	721051441	CMakeFiles/webp.dir/src/enc/tree_enc.c.o	4c8cb03f88c1ce5e
+705	863	721051441	CMakeFiles/webp.dir/src/enc/token_enc.c.o	9d9f477788e11547
+644	804	721051441	CMakeFiles/webp.dir/src/enc/picture_tools_enc.c.o	fad7c7bbc6edb8f8
+732	998	721051441	CMakeFiles/webp.dir/src/mux/anim_encode.c.o	b87456c1eff835a6
+699	875	721051441	CMakeFiles/webp.dir/src/enc/webp_enc.c.o	3618152906665129
+804	942	721051441	CMakeFiles/webp.dir/src/utils/random_utils.c.o	f5c57c5c3a05ffd6
+757	913	721051441	CMakeFiles/webp.dir/src/utils/quant_levels_utils.c.o	d7ec395442989d7
+786	937	721051441	CMakeFiles/webp.dir/src/utils/thread_utils.c.o	2cf0c40987086c35
+798	971	721051441	CMakeFiles/webp.dir/src/utils/utils.c.o	384f86f3b6680a6f
+817	1013	721051441	CMakeFiles/webp.dir/imageio/image_dec.c.o	dac623bb1b1885fb
+913	1052	721051441	CMakeFiles/webp.dir/src/utils/quant_levels_dec_utils.c.o	a4b3350a2196a3f9
+774	947	721051441	CMakeFiles/webp.dir/src/utils/rescaler_utils.c.o	f41b7662cbe72dcc
+863	1006	721051441	CMakeFiles/webp.dir/src/utils/bit_writer_utils.c.o	9fe489b297e69aa3
+836	1032	721051441	CMakeFiles/webp.dir/src/mux/muxread.c.o	ced90292e2ba1ab2
+828	976	721051441	CMakeFiles/webp.dir/src/utils/bit_reader_utils.c.o	4a528608d0e67a57
+886	1033	721051441	CMakeFiles/webp.dir/src/utils/color_cache_utils.c.o	57d814f6b28044bc
+897	1042	721051441	CMakeFiles/webp.dir/src/utils/filters_utils.c.o	6f616834e36b69cd
+724	1019	721051441	CMakeFiles/webp.dir/src/enc/vp8l_enc.c.o	26f50442ded55f35
+744	960	721051441	CMakeFiles/webp.dir/src/mux/muxedit.c.o	e14441c42a70c7c2
+909	1058	721051441	CMakeFiles/webp.dir/src/utils/palette.c.o	3dc2de9ccb482280
+875	1025	721051441	CMakeFiles/webp.dir/src/utils/huffman_utils.c.o	1714b49a61bc1162
+931	1057	721051441	CMakeFiles/webp.dir/sharpyuv/sharpyuv_gamma.c.o	9d41dec13b6b0929
+960	1072	721051441	CMakeFiles/webp.dir/sharpyuv/sharpyuv.c.o	bebe9fcd651294c2
+937	1047	721051441	CMakeFiles/webp.dir/sharpyuv/sharpyuv_cpu.c.o	6a5d3c8a35484569
+694	1063	721051441	CMakeFiles/webp.dir/src/enc/quant_enc.c.o	f17cfe075bd22ddd
+971	1067	721051441	CMakeFiles/webp.dir/sharpyuv/sharpyuv_dsp.c.o	25b8ba217a1b635f
+942	1053	721051441	CMakeFiles/webp.dir/sharpyuv/sharpyuv_csp.c.o	83356f0bba0c089b
+918	1038	721051441	CMakeFiles/webp.dir/sharpyuv/sharpyuv_sse2.c.o	44ef539fbcda5260
+976	1086	721051441	CMakeFiles/native_app_glue.dir/C_/Users/kaiv/AppData/Local/Android/Sdk/ndk/21.4.7075529/sources/android/native_app_glue/android_native_app_glue.c.o	8e21698c2e93f71a
+947	1127	721051442	CMakeFiles/webp.dir/sharpyuv/sharpyuv_neon.c.o	7ea74dcebb83f417
+1127	1247	721051442	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libwebp.so	15124ed5024e88cb
+1086	1133	721051442	libnative_app_glue.a	5e8d86c8e64c11fc
+987	1321	721051442	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+1321	1364	721051442	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	312	721056760	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+312	356	721056760	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	316	721056836	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+316	359	721056836	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	312	721056917	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+312	354	721056917	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	314	721057119	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+314	357	721057119	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	320	721057193	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+320	363	721057193	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	316	721057280	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+316	359	721057280	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	314	721057367	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+314	356	721057367	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	316	721057461	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+316	359	721057461	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	314	721057515	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+314	357	721057515	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	314	721057735	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+315	358	721057735	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	314	721057804	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+314	357	721057804	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	317	721057924	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+318	360	721057924	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	313	721058019	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+313	358	721058020	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	314	721058090	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+315	358	721058090	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	314	721058152	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+314	357	721058152	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	313	721058264	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+313	359	721058264	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	315	721058954	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+315	358	721058954	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	324	721059016	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+324	367	721059016	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	315	721059079	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+315	360	721059079	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	313	721059196	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+313	357	721059196	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	318	721059265	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+318	361	721059265	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	314	721059395	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+314	357	721059395	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	313	721059473	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+313	356	721059473	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	316	721059679	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+316	358	721059679	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	315	721059704	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+315	358	721059704	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	317	721059778	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+317	360	721059778	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	317	721059875	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+317	364	721059875	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	319	721059991	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+319	362	721059991	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	317	721060036	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+318	363	721060036	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+6	460	721134690	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+461	594	721134690	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	347	721134998	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+347	392	721134998	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	337	721135200	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+338	383	721135200	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	322	721135440	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+322	366	721135441	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	316	721135557	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+316	359	721135557	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	314	721135663	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+314	358	721135663	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	325	721135983	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+326	369	721135983	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	318	721136101	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+318	361	721136101	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	313	721138454	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+313	356	721138454	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	310	721138490	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+310	352	721138490	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	314	721138692	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+314	356	721138692	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	317	721140237	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+317	360	721140237	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	316	721140420	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+316	360	721140421	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	317	721140556	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+317	361	721140556	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	315	721140679	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+316	358	721140679	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	310	721140722	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+310	353	721140723	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	308	721140770	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+308	352	721140770	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	310	721140818	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+310	354	721140818	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	311	721140907	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+311	355	721140907	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	309	721140945	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+309	352	721140945	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	310	721140980	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+310	352	721140980	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	313	721141049	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+313	356	721141049	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	312	721141106	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+312	357	721141106	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	310	721141154	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+310	354	721141154	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	309	721141221	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+309	352	721141221	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	312	721141268	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+312	355	721141269	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	310	721141313	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+310	353	721141313	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	309	721141758	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+309	352	721141758	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	310	721142214	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+310	353	721142214	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	326	721142324	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+326	372	721142324	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+3	314	721142397	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+314	357	721142397	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	313	721142485	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+314	356	721142485	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	454	721309824	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+454	589	721309824	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5
+4	317	721309922	CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o	32ffd3c4e816d178
+317	359	721309922	C:/Users/kaiv/Android studio 3.0/emojixer animated/app/build/intermediates/cxx/Debug/3m232k5f/obj/arm64-v8a/libgif_encoder.so	9dd6ccf6db8b1ff5

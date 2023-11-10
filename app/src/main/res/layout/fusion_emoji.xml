@@ -15,7 +15,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@android:color/transparent"
             android:layout_width="250dp"
-
+        android:layerType="software"
         android:layout_height="250dp">
         <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/emojifondo"
@@ -170,19 +170,6 @@
             android:background="@android:color/transparent"
             android:scaleType="centerCrop"
             app:lottie_loop="false"/>
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/marca"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
-            android:background="@android:color/transparent"
-            android:scaleType="centerCrop"
-            app:lottie_loop="true"/>
 
             <ImageView
                 android:visibility="gone"
@@ -198,6 +185,7 @@
 
                 android:layout_width="250dp"
                 android:layout_height="250dp">
+
                 <com.airbnb.lottie.LottieAnimationView
                     android:id="@+id/emojiforma"
                     android:layout_width="250dp"
@@ -211,6 +199,20 @@
                     android:background="@android:color/transparent"
                     android:scaleType="centerCrop"
                     app:lottie_loop="true"/>
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/marca"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerCrop"
+                    app:lottie_loop="true"/>
+
             </FrameLayout>
         </FrameLayout>
     <com.airbnb.lottie.LottieAnimationView

@@ -646,11 +646,13 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
                         holder.mixedEmojiobjetos.setComposition(composition);
                         holder.mixedEmojiobjetos.playAnimation();
                         holder.mixedEmojiobjetos.setRepeatCount(INFINITE);
+                        Log.e(TAG, "onBindViewHolder: aki tiene objetos "+position );
 
                     })
                     .addFailureListener(exception -> {
                         holder.mixedEmojiobjetos.setVisibility(View.INVISIBLE);
-
+                        holder.mixedEmojiobjetos.setAnimation(R.raw.vacio);
+                        Log.e(TAG, "onBindViewHolder: aki falla objetos "+position );
                     });
         }
 
@@ -660,12 +662,16 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
         if (bocas != null) {
             LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+bocas)))
                     .addListener(composition -> {
+                        Log.e(TAG, "onBindViewHolder: aki bocas  "+position+bocas);
+                        holder.mixedEmojibocas.setVisibility(View.VISIBLE);
 
                         holder.mixedEmojibocas.setComposition(composition);
                         holder.mixedEmojibocas.playAnimation();
                         holder.mixedEmojibocas.setRepeatCount(INFINITE);
                     })
                     .addFailureListener(exception -> {
+                        holder.mixedEmojibocas.setAnimation(R.raw.vacio);
+                        holder.mixedEmojibocas.setVisibility(View.INVISIBLE);
 
                     });
         }
@@ -674,13 +680,15 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
             LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+ojos)))
                     .addListener(composition -> {
 
+                        holder.mixedEmojiojos.setVisibility(View.VISIBLE);
 
                         holder.mixedEmojiojos.setComposition(composition);
                         holder.mixedEmojiojos.playAnimation();
                         holder.mixedEmojiojos.setRepeatCount(INFINITE);
                     }).addFailureListener(exception -> {
                         // Si falla cargar desde la URL, carga el archivo local
-
+                        holder.mixedEmojiojos.setAnimation(R.raw.vacio);
+                        holder.mixedEmojiojos.setVisibility(View.INVISIBLE);
                         //   Log.e("LottieError", "Error al cargar animación desde URL. Usando animación local.", exception);
                     });
         }
@@ -723,6 +731,7 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
                         holder.mixedEmojimanos2.setRepeatCount(INFINITE);
                     }).addFailureListener(exception -> {
                         // Si falla cargar desde la URL, carga el archivo local
+                        holder.mixedEmojimanos2.setVisibility(View.GONE);
 
                         holder.mixedEmojimanos2.setAnimation(R.raw.vacio);
 
@@ -743,6 +752,7 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
                         holder.mixedEmojimanos.setRepeatCount(INFINITE);
                     }).addFailureListener(exception -> {
                         // Si falla cargar desde la URL, carga el archivo local
+                        holder.mixedEmojimanos.setVisibility(View.GONE);
 
                         holder.mixedEmojimanos.setAnimation(R.raw.vacio);
                         //     mixedEmojimanos.playAnimation();

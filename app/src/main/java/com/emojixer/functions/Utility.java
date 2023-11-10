@@ -121,15 +121,16 @@ public class Utility {
             context.startActivity(intent);
         }else{
             String result = file.getName().substring(0, file.getName().lastIndexOf("."));
-            String path = context.getFilesDir()+"/stickers/Gifs/"+result+".gif";
+            String path = context.getFilesDir()+"/"+result+".gif";
 
             File GifFile = new File(path);
             if(GifFile.exists()) {
+
                 Uri imageUri = FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider", new File(path));
-                Log.e("Share path",imageUri.getPath());
+                Log.e("TAG", "shareFile: "+imageUri );
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_TEXT, "Share" + '\n' + "http://bit.ly/MundoappEmojiMaker");
+                intent.putExtra(Intent.EXTRA_TEXT, "Emoji2 mix" + '\n' + "");
                 intent.putExtra(Intent.EXTRA_STREAM, imageUri);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 intent.setType("*/*");

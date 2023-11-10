@@ -143,6 +143,7 @@ public class AdapterStickers extends RecyclerView.Adapter<AdapterStickers.MViewH
     @Override
     public void onBindViewHolder(final MViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
         Uri uri = Uri.fromFile(new File(mContext.getFilesDir() + "/stickers/" + stickersWhassap.get(position)));
+        Uri urigif = Uri.fromFile(new File(mContext.getFilesDir() + "/" + stickersWhassap.get(position)));
 
 
         String extension = stickersWhassap.get(position).substring(stickersWhassap.get(position).lastIndexOf("."));
@@ -194,20 +195,12 @@ public class AdapterStickers extends RecyclerView.Adapter<AdapterStickers.MViewH
             @SuppressLint("RestrictedApi")
             @Override
             public void onClick(View view) {
-                if(new File(uri.getPath()).getName().contains("AImage"))
-                {
-                Bitmap transBmp = Bitmap.createBitmap(512,512, Bitmap.Config.ARGB_8888);
-                transBmp.eraseColor(Color.WHITE);
-                Bitmap bitmap = BitmapFactory.decodeFile(uri.getPath());
-                transBmp = GlobalClass.mergeToPin(transBmp, bitmap,mContext);
-                if(transBmp!=null)
-                    GlobalClass.compartir(mContext,transBmp);
-                }else{
-                    try {
-                        Utility.shareFile(mContext,new File(uri.getPath()));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                Log.e("TAG", "aki gif onClick: "+urigif );
+
+                try {
+                    Utility.shareFile(mContext,new File(urigif.getPath()));
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         });

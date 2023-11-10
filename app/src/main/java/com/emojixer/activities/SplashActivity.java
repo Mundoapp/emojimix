@@ -25,7 +25,7 @@ public class SplashActivity extends BaseActivity {
 
     public void cargar() {
         handler.postDelayed(() -> {
-            if (cuenta <= 1300) {
+            if (cuenta <= 10) {
                 cuenta += 100;
                 cargar();
             } else {
@@ -34,7 +34,7 @@ public class SplashActivity extends BaseActivity {
               //  MiPublicidad.verInterstitialAd(null);
                 finish();
             }
-        }, 300);
+        }, 30);
     }
 
     @Override

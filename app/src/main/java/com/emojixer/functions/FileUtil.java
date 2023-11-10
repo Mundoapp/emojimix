@@ -584,9 +584,7 @@ public class FileUtil {
         final Pair<Bitmap, Bitmap>[] result = new Pair[1];
 
         // Crear un nuevo hilo para realizar la captura y el procesamiento
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
+
                 Bitmap bitmap = Bitmap.createBitmap(layout.getWidth(), layout.getHeight(), Bitmap.Config.ARGB_8888);
                 Canvas canvas = new Canvas(bitmap);
                 layout.draw(canvas);
@@ -614,18 +612,7 @@ public class FileUtil {
 
                 // Almacena el resultado en el arreglo
                 result[0] = new Pair<>(bitmap, scaledRgbaBitmap);
-            }
-        });
 
-        // Iniciar el hilo
-        thread.start();
-
-        try {
-            // Esperar a que el hilo termine
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         // Devolver el resultado
         return result[0];

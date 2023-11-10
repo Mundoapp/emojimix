@@ -23,7 +23,7 @@
             <com.emojixer.activities.WrapContentDraweeView
                 android:id="@+id/sticker"
                 android:layout_width="140dp"
-                android:layout_height="125dp"
+                android:layout_height="140dp"
                 android:layout_gravity="center"
                 android:padding="5dp"
 
