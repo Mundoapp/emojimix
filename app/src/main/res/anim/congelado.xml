@@ -5,27 +5,63 @@
 
     <!-- Animación de entrada -->
     <translate
-        android:startOffset="20"
+        android:startOffset="430"
 
-        android:fromXDelta="0"
-        android:toXDelta="4%p"
-        android:repeatMode="reverse"
-        android:duration="8" />
+        android:fromXDelta="-2%p"
+        android:toXDelta="2%p"
+        android:duration="25" />
+
     <translate
-        android:startOffset="28"
+        android:startOffset="455"
 
-        android:fromXDelta="0"
-        android:toXDelta="4%p"
-        android:repeatMode="reverse"
-        android:duration="8" />
+        android:fromXDelta="2%p"
+        android:toXDelta="-2%p"
+        android:duration="25" />
     <translate
-        android:startOffset="2450"
+        android:startOffset="480"
 
-        android:fromYDelta="0"
-        android:toYDelta="0"
+        android:fromXDelta="-2%p"
+        android:toXDelta="2%p"
+        android:duration="25" />
 
-        android:duration="450" />
-    <!-- Retraso antes de la animación inversa -->
+    <translate
+        android:startOffset="505"
 
+        android:fromXDelta="2%p"
+        android:toXDelta="-2%p"
+        android:duration="25" />
+    <translate
+        android:startOffset="530"
 
+        android:fromXDelta="-2%p"
+        android:toXDelta="2%p"
+        android:duration="25" />
+
+    <translate
+        android:startOffset="535"
+
+        android:fromXDelta="2%p"
+        android:toXDelta="-2%p"
+        android:duration="25" />
+    <translate
+        android:startOffset="50"
+
+        android:fromXDelta="-2%p"
+        android:toXDelta="2%p"
+        android:duration="25" />
+
+    <translate
+        android:startOffset="555"
+
+        android:fromXDelta="2%p"
+        android:toXDelta="-2%p"
+        android:duration="25" />
+    <rotate
+        android:startOffset="600"
+
+        android:fromDegrees="0"
+        android:toDegrees="0"
+        android:duration="10"
+        android:pivotX="50%"
+        android:pivotY="50%" />
 </set>

@@ -1,40 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<set
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:ordering="sequentially"
-    >
+<!-- res/anim/scale_up.xml -->
+<set xmlns:android="http://schemas.android.com/apk/res/android">
 
+<scale
+    android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+    android:fromXScale="0.99"
+    android:toXScale="0.99"
+    android:fromYScale="0.97"
+    android:toYScale="1"
+    android:pivotX="50%"
+    android:pivotY="100%"
+    android:duration="350"/>
+
+    <!-- res/anim/scale_down.xml -->
+<scale
+    android:startOffset="550"
+android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+android:fromXScale="0.99"
+android:toXScale="0.99"
+android:fromYScale="1"
+android:toYScale="0.97"
+android:pivotX="50%"
+android:pivotY="100%"
+android:duration="350"/>
     <scale
-        android:startOffset="50"
-        android:fromXScale="0.9"
-        android:fromYScale="0.9"
-        android:toXScale="0.9"
-        android:toYScale="1"
+        android:startOffset="2300"
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+        android:fromXScale="0.99"
+        android:toXScale="0.99"
+        android:fromYScale="0.97"
+        android:toYScale="0.97"
         android:pivotX="50%"
         android:pivotY="100%"
-        android:duration="700">
-    </scale>
+        android:duration="350"/>
+    <!-- res/anim/scale_animation.xml -->
 
-    <scale
-        android:startOffset="750"
-        android:fromXScale="0.9"
-        android:fromYScale="1"
-        android:toXScale="0.9"
-        android:toYScale="0.9"
-        android:pivotX="50%"
-        android:pivotY="100%"
-        android:duration="400">
-    </scale>
-
-
-    <scale
-        android:startOffset="2100"
-        android:fromXScale="0.9"
-        android:fromYScale="0.9"
-        android:toXScale="0.9"
-        android:toYScale="0.9"
-        android:pivotX="50%"
-        android:pivotY="100%"
-        android:duration="400">
-    </scale>
 </set>

@@ -681,7 +681,6 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
                     .addListener(composition -> {
 
                         holder.mixedEmojiojos.setVisibility(View.VISIBLE);
-
                         holder.mixedEmojiojos.setComposition(composition);
                         holder.mixedEmojiojos.playAnimation();
                         holder.mixedEmojiojos.setRepeatCount(INFINITE);
