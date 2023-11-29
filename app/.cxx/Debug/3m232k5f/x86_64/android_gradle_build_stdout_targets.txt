@@ -1,12 +1,2 @@
 ninja: Entering directory `C:\Users\kaiv\Android studio 3.0\emojixer animated\app\.cxx\Debug\3m232k5f\x86_64'
-[1/2] Building CXX object CMakeFiles/gif_encoder.dir/gif_encoder.cpp.o
-C:/Users/kaiv/Android studio 3.0/emojixer animated/app/src/main/cpp/jni/gif_encoder.cpp:100:103: warning: format specifies type 'int' but the argument has type 'size_t' (aka 'unsigned long') [-Wformat]
-        __android_log_print(ANDROID_LOG_DEBUG, "WebPConverter", "Tamaño del archivo WebP: %d bytes", webp_data.size);
-                                                                                          ~~         ^~~~~~~~~~~~~~
-                                                                                          %zu
-C:/Users/kaiv/Android studio 3.0/emojixer animated/app/src/main/cpp/jni/gif_encoder.cpp:107:79: warning: format specifies type 'int' but the argument has type 'const uint8_t *' (aka 'const unsigned char *') [-Wformat]
-    __android_log_print(ANDROID_LOG_DEBUG, "WebPConverter", "webpdata 2 %d ", webp_data.bytes);
-                                                                        ~~    ^~~~~~~~~~~~~~~
-                                                                        %s
-2 warnings generated.
-[2/2] Linking CXX shared library "C:\Users\kaiv\Android studio 3.0\emojixer animated\app\build\intermediates\cxx\Debug\3m232k5f\obj\x86_64\libgif_encoder.so"
+ninja: no work to do.

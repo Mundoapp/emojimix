@@ -1,16 +1,20 @@
 package com.emojixer.activities;
 
 import static androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE;
+import static com.emojixer.activities.Activityestaticos.api_dominio;
 import static com.emojixer.functions.Utils.getRecyclerCurrentItem;
 import static com.emojixer.functions.Utils.setSnapHelper;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -28,6 +32,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,7 +53,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.emojixer.R;
-import com.emojixer.adapters.EmojiTopAdapter;
+import com.emojixer.adapters.EmojiTopAdapterestaticos;
+import com.emojixer.functions.FileUtil;
 import com.emojixer.functions.Nemojismodel;
 import com.emojixer.functions.RequestNetwork;
 import com.emojixer.functions.RequestNetworkController;
@@ -56,6 +63,7 @@ import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -66,7 +74,7 @@ import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class Emojitop extends AppCompatActivity {
+public class Emojitop_estaticos extends AppCompatActivity {
     private LottieAnimationView saveEmoji;
     private WrapContentDraweeView mixedfondo,mixedEmojicejas,explosion,mixedEmoji0;
     private LottieAnimationView progressBar;
@@ -104,8 +112,8 @@ public class Emojitop extends AppCompatActivity {
 
     Activity context;
     Nemojismodel totalmodel;
-    public static String api_emojis ="http://animated.emojixer.com/panel/api.php?top=1";
-    public static String APITOP ="http://animated.emojixer.com/panel/apitop.php?";
+    public static String api_emojis = api_dominio+"/panel/api.php?top=1";
+    public static String APITOP = api_dominio+"/panel/apitop.php?";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,12 +157,14 @@ public class Emojitop extends AppCompatActivity {
         mas = findViewById(R.id.iconmas);
         explosion = findViewById(R.id.explosion);
 
-         emojisSlider1 = findViewById(R.id.emojisSlider1);
+        saveEmoji = findViewById(R.id.saveEmoji);
+        emojisSlider1 = findViewById(R.id.emojisSlider1);
         requestSupportedEmojis = new RequestNetwork(this);
         sharedPref = getSharedPreferences("AppData", Activity.MODE_PRIVATE);
         layoutEmojiCreation =  findViewById(R.id.frame_emoji_creation);
         posicioncara =  findViewById(R.id.posicioncara);
         posicionem = findViewById(R.id.posicione);
+
 
 
         posicionemoji = findViewById(R.id.posicionemoji);
@@ -249,7 +259,7 @@ public class Emojitop extends AppCompatActivity {
             supportedEmojisList = new Gson().fromJson(data, new TypeToken<ArrayList<HashMap<String, Object>>>() {
             }.getType());
             handler.post(() -> {
-                emojisSlider1.setAdapter(new EmojiTopAdapter(supportedEmojisList, emojisSlider1LayoutManager, Emojitop.this));
+                emojisSlider1.setAdapter(new EmojiTopAdapterestaticos(supportedEmojisList, emojisSlider1LayoutManager, Emojitop_estaticos.this));
 //                idemoji1 = Objects.requireNonNull(supportedEmojisList.get(1).get("idemoji1").toString());
 //                idemoji2 = Objects.requireNonNull(supportedEmojisList.get(1).get("idemoji2").toString());
 
@@ -257,7 +267,6 @@ public class Emojitop extends AppCompatActivity {
                 new Handler().postDelayed(() -> {
                     for (int i = 0; i < 2; i++) {
                         Random rand = new Random();
-                        int randomNum = rand.nextInt((supportedEmojisList.size()) - 1);
                         if (i == 0) {
 
                                     int centerOfScreen = emojisSlider1.getWidth() / 2 ;
@@ -336,7 +345,7 @@ public class Emojitop extends AppCompatActivity {
 //           shadAnim(progressBar, "scaleX", 0, 300);
         } else {
         //    Log.e("TAG", "aki entro2:+finalEmojiURL " );
-          //   explosion.setImageURI("http://emojixer.emojinew.com/panel/explosion.webp");
+         //   explosion.setImageURI("http://emojixer.emojinew.com/panel/explosion.webp");
    //         shadAnim(layoutEmojiCreation, "scaleY", 0.2, 400);
      //       shadAnim(layoutEmojiCreation, "scaleX", 0.2, 400);
 //            shadAnim(layoutEmojiCreation, "rotation", 0f, 400);
@@ -353,13 +362,11 @@ public class Emojitop extends AppCompatActivity {
 
         if (shouldShow) {
             new Handler().postDelayed(() -> {
-                saveEmoji.setEnabled(true);
                 //colorAnimator(saveEmoji, "#2A2B28", "#FF9D05", 250);
                 //saveEmoji.setTextColor(Color.parseColor("#422B0D"));
                 //saveEmoji.setIconTint(ColorStateList.valueOf(Color.parseColor("#422B0D")));
             }, 1000);
         } else {
-            saveEmoji.setEnabled(false);
             //colorAnimator(saveEmoji, "#FF9D05", "#2A2B28", 250);
             //saveEmoji.setTextColor(Color.parseColor("#A3A3A3"));
             //saveEmoji.setIconTint(ColorStateList.valueOf(Color.parseColor("#A3A3A3")));
@@ -417,7 +424,7 @@ public class Emojitop extends AppCompatActivity {
     public void abriremojis(View view) {
        // MiPublicidad.verInterstitialAd(this);
 
-        Emojitop.this.startActivity(new Intent(Emojitop.this.getApplicationContext(), ImageViewerActivity.class));
+        Emojitop_estaticos.this.startActivity(new Intent(Emojitop_estaticos.this.getApplicationContext(), ImageViewerActivity.class));
 
     }
 }

@@ -11,24 +11,15 @@ import android.Manifest;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
@@ -39,8 +30,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.webkit.CookieManager;
-import android.webkit.URLUtil;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -61,7 +50,6 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import com.airbnb.lottie.LottieAnimationView;
 
-import com.airbnb.lottie.LottieComposition;
 import com.airbnb.lottie.LottieCompositionFactory;
 
 import com.android.volley.Request;
@@ -72,7 +60,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import com.emojixer.R;
-import com.emojixer.adapters.EmojimixerAdapter;
+import com.emojixer.adapters.EmojimixerAdapterAnimated;
 import com.emojixer.functions.CenterZoomLayoutManager;
 import com.emojixer.functions.EmojiMixer;
 import com.emojixer.functions.FileUtil;
@@ -92,15 +80,12 @@ import com.waynejo.androidndkgif.GifEncoder;
 import org.json.JSONObject;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -171,8 +156,6 @@ public class MainActivity extends AppCompatActivity {
     public static String APITOP = "http://animated.emojixer.com/panel/apitop.php?";
     private AdView adView;
     AtomicInteger operationsCompleted = new AtomicInteger();
-    final int TOTAL_OPERATIONS = 6; // Ajusta este número según cuántas operaciones estás realizando.
-    HashMap<String, LottieComposition> compositionsMap = new HashMap<>();
     boolean restraso = false;
     private int posicionanterior = -1;
     private int posicionanterior2 = -1;
@@ -420,9 +403,8 @@ public class MainActivity extends AppCompatActivity {
     private void actualizovotos() {
         String fondoTOP = "";
         String bocaTOP = "";
-        String objetosTOP = "";
         String manosTOP = "";
-        String ojos_objetosTOP = "";
+
         String baseTOP = obtenerNombreArchivo2(finalEmojiURL);
         Log.e(TAG, "actualizovotos: " + baseTOP);
         if (Objects.equals(baseTOP, "images_manual")) {
@@ -448,15 +430,19 @@ public class MainActivity extends AppCompatActivity {
 
             String ojosTOP = obtenerNombreArchivo(ojosfinal);
 
-            if (ojosobjetosfinal != null)
-                ojos_objetosTOP = obtenerNombreArchivo(ojosobjetosfinal);
+            String ojos_objetosTOP = ojosobjetosfinal;
+            if (Objects.equals(ojos_objetosTOP, "images_formas"))
+                ojos_objetosTOP = "";
 
+            String objetosTOP = objetosfinal;
+            if (Objects.equals(objetosTOP, "images_formas"))
+                objetosTOP = "";
 
             if (bocafinal != null)
                 bocaTOP = obtenerNombreArchivo(bocafinal);
 
-            if (objetosfinal != null)
-                objetosTOP = obtenerNombreArchivo(objetosfinal);
+
+
 
             if (manosfinal != null)
                 manosTOP = obtenerNombreArchivo(manosfinal);
@@ -514,13 +500,13 @@ public class MainActivity extends AppCompatActivity {
 
         setSnapHelper(dialogemojisSlider1, emojisSlider1SnapHelper, emojisSlider1ManagerDialog);
         dialogemojisSlider1.setLayoutManager(emojisSlider1ManagerDialog);
-        dialogemojisSlider1.setAdapter(new EmojimixerAdapter(supportedEmojisList, emojisSlider1ManagerDialog, MainActivity.this));
+        dialogemojisSlider1.setAdapter(new EmojimixerAdapterAnimated(supportedEmojisList, emojisSlider1ManagerDialog, MainActivity.this));
         LinearLayoutManager emojisSlider2ManagerDialog = new GridLayoutManager(this, 4);
 
         setSnapHelper(dialogemojisSlider2, emojisSlider1SnapHelper, emojisSlider2ManagerDialog);
         dialogemojisSlider2.setLayoutManager(emojisSlider2ManagerDialog);
 
-        dialogemojisSlider2.setAdapter(new EmojimixerAdapter(supportedEmojisList, emojisSlider2ManagerDialog, MainActivity.this));
+        dialogemojisSlider2.setAdapter(new EmojimixerAdapterAnimated(supportedEmojisList, emojisSlider2ManagerDialog, MainActivity.this));
 
 
         emojisSlider1LayoutManager = new CenterZoomLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -558,12 +544,12 @@ public class MainActivity extends AppCompatActivity {
             supportedEmojisList = new Gson().fromJson(data, new TypeToken<ArrayList<HashMap<String, Object>>>() {
             }.getType());
             handler.post(() -> {
-                emojisSlider1.setAdapter(new EmojimixerAdapter(supportedEmojisList, emojisSlider1LayoutManager, MainActivity.this));
-                emojisSlider2.setAdapter(new EmojimixerAdapter(supportedEmojisList, emojisSlider2LayoutManager, MainActivity.this));
+                emojisSlider1.setAdapter(new EmojimixerAdapterAnimated(supportedEmojisList, emojisSlider1LayoutManager, MainActivity.this));
+                emojisSlider2.setAdapter(new EmojimixerAdapterAnimated(supportedEmojisList, emojisSlider2LayoutManager, MainActivity.this));
 
                 new Handler().postDelayed(() -> {
                     for (int i = 0; i < 2; i++) {
-                        Random rand = new Random();
+                      //  Random rand = new Random();
                       //  int randomNum = rand.nextInt((supportedEmojisList.size()) - 1);
                         if (i == 0) {
 
@@ -729,7 +715,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (Objects.equals(tipofinal, "objeto")) {
-                    Log.e("TAG", "aki condiciones objeto 1: " + tipofinal);
+                    Log.e("TAG", "aki condiciones objeto 1: " + ancho);
 
                     if (Objects.equals(idemote1, idemote2)) {
                         mixedemojiforma.setVisibility(View.VISIBLE);
@@ -763,8 +749,11 @@ public class MainActivity extends AppCompatActivity {
 
                         mixedemojiforma.setVisibility(View.VISIBLE);
                         posicioncara.setRotation(0);
+                        if (Objects.equals(idemote1, "99") || Objects.equals(idemote2, "99"))
+                        posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2-50));
+                        else
+                            posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
 
-                        posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
                         ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) posicioncara.getLayoutParams();
                         params.setMargins(left2, top2, 0, 0);
                         posicioncara.setLayoutParams(params2);
@@ -809,7 +798,7 @@ public class MainActivity extends AppCompatActivity {
                         mixedemojiforma.setRotation(0);
 
 
-                        Log.e("TAG", "aki condicion objeto: " + finalEmojiURL);
+                        Log.e("TAG", "aki condicion objeto: " + ancho2);
 
                     }
                 } else if (Objects.equals(tipo, "objetodoble")) {
@@ -1111,7 +1100,8 @@ public class MainActivity extends AppCompatActivity {
                 }
 
 
-                if (Objects.equals(idemote1, "26") || Objects.equals(idemote2, "26")) {
+                if (Objects.equals(idemote1, "26") || Objects.equals(idemote2, "26") || Objects.equals(idemote1, "99") || Objects.equals(idemote2, "99")) {
+                    //  si el emoji es el pensativo o perrito, el objeto de manos no de redmiensiona
                     //   Log.e("xomplete6", "aki manos 26."+manos);
 
                     mixedEmojimanos2.setVisibility(View.VISIBLE);

@@ -25,22 +25,21 @@ import com.bumptech.glide.request.target.Target;
 import com.emojixer.R;
 import com.emojixer.activities.WrapContentDraweeView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
-import com.google.android.material.slider.Slider;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
 
-public class EmojimixerAdapter extends RecyclerView.Adapter<EmojimixerAdapter.ViewHolder> {
+public class Adapterestaticos extends RecyclerView.Adapter<Adapterestaticos.ViewHolder> {
     private final Context mContext;
     private RecyclerView slider;
     private LinearLayoutManager sliderLayoutManager;
     private final SharedPreferences sharedPref;
-    private static ArrayList<HashMap<String, Object>> data;
+    private ArrayList<HashMap<String, Object>> data;
     RecyclerView.State state;
 
-    public EmojimixerAdapter(ArrayList<HashMap<String, Object>> _arr, LinearLayoutManager layoutManager, Context context) {
+    public Adapterestaticos(ArrayList<HashMap<String, Object>> _arr, LinearLayoutManager layoutManager, Context context) {
         mContext = context;
         data = _arr;
         sliderLayoutManager = layoutManager;
@@ -54,29 +53,58 @@ public class EmojimixerAdapter extends RecyclerView.Adapter<EmojimixerAdapter.Vi
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.emojis_slider_item, parent, false));
     }
 
+
+
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         View view = holder.itemView;
+        String base = Objects.requireNonNull(data.get(position).get("base")).toString();
+        String ojos = Objects.requireNonNull(data.get(position).get("ojos")).toString();
+        String ojos_objetos = Objects.requireNonNull(data.get(position).get("ojos_objetos")).toString();
+
+
+
+        String cejas = Objects.requireNonNull(data.get(position).get("cejas")).toString();
+        String bocas = Objects.requireNonNull(data.get(position).get("bocas")).toString();
+
+        String objetos = Objects.requireNonNull(data.get(position).get("objetos")).toString();
+
+        String manos = Objects.requireNonNull(data.get(position).get("manos")).toString();
 
         String tipo = Objects.requireNonNull(data.get(position).get("tipo")).toString();
 
 
         String emoji_formado = Objects.requireNonNull(data.get(position).get("emoji_formado")).toString();
+        String idemo = Objects.requireNonNull(data.get(position).get("Id")).toString();
 
-        String emojiURL2 = "http://animated.emojixer.com/panel/emoji_formado/";
+        String emojiURL = "http://emojixer.com/panel/images_formas/";
+        String emojiURL2 = "http://emojixer.com/panel/emoji_formado/";
 
-        String pos = String.valueOf(getEmojiValue(position));
 
+        Log.e("TAG", "emoji posicion: "+position );
 
-        holder.idemoji.setText(pos);
+        holder.idemoji.setText(idemo);
         //agrego emoji mini en slider
         if(tipo.equals("emoji")) {
-            loadEmojiFromUrl(holder.emoji, holder.progressBar, emojiURL2 + emoji_formado);
+            loadEmojiFromUrl(holder.emoji, holder.progressBar, emojiURL + base);
+            loadEmojiFromUrl(holder.mixedEmojiojos, holder.progressBar, emojiURL + ojos);
+            loadEmojiFromUrl(holder.mixedEmojibocas, holder.progressBar, emojiURL + bocas);
+            loadEmojiFromUrl(holder.mixedEmojicejas, holder.progressBar, emojiURL + cejas);
+            loadEmojiFromUrl(holder.mixedEmojiobjetos, holder.progressBar, emojiURL + objetos);
+            loadEmojiFromUrl(holder.mixedEmojiojos_objetos, holder.progressBar, emojiURL + ojos_objetos);
+            loadEmojiFromUrl(holder.mixedEmojimanos, holder.progressBar, emojiURL + manos);
 
+            loadEmojiFromUrl(holder.mixedformado, holder.progressBar, emojiURL2 + emoji_formado);
 
         }
         else {
 
+             loadEmojiFromUrl(holder.mixedEmojiojos, holder.progressBar, emojiURL);
+            loadEmojiFromUrl(holder.mixedEmojibocas, holder.progressBar, emojiURL);
+            loadEmojiFromUrl(holder.mixedEmojicejas, holder.progressBar, emojiURL);
+            loadEmojiFromUrl(holder.mixedEmojiobjetos, holder.progressBar, emojiURL);
+            loadEmojiFromUrl(holder.mixedEmojiojos_objetos, holder.progressBar, emojiURL);
+            loadEmojiFromUrl(holder.mixedEmojimanos, holder.progressBar, emojiURL);
 
             loadEmojiFromUrl(holder.emoji, holder.progressBar, emojiURL2 + emoji_formado);
 
@@ -94,15 +122,6 @@ public class EmojimixerAdapter extends RecyclerView.Adapter<EmojimixerAdapter.Vi
     @Override
     public int getItemCount() {
         return data.size();
-    }
-    public static String getEmojiValue(int position) {
-
-        if (position >= 0 && position < data.size()) {
-
-            return  Objects.requireNonNull(data.get(position).get("Id")).toString();
-        }
-        return null; // Devuelve nulo si la posición es inválida    }
-
     }
 
     private void loadEmojiFromUrl(ImageView image, CircularProgressIndicator progressBar, String url) {
@@ -131,7 +150,6 @@ public class EmojimixerAdapter extends RecyclerView.Adapter<EmojimixerAdapter.Vi
         WrapContentDraweeView emoji,mixedEmojiojos,mixedEmojibocas,mixedEmojicejas,mixedEmojiojos_objetos,mixedEmojiobjetos,mixedEmojimanos,mixedformado;
         CircularProgressIndicator progressBar;
         TextView idemoji;
-        private Slider slider;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

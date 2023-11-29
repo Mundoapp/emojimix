@@ -72,6 +72,22 @@
             android:screenOrientation="portrait"
             />
         <activity
+            android:name="com.emojixer.activities.Emojitop_estaticos"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.emojixer.activities.Activityestaticos"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.emojixer.activities.Activityverestaticos"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.emojixer.activities.Inicio"
+            android:screenOrientation="portrait"
+            />
+        <activity
             android:name="com.emojixer.activities.DebugActivity"
             android:screenOrientation="unspecified" />
 

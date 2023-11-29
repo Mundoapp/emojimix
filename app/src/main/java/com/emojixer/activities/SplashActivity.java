@@ -29,7 +29,7 @@ public class SplashActivity extends BaseActivity {
                 cuenta += 100;
                 cargar();
             } else {
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                Intent intent = new Intent(SplashActivity.this, Inicio.class);
                 startActivity(intent);
               //  MiPublicidad.verInterstitialAd(null);
                 finish();

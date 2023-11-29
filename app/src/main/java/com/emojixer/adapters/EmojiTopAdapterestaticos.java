@@ -2,14 +2,13 @@ package com.emojixer.adapters;
 
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
-
 import static com.airbnb.lottie.LottieDrawable.INFINITE;
+import static com.emojixer.activities.Activityestaticos.api_dominio;
 import static com.emojixer.activities.MainActivity.APITOP;
 import static com.emojixer.activities.MainActivity.FRAME_DELAY_MS;
 import static com.emojixer.activities.MainActivity.NUM_FRAMES;
+import static com.google.android.gms.common.internal.safeparcel.SafeParcelable.NULL;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -55,6 +54,7 @@ import com.emojixer.R;
 import com.emojixer.activities.MainActivity;
 import com.emojixer.activities.WrapContentDraweeView;
 import com.emojixer.functions.FileUtil;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.waynejo.androidndkgif.GifEncoder;
 
 import org.json.JSONObject;
@@ -66,17 +66,19 @@ import java.util.HashMap;
 import java.util.Objects;
 
 
-public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHolder> {
+public class EmojiTopAdapterestaticos extends RecyclerView.Adapter<EmojiTopAdapterestaticos.ViewHolder> {
     private final Context mContext;
     private RecyclerView slider;
     private LinearLayoutManager sliderLayoutManager;
     private final SharedPreferences sharedPref;
     boolean restraso = false;
     private static ArrayList<HashMap<String, Object>> data;
-    public String API_formas = "http://animated.emojixer.com/panel/images_formas/";
-    public String API_manual = "http://animated.emojixer.com/panel/images_manual/";
 
-    public String API_formado = "http://animated.emojixer.com/panel/emoji_formado/";
+    public String API_formas = api_dominio+"/panel/images_formas/";
+    public String API_manual = api_dominio+"/panel/images_manual/";
+    public static String APITOP = api_dominio+"/panel/apitop.php?";
+
+    public String API_formado = api_dominio+"/panel/emoji_formado/";
     private AlertDialog alertDialog;
     public WrapContentDraweeView sticker,sticker2;
 
@@ -93,7 +95,7 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
     FrameLayout guardarbtn , progreso;
     RecyclerView.State state;
     Activity context;
-    public EmojiTopAdapter(ArrayList<HashMap<String, Object>> _arr, LinearLayoutManager layoutManager, Context context) {
+    public EmojiTopAdapterestaticos(ArrayList<HashMap<String, Object>> _arr, LinearLayoutManager layoutManager, Context context) {
         mContext = context;
         data = _arr;
         sliderLayoutManager = layoutManager;
@@ -104,7 +106,7 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.emojis_top_item, parent, false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.emojis_top_item_estaticos, parent, false));
     }
 
     @Override
@@ -130,17 +132,20 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
         String fondo = data.get(position).get("fondo") != null ? data.get(position).get("fondo").toString() : "";
         String extra = data.get(position).get("extra") != null ? data.get(position).get("extra").toString() : "";
 
+        String rotation = data.get(position).get("rotation") != null ? data.get(position).get("rotation").toString() : "";
+        String cejas = data.get(position).get("cejas") != null ? data.get(position).get("cejas").toString() : "";
+
 
         int ancho = parseInteger(data.get(position).get("width_height"));
         int left = parseInteger(data.get(position).get("margin_left"));
         int top = parseInteger(data.get(position).get("margin_top"));
-        int rotacion = parseInteger(data.get(position).get("rotation"));
+     //   int rotation = parseInteger(data.get(position).get("rotation"));
         int votos = parseInteger(data.get(position).get("votos"));
         int emoji1 = parseInteger(data.get(position).get("id_emoji1"));
         int emoji2 = parseInteger(data.get(position).get("id_emoji2"));
         int random = parseInteger(data.get(position).get("random"));
 
-        Log.e(TAG, "onSuccess: aki anima "+emoji_formado);
+        Log.e(TAG, "onSuccess: aki rota "+rotation);
         Context contexto = holder.itemView.getContext(); // Obtiene el contexto desde la vista del elemento de lista
 
         String imageURL = API_formado + emoji_formado;
@@ -166,61 +171,19 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
         guardarbtn = dialogView.findViewById(R.id.guardarbtn);
         progreso = dialogView.findViewById(R.id.progreso);
         lodinglottie = dialogView.findViewById(R.id.lodinglottie);
-        AlertDialog.Builder builder = new AlertDialog.Builder(contexto);
-        builder.setView(dialogView);
-        builder.setTitle("Guardar Emoji");
-        alertDialog = builder.create();
 
+        Activity activity = (Activity) contexto;
 
         holder.guardar.setOnClickListener(v -> {
          //   captureMultipleImages(holder.layoutEmojiCreation);
 
-            currentFrame = 0;
+            File file = FileUtil.saveEmojiBIG(activity, holder.layoutEmojiCreation, contexto.getFilesDir() + "/stickers/");
 
 
-            alertDialog.show();
-            // Crear un ProgressDialog determinado por el progreso
-
-            // Cuando el AlertDialog se muestra, comienza la captura de frames
-
-            holder.mixedEmojiojos_objetos.setProgress(0f); // Establece el progreso al principio
-            holder.mixedEmojiojos_objetos.getDuration();
-
-
-            holder.mixedEmojiobjetos.setProgress(0f); // Establece el progreso al principio
-
-            holder.mixedEmojimanos2.setProgress(0f); // Establece el progreso al principio
-
-            holder.mixedEmojimanos.setProgress(0f); // Establece el progreso al principio
-
-            holder.mixedEmojiojos.setProgress(0f); // Establece el progreso al principio
-
-            holder.mixedEmoji.setProgress(0f); // Establece el progreso al principio
-
-            holder.mixedEmojibocas.setProgress(0f); // Establece el progreso al principio
-
-            holder.mixedemojiforma.setProgress(0f); // Establece el progreso al principio
-            holder.mixedEmojibocas.setRepeatCount(0);
-            holder.mixedEmojiobjetos.setRepeatCount(0);
-            holder.mixedEmojimanos2.setRepeatCount(0);
-            holder.mixedEmojimanos.setRepeatCount(0);
-            holder.mixedEmojiojos.setRepeatCount(0);
-            holder.mixedEmoji.setRepeatCount(0);
-            holder.mixedemojiforma.setRepeatCount(0);
-            holder.mixedEmojiojos_objetos.setRepeatCount(0);
-            Activity activity = (Activity) contexto;
-
-            captureNextFrame(holder.layoutEmojiCreation, capturedImages, capturedImageView,activity);
-            holder.marca.setAnimation(R.raw.marca);
-            holder.marca.setVisibility(View.VISIBLE);
-            holder.marca.playAnimation();
-
-            progreso.setVisibility(View.VISIBLE);
-            guardarbtn.setVisibility(View.INVISIBLE);
-            textotitulo.setText("Capturando fotogramas");
-            alertDialog.setTitle("Guardar emoji");
+            String toastText = "Saved emoji";
+            Toast.makeText(contexto.getApplicationContext(), toastText, Toast.LENGTH_LONG).show();
             actualizovotos(emoji1,emoji2,activity);
-            //scrollToCenter(view);
+
         });
 
 
@@ -232,6 +195,8 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
             holder.mixedemojiforma.setVisibility(View.GONE);
             holder.mixedEmojiobjetos.setVisibility(View.GONE);
 
+            holder.mixedEmojimanos2.setVisibility(View.GONE);
+            holder.mixedEmojicejas.setVisibility(View.GONE);
 
             holder.mixedEmoji.setVisibility(View.VISIBLE);
             holder.mixedEmoji0.setVisibility(View.GONE);
@@ -246,19 +211,13 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
             ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.posicionemoji.getLayoutParams();
             params.setMargins(0, 0, 0, 0);
             holder.posicionemoji.setLayoutParams(params);
-            LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_manual+base)))
-                    .addListener(composition -> {
-                        holder.mixedEmoji.setComposition(composition);
-                        holder.mixedEmoji.playAnimation();
-                        holder.mixedEmoji.setRepeatCount(INFINITE);
-                    }).addFailureListener(exception -> {
-                        // Si falla cargar desde la URL, carga el archivo local
-                        //    Log.e("TAG", "aki emoji final2: "+String.valueOf(Uri.parse(finalojos_objetos)) );
-                        holder.mixedEmoji.setVisibility(View.INVISIBLE);
-                        holder.mixedEmoji.setAnimation(R.raw.vacio);
-                    });
+            holder.mixedEmoji.setImageURI(Uri.parse(NULL));
+
+            holder.mixedEmoji.setImageURI(Uri.parse(API_manual+base));
+
         }
         else {
+            holder.mixedEmojicejas.setVisibility(View.VISIBLE);
 
             holder.mixedEmojibocas.setVisibility(View.VISIBLE);
             holder.mixedEmojiojos.setVisibility(View.VISIBLE);
@@ -272,88 +231,22 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
             holder.mixedEmoji0.setVisibility(View.VISIBLE);
 
 
-        Animation animation;
-
-        if (animacion != null) {
-// Obtener el identificador de recurso entero para la animación
-            int animationResourceId = contexto.getResources().getIdentifier(animacion, "anim", contexto.getPackageName());
-
-            if (animationResourceId != 0) {
-                // Cargar la animación si se encontró el recurso
-                animation = AnimationUtils.loadAnimation(contexto, animationResourceId);
-                Log.e(TAG, "onSuccess: aki anima "+animation );
 
 
-                animation.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {
-                        // No se necesita implementación
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        // La animación de entrada ha terminado
-                        // Inicia la animación inversa después de un retraso
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                holder.posicionemoji.startAnimation(animation);
-
-                            }
-                        }, 0); // Espera 2000 milisegundos (2 segundos) antes de iniciar la animación inversa
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {
-                        // No se necesita implementación
-                    }
-                });
-                holder.posicionemoji.startAnimation(animation);
-
-
-                // Aplicar la animación a una vista, si es necesario
-                // view.startAnimation(animation);
-            }
-        }
-        else {
-            //     posicioncara.setRotation(rotacion);
-
-
-            animation = AnimationUtils.loadAnimation(context, R.anim.animacion);
-
-            holder.posicionemoji.startAnimation(animation);
-            holder.posicionemoji.clearAnimation();
-            holder.posicionemoji.setRotation(rotacion);
-            // Manejar el caso en el que la animación no se encuentra en los recursos
-            // Aquí puedes mostrar un mensaje de error o tomar otra acción apropiada.
-        }
 
      if (Objects.equals(tipo, "objeto")) {
 
             if(emoji1==emoji2) {
                 holder.mixedemojiforma.setVisibility(View.VISIBLE);
 
-               // holder.mixedemojiforma.setImageURI(Uri.parse(extra));
+               holder.mixedemojiforma.setImageURI(Uri.parse(API_formas+extra));
 
-                LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+extra)))
-                        .addListener(composition -> {
-                            holder.mixedemojiforma.setComposition(composition);
-                            holder.mixedemojiforma.playAnimation();
-                        })
-                ;
+
+
                 holder.mixedfondo.setVisibility(View.VISIBLE);
 
-                LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+fondo)))
-                        .addListener(composition -> {
-                            holder.mixedfondo.setComposition(composition);
-                            holder.mixedfondo.playAnimation();
-                        }).addFailureListener(exception -> {
-                            // Si falla cargar desde la URL, carga el archivo local
-                            //    Log.e("TAG", "aki emoji final2: "+String.valueOf(Uri.parse(finalojos_objetos)) );
-                            holder.mixedfondo.setVisibility(View.INVISIBLE);
-                            holder.mixedfondo.setAnimation(R.raw.vacio);
-                        });
+                holder.mixedfondo.setImageURI(Uri.parse(API_formas+fondo));
+
 
                 Log.e("TAG", "aki condicion objeto igual: "+position );
             }
@@ -369,39 +262,24 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
                 ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.posicionemoji.getLayoutParams();
                 params.setMargins(left2, top2, 0, 0);
                 holder.posicionemoji.setLayoutParams(params);
-                holder.posicionemoji.setRotation(rotacion);
-                Log.e("TAG", "aki condicion rotacion objeto: " + position+ "fondo"+fondo+"extras "+extra );
+                holder.posicionemoji.setRotation(Float.parseFloat(rotation));
+                Log.e("TAG", "aki condicion rotation objeto: " + position+ "fondo"+fondo+"extras "+extra );
 
                 holder.mixedemojiforma.setVisibility(View.VISIBLE);
                 holder.posicioncara.setRotation(0);
-                if (Objects.equals(emoji1, 99) || Objects.equals(emoji2, 99))
-                    holder.posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2-50));
-                else
-                    holder.posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
 
+                holder.posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
                 ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) holder.posicioncara.getLayoutParams();
                 params.setMargins(left2, top2, 0, 0);
                 holder.posicioncara.setLayoutParams(params2);
 
-                LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+extra)))
-                        .addListener(composition -> {
-                            holder.mixedemojiforma.setComposition(composition);
-                            holder.mixedemojiforma.playAnimation();
-                        })
-                ;
+
+                holder.mixedemojiforma.setImageURI(Uri.parse(API_formas+extra));
+
                 // mixedemojiforma.setImageURI(Uri.parse(extra));
                 holder.mixedfondo.setVisibility(View.VISIBLE);
 
-                LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+fondo)))
-                        .addListener(composition -> {
-                            holder.mixedfondo.setComposition(composition);
-                            holder.mixedfondo.playAnimation();
-                        }).addFailureListener(exception -> {
-                            // Si falla cargar desde la URL, carga el archivo local
-                            //    Log.e("TAG", "aki emoji final2: "+String.valueOf(Uri.parse(finalojos_objetos)) );
-                            holder.mixedfondo.setVisibility(View.INVISIBLE);
-                            holder.mixedfondo.setAnimation(R.raw.vacio);
-                        });
+                holder.mixedfondo.setImageURI(Uri.parse(API_formas+fondo));
 
                 holder.mixedemojiforma.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
                 ViewGroup.MarginLayoutParams params4 = (ViewGroup.MarginLayoutParams) holder.mixedemojiforma.getLayoutParams();
@@ -428,23 +306,12 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
 
            // holder.mixedemojiforma.setImageURI(Uri.parse(extra));
             holder.mixedfondo.setVisibility(View.VISIBLE);
-            LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+extra)))
-                    .addListener(composition -> {
-                        holder.mixedemojiforma.setComposition(composition);
-                        holder.mixedemojiforma.playAnimation();
-                    })
-            ;
-             LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+fondo)))
-                    .addListener(composition -> {
-                        holder.mixedfondo.setComposition(composition);
-                        holder.mixedfondo.playAnimation();
-                    }).addFailureListener(exception -> {
-                        // Si falla cargar desde la URL, carga el archivo local
-                        //    Log.e("TAG", "aki emoji final2: "+String.valueOf(Uri.parse(finalojos_objetos)) );
-                        holder.mixedfondo.setVisibility(View.INVISIBLE);
-                        holder.mixedfondo.setAnimation(R.raw.vacio);
-                    });
-            Log.e("TAG", "aki condicion objeto doble: "+position );
+
+         holder.mixedemojiforma.setImageURI(Uri.parse(API_formas+extra));
+
+         holder.mixedfondo.setImageURI(Uri.parse(API_formas+fondo));
+
+         Log.e("TAG", "aki condicion objeto doble: "+position );
 
             holder.mixedemojiforma.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
             ViewGroup.MarginLayoutParams params4 = (ViewGroup.MarginLayoutParams) holder.mixedemojiforma.getLayoutParams();
@@ -460,10 +327,10 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
             if(Objects.equals(emoji1, emoji2) && Objects.equals(tipo, "emojis3")) {
 
                 holder.posicionemoji.setRotation(0);
-                holder.posicioncara.setRotation(rotacion);
+                holder.posicioncara.setRotation(Float.parseFloat(rotation));
                 holder.mixedemojiforma.setVisibility(View.GONE);
                 int ancho3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, contexto.getResources().getDisplayMetrics());
-                Log.e("TAG", "aki condicion rotacion emojis3: " + position );
+                Log.e("TAG", "aki condicion rotation emojis3: " + position );
                 holder.posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
                 ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) holder.posicionemoji.getLayoutParams();
                 params2.setMargins(0, 0, 0, 0);
@@ -485,23 +352,20 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
             //emojis iguales y objeto es emojis
             else if(Objects.equals(emoji1, emoji2) && Objects.equals(tipo, "emoji")) {
 
-//                        Careta version
+                if(random ==1) {
+//                  Careta version
 
                     holder.mixedemojiforma.setVisibility(View.VISIBLE);
                     // mixedemojiforma.setImageURI(Uri.parse(extra));
-                    LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formado+extra)))
-                            .addListener(composition -> {
-                                holder.mixedemojiforma.setComposition(composition);
-                                holder.mixedemojiforma.playAnimation();
-                            })
-                    ;
+                    holder.mixedemojiforma.setImageURI(Uri.parse(API_formas + extra));
+
                     restraso = true;
 
                     //    Log.e("TAG", "aki igual emoji: "+extra);
                     int left2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, left, contexto.getResources().getDisplayMetrics());
                     int top2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, contexto.getResources().getDisplayMetrics());
                     int ancho3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, ancho, contexto.getResources().getDisplayMetrics());
-                    int ancho4 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, ancho-50, contexto.getResources().getDisplayMetrics());
+                    int ancho4 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, ancho - 50, contexto.getResources().getDisplayMetrics());
 
                     holder.mixedemojiforma.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
                     ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) holder.mixedemojiforma.getLayoutParams();
@@ -509,12 +373,12 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
                     holder.mixedemojiforma.setLayoutParams(params2);
                     holder.mixedemojiforma.setRotation(0);
 
-                    Log.e("TAG", "aki condicion rotacion careta: " + extra );
+                    Log.e("TAG", "aki condicion rotation careta: " + extra);
                     holder.posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho4, ancho4));
                     ViewGroup.MarginLayoutParams params3 = (ViewGroup.MarginLayoutParams) holder.posicionemoji.getLayoutParams();
                     params3.setMargins(left2, top2, 0, 0);
                     holder.posicionemoji.setLayoutParams(params3);
-                 //   holder.posicionemoji.setVisibility(View.INVISIBLE);
+                    //   holder.posicionemoji.setVisibility(View.INVISIBLE);
 
                     holder.posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho4, ancho4));
                     ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.posicioncara.getLayoutParams();
@@ -522,10 +386,35 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
                     holder.posicioncara.setLayoutParams(params);
 
 
+                    holder.posicioncara.setRotation(Float.parseFloat(rotation));
+                   }
+                    else if(random ==2) {
 
+                    holder.mixedemojiforma.setVisibility(View.VISIBLE);
+                    holder.mixedemojiforma.setImageURI(Uri.parse(API_formado+extra));
+                        int left2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, left, contexto.getResources().getDisplayMetrics());
+                        int top2 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, top, contexto.getResources().getDisplayMetrics());
+                        int ancho3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, ancho, contexto.getResources().getDisplayMetrics());
+
+                    holder.mixedemojiforma.setLayoutParams(new FrameLayout.LayoutParams(ancho3-100, ancho3-100));
+                        ViewGroup.MarginLayoutParams params2 = (ViewGroup.MarginLayoutParams) holder.mixedemojiforma.getLayoutParams();
+                        params2.setMargins(ancho3-75, top2+top2, 0, 0);
+                    holder.mixedemojiforma.setLayoutParams(params2);
+                    holder.mixedemojiforma.setRotation(-Float.parseFloat(rotation));
+
+                        Log.e("TAG", "aki rotation emoji doble: " + API_formas+extra );
+                    holder.posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
+                        ViewGroup.MarginLayoutParams params3 = (ViewGroup.MarginLayoutParams) holder.posicionemoji.getLayoutParams();
+                        params3.setMargins(left2, top2, 0, 0);
+                    holder.posicionemoji.setLayoutParams(params3);
+
+                    holder.posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
+                        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.posicioncara.getLayoutParams();
+                        params.setMargins(0, 0, 0, 0);
+                    holder.posicioncara.setLayoutParams(params);
+                    holder.posicionemoji.setRotation(Float.parseFloat(rotation));
                     holder.posicioncara.setRotation(0);
-
-
+                    }
 
             }
 
@@ -534,40 +423,7 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
 
 
                 holder.posicionemoji.setRotation(0);
-                //    posicioncara.setRotation(rotacion);
-
-//
-//
-//// Define las coordenadas iniciales y finales de la escala
-//                        float scaleFromX = 1.2f; // Escala inicial en el eje X
-//                        float scaleToX = 1.0f;   // Escala final en el eje X
-//                        float scaleFromY = 1.2f; // Escala inicial en el eje Y
-//                        float scaleToY = 1.0f;   // Escala final en el eje Y
-//
-//                        int durationMillis = 1000; // Por ejemplo, 1 segundo
-//
-//                        ScaleAnimation scaleAnimation = new ScaleAnimation(
-//                                scaleFromX, scaleToX, scaleFromY, scaleToY,
-//                                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.2f
-//                        );
-//                        scaleAnimation.setRepeatCount(-1);
-//
-//                        scaleAnimation.setDuration(durationMillis);
-//
-//                        posicioncara.startAnimation(scaleAnimation);
-
-
-//                        AnimationDrawable animationDrawable = (AnimationDrawable) getResources().getDrawable(R.drawable.animacion);
-//                        posicioncara.setBackground(animationDrawable);
-//                        animationDrawable.start();
-
-//                        Animation customAnimation = AnimationUtils.loadAnimation(context, R.anim.animacion);
-//                        customAnimation.setRepeatMode(Animation.INFINITE);
-//                        customAnimation.setRepeatCount(Animation.INFINITE);
-//
-//                        posicioncara.startAnimation(customAnimation);
-
-
+                holder.posicioncara.setRotation(Float.parseFloat(rotation));
                 holder.mixedemojiforma.setVisibility(View.GONE);
                 int ancho3 = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 250, contexto.getResources().getDisplayMetrics());
                 holder.posicionemoji.setLayoutParams(new FrameLayout.LayoutParams(ancho3, ancho3));
@@ -581,14 +437,10 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
 
                 Log.e("TAG", "aki condicion normal con ancho: " + ancho );
 
-                if (holder.posicioncara != null) {
-                    holder.posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
-                    // Realiza las operaciones que necesites con params aquí
-                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.posicioncara.getLayoutParams();
-                    params.setMargins(left2, top2, 0, 0);
-                    holder.posicioncara.setLayoutParams(params);
-                }
-
+                holder.posicioncara.setLayoutParams(new FrameLayout.LayoutParams(ancho2, ancho2));
+                ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) holder.posicioncara.getLayoutParams();
+                params.setMargins(left2, top2, 0, 0);
+                holder.posicioncara.setLayoutParams(params);
 
 
             }
@@ -637,155 +489,61 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
         if (lastIndexOfDot != -1) {
             extension = base.substring(lastIndexOfDot + 1);
         }
-        Log.e("TAG", "onSuccess: aki ojos"+extension+extra);
+        Log.e("TAG", "onSuccess: aki ojos"+ojos+position);
 
 
 
 
-        if ("png".equals(extension)) {
+
             holder.mixedEmoji.setVisibility(View.GONE);
             holder.mixedEmoji0.setVisibility(View.VISIBLE);
-            holder.mixedEmoji0.setImageURI(Uri.parse(API_formas+base));
+            if (Objects.equals(tipo, "objeto")) {
+
+                holder.mixedEmoji0.setImageURI(Uri.parse(API_formado + base));
+            }
+            else
+            {
+                holder.mixedEmoji0.setImageURI(Uri.parse(API_formas + base));
+
+            }
             Log.e("TAG", "onSuccess: aki es png ");
-        } else {
 
-            holder.mixedEmoji.setVisibility(View.VISIBLE);
-            holder.mixedEmoji0.setVisibility(View.GONE);
-            Log.e("TAG", "onSuccess: aki es png no base "+API_formas+base);
-            LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+base)))
-                    .addListener(composition -> {
-                        holder.mixedEmoji.setComposition(composition);
-                        holder.mixedEmoji.playAnimation();
-                        holder.mixedEmoji.setRepeatCount(INFINITE);
-                    });
-
-        }
 
 
  //                mixedEmojiobjetos.setImageURI(Uri.parse(objetos));
 
-        if (objetos != null) {
+            holder.mixedEmojiobjetos.setImageURI(Uri.parse(API_formas+objetos));
 
-            LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+objetos)))
-                    .addListener(composition -> {
-                        holder.mixedEmojiobjetos.setVisibility(View.VISIBLE);
+            holder.mixedEmojibocas.setImageURI(NULL);
+            holder.mixedEmojibocas.setImageURI(Uri.parse(API_formas+bocas));
 
-                        holder.mixedEmojiobjetos.setComposition(composition);
-                        holder.mixedEmojiobjetos.playAnimation();
-                        holder.mixedEmojiobjetos.setRepeatCount(INFINITE);
-                        Log.e(TAG, "onBindViewHolder: aki tiene objetos "+position );
 
-                    })
-                    .addFailureListener(exception -> {
-                        holder.mixedEmojiobjetos.setVisibility(View.INVISIBLE);
-                        holder.mixedEmojiobjetos.setAnimation(R.raw.vacio);
-                        Log.e(TAG, "onBindViewHolder: aki falla objetos "+position );
-                    });
-        }
+            holder.mixedEmojiojos.setImageURI(Uri.parse(API_formas+ojos));
+            holder.mixedEmojiojos_objetos.setImageURI(Uri.parse(API_formas+ojos_objetos));
+
+            holder.mixedEmojicejas.setImageURI(Uri.parse(API_formas+cejas));
 
 
 
 
-        if (bocas != null) {
-            LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+bocas)))
-                    .addListener(composition -> {
-                        Log.e(TAG, "onBindViewHolder: aki bocas  "+position+bocas);
-                        holder.mixedEmojibocas.setVisibility(View.VISIBLE);
 
-                        holder.mixedEmojibocas.setComposition(composition);
-                        holder.mixedEmojibocas.playAnimation();
-                        holder.mixedEmojibocas.setRepeatCount(INFINITE);
-                    })
-                    .addFailureListener(exception -> {
-                        holder.mixedEmojibocas.setAnimation(R.raw.vacio);
-                        holder.mixedEmojibocas.setVisibility(View.INVISIBLE);
-
-                    });
-        }
-
-        if (ojos != null) {
-            LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+ojos)))
-                    .addListener(composition -> {
-
-                        holder.mixedEmojiojos.setVisibility(View.VISIBLE);
-                        holder.mixedEmojiojos.setComposition(composition);
-                        holder.mixedEmojiojos.playAnimation();
-                        holder.mixedEmojiojos.setRepeatCount(INFINITE);
-                    }).addFailureListener(exception -> {
-                        // Si falla cargar desde la URL, carga el archivo local
-                        holder.mixedEmojiojos.setAnimation(R.raw.vacio);
-                        holder.mixedEmojiojos.setVisibility(View.INVISIBLE);
-                        //   Log.e("LottieError", "Error al cargar animación desde URL. Usando animación local.", exception);
-                    });
-        }
-
-
-        if (ojos_objetos != null) {
-
-            LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+ojos_objetos)))
-                    .addListener(composition -> {
-
-                        holder.mixedEmojiojos_objetos.setComposition(composition);
-                        holder.mixedEmojiojos_objetos.playAnimation();
-                        holder.mixedEmojiojos_objetos.setRepeatCount(INFINITE);
-
-                        holder.mixedEmojiojos_objetos.setVisibility(View.VISIBLE);
-
-                    })
-                    .addFailureListener(exception -> {
-                        // Si falla cargar desde la URL, carga el archivo local
-                        //    Log.e("TAG", "aki emoji final2: "+String.valueOf(Uri.parse(finalojos_objetos)) );
-                        holder.mixedEmojiojos_objetos.setVisibility(View.INVISIBLE);
-                        holder.mixedEmojiojos_objetos.setAnimation(R.raw.vacio);
-                        //   mixedEmojiojos_objetos.playAnimation();
-
-                    });
-        }
-
-
-
-            if (Objects.equals(emoji1, 26) || Objects.equals(emoji2, 26) || Objects.equals(emoji1, 99) || Objects.equals(emoji2, 99)) {
+        if (Objects.equals(emoji1, 26) || Objects.equals(emoji2, 26)) {
+            holder.mixedEmojimanos.setVisibility(View.GONE);
             holder.mixedEmojimanos2.setVisibility(View.VISIBLE);
             holder.mixedEmojimanos2.setImageURI(Uri.parse(API_formas+manos));
-            holder.mixedEmojimanos.setVisibility(View.GONE);
 
-                Log.e("LottieError", "aki manos entro"+emoji1);
 
-            LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+manos)))
-                    .addListener(composition -> {
-                        holder.mixedEmojimanos2.setComposition(composition);
-                        holder.mixedEmojimanos2.playAnimation();
-                        holder.mixedEmojimanos2.setRepeatCount(INFINITE);
-                    }).addFailureListener(exception -> {
-                        // Si falla cargar desde la URL, carga el archivo local
-                        holder.mixedEmojimanos2.setVisibility(View.GONE);
 
-                        holder.mixedEmojimanos2.setAnimation(R.raw.vacio);
-
-                    });
 
         }
         else {
             holder.mixedEmojimanos.setVisibility(View.VISIBLE);
-            //   mixedEmojimanos.setImageURI(Uri.parse(manos));
             holder.mixedEmojimanos2.setVisibility(View.GONE);
+            Log.e("LottieError", "aki manos."+manos);
+            holder.mixedEmojimanos.setImageURI(Uri.parse(API_formas+manos));
 
-            Log.e("LottieError", "aki manos."+emoji1);
 
-            LottieCompositionFactory.fromUrl(context, String.valueOf(Uri.parse(API_formas+manos)))
-                    .addListener(composition -> {
-                        holder.mixedEmojimanos.setComposition(composition);
-                        holder.mixedEmojimanos.playAnimation();
-                        holder.mixedEmojimanos.setRepeatCount(INFINITE);
-                    }).addFailureListener(exception -> {
-                        // Si falla cargar desde la URL, carga el archivo local
-                        holder.mixedEmojimanos.setVisibility(View.GONE);
-                        holder.mixedEmojimanos.setAnimation(R.raw.vacio);
-                        //     mixedEmojimanos.playAnimation();
-
-                    });
         }
-
 
         }
 
@@ -946,6 +704,7 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
         String ojos_objetosTOP = "";
 
         RequestQueue queue = Volley.newRequestQueue(contexto);
+        Log.e(TAG, "actualizovotos: "+APITOP+"emoji1="+idemote1+"&"+"emoji2="+idemote2);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, APITOP+"emoji1="+idemote1+"&"+"emoji2="+idemote2+"&actualizotop=1",
                 (String) null, new Response.Listener<JSONObject>() {
             //  @RequiresApi(api = Build.VERSION_CODES.KITKAT)
@@ -1007,7 +766,7 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
         return new File(path);
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        LottieAnimationView mixedfondo,marca,mixedEmojiojos,mixedEmojibocas,mixedEmojiojos_objetos,mixedEmojiobjetos,mixedEmojimano,mixedemojiformas,mixedEmojimanos,mixedEmoji,mixedEmojimanos2,mixedemojiforma;
+        WrapContentDraweeView mixedfondo,marca,mixedEmojiojos,mixedEmojibocas,mixedEmojicejas,mixedEmojiojos_objetos,mixedEmojiobjetos,mixedEmojimano,mixedemojiformas,mixedEmojimanos,mixedEmoji,mixedEmojimanos2,mixedemojiforma;
         WrapContentDraweeView emoji,mixedEmoji0;
         TextView idemoji,votostxt;
         FrameLayout posicioncara;
@@ -1026,6 +785,7 @@ public class EmojiTopAdapter extends RecyclerView.Adapter<EmojiTopAdapter.ViewHo
             emoji = itemView.findViewById(R.id.emoji);
             mixedEmojiojos = itemView.findViewById(R.id.mixedEmojiojos);
             mixedEmojibocas = itemView.findViewById(R.id.mixedEmojibocas);
+            mixedEmojicejas = itemView.findViewById(R.id.mixedEmojicejas);
             mixedEmojiojos_objetos = itemView.findViewById(R.id.mixedEmojiojos_objetos);
             mixedEmojiobjetos = itemView.findViewById(R.id.mixedEmojiobjetos);
             mixedEmojimanos = itemView.findViewById(R.id.mixedEmojimanos);

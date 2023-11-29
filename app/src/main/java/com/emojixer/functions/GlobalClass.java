@@ -29,9 +29,23 @@ public class GlobalClass {
                 for (int i = 1; i <= ((GlobalVariable.stickersWhassap.size() - 1) / 29) + 1; i++) {
                     if (!WhitelistCheck.isWhitelisted(mContext, i + ""))
                         if(FileUtil.get_selectedSticker(mContext).equals("SImage"))
-                            addStickerPackToWhatsApp(FileUtil.get_selectedSticker(mContext), "My avatar emoji static" , mContext);
+                            addStickerPackToWhatsApp(FileUtil.get_selectedSticker(mContext), "My emoji static" , mContext);
                         else
-                            addStickerPackToWhatsApp(FileUtil.get_selectedSticker(mContext), "My avatar emoji animated" , mContext);
+                            addStickerPackToWhatsApp(FileUtil.get_selectedSticker(mContext), "My emoji animated" , mContext);
+                }
+            }
+        }).start();
+    }
+
+    @SuppressLint("ResourceAsColor")
+    public static void addWhatsappestaticos(final Activity mContext) {
+        new Thread(new Runnable() {
+            public void run() {
+                VariablesEnMemoria.readStickerWhassapestaticos(mContext);
+                FileUtil.setStickerPack(mContext);
+                for (int i = 1; i <= ((GlobalVariable.stickersWhassapestaticos.size() - 1) / 29) + 1; i++) {
+                    if (!WhitelistCheck.isWhitelisted(mContext, i + ""))
+                            addStickerPackToWhatsApp(FileUtil.get_selectedStickerestatico(mContext), "My emoji static" , mContext);
                 }
             }
         }).start();

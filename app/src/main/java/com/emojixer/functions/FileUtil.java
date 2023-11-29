@@ -240,7 +240,10 @@ public class FileUtil {
             SharedPreferences sharedPreferences = context.getSharedPreferences(Stickername, 0);
             return sharedPreferences.getString(SNAMAE, "AImage");
         }
-
+    public static String get_selectedStickerestatico(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Stickername, 0);
+        return sharedPreferences.getString(SNAMAE, "SImage");
+    }
         public static ArrayList<Bitmap> GiftoFrames(Context context, Bitmap upperimage) {
             ArrayList<Bitmap> bitmaps = new ArrayList<>();
             ArrayList<Bitmap> Frames = new ArrayList<>();
@@ -386,19 +389,6 @@ public class FileUtil {
         }*/
             //  Log.e("Combine frames","coming here");
             //   return bottomImage;
-        }
-
-        @SuppressLint("ResourceAsColor")
-        public static void addWhatsapp(final Activity mContext, File f) {
-            new Thread(new Runnable() {
-                public void run() {
-                    VariablesEnMemoria.readStickerWhassap(mContext);
-                    for (int i = 1; i <= ((GlobalVariable.stickersWhassap.size() - 1) / 29) + 1; i++) {
-                        if (!WhitelistCheck.isWhitelisted(mContext, i + ""))
-                            addStickerPackToWhatsApp(i + "", "EmojiSet " + i, mContext);
-                    }
-                }
-            }).start();
         }
 
         public static void addStickerPackToWhatsApp(String identifier, String stickerPackName, Activity context) {
