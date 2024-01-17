@@ -1,4 +1,4 @@
-package com.emojixer.functions;
+package com.emojitwomix.functions;
 
 import java.util.ArrayList;
 import java.util.List;

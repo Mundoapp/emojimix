@@ -36,7 +36,7 @@
           android:layout_height="240dp"
           android:layout_centerInParent="true"/>
 
-        <com.emojixer.activities.WrapContentDraweeView
+        <com.emojitwomix.activities.WrapContentDraweeView
             android:id="@+id/iv_emoji"
             android:layout_width="240.0dip"
             android:layout_height="240.0dip"

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
 <RelativeLayout
-    android:layout_width="240dp"
+    android:layout_width="match_parent"
     android:layout_height="250dp"
-    android:layout_marginLeft="120dp"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:ignore="MissingConstraints"
@@ -11,27 +11,25 @@
 
 
 
-    <FrameLayout
+<FrameLayout
         android:id="@+id/frame_emoji_creation"
-        android:layout_width="240dp"
+        android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_alignParentEnd="true"
+
         android:layout_gravity="center_horizontal"
 
-        android:layout_marginEnd="1dp"
+        android:layout_marginEnd="5dp"
         android:background="@android:color/transparent"
         android:layerType="software">
 
-        <com.emojixer.activities.WrapContentDraweeView
+        <com.emojitwomix.activities.WrapContentDraweeView
             android:id="@+id/emojifondo"
             android:layout_width="250dp"
             android:layout_height="250dp"
             android:layout_gravity="center"
 
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:layout_marginBottom="5dp"
+
             android:background="@android:color/transparent"
             />
 
@@ -43,31 +41,25 @@
             android:layout_height="250dp">
 
 
-            <com.emojixer.activities.WrapContentDraweeView
+            <com.emojitwomix.activities.WrapContentDraweeView
                 android:id="@+id/mixedEmoji0"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginStart="5dp"
+                android:layout_margin="5dp"
 
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
                 android:visibility="gone" />
 
-            <com.emojixer.activities.WrapContentDraweeView
+            <com.emojitwomix.activities.WrapContentDraweeView
 
                 android:id="@+id/mixedEmoji"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_margin="5dp"
 
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
                 />
@@ -79,109 +71,88 @@
                 android:layout_height="match_parent">
 
 
-                <com.emojixer.activities.WrapContentDraweeView
+                <com.emojitwomix.activities.WrapContentDraweeView
 
                     android:id="@+id/mixedEmojiojos"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:layout_margin="5dp"
 
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
                     android:background="@android:color/transparent"
                     android:scaleType="centerCrop"
                   />
 
-                <com.emojixer.activities.WrapContentDraweeView
+                <com.emojitwomix.activities.WrapContentDraweeView
 
                     android:id="@+id/mixedEmojibocas"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:layout_margin="5dp"
 
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
                     android:background="@android:color/transparent"
                     android:scaleType="centerCrop"
                      />
 
 
-                <com.emojixer.activities.WrapContentDraweeView
+                <com.emojitwomix.activities.WrapContentDraweeView
                     android:id="@+id/mixedEmojicejas"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:layout_margin="5dp"
 
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
                     android:background="@android:color/transparent"
                     android:scaleType="centerCrop" />
 
 
-                <com.emojixer.activities.WrapContentDraweeView
+                <com.emojitwomix.activities.WrapContentDraweeView
 
                     android:id="@+id/mixedEmojiojos_objetos"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:layout_margin="5dp"
 
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
                     android:background="@android:color/transparent"
                     android:scaleType="centerCrop"
                     />
 
-                <com.emojixer.activities.WrapContentDraweeView
+                <com.emojitwomix.activities.WrapContentDraweeView
 
                     android:id="@+id/mixedEmojiobjetos"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:layout_margin="5dp"
 
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
                     android:background="@android:color/transparent"
                     android:scaleType="centerCrop"
                     />
 
 
-                <com.emojixer.activities.WrapContentDraweeView
+                <com.emojitwomix.activities.WrapContentDraweeView
 
                     android:id="@+id/mixedEmojimanos"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:layout_margin="5dp"
 
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
                     android:background="@android:color/transparent"
                     android:scaleType="centerCrop"
                    />
             </FrameLayout>
 
-            <com.emojixer.activities.WrapContentDraweeView
+            <com.emojitwomix.activities.WrapContentDraweeView
 
                 android:id="@+id/mixedEmojimanos2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_margin="5dp"
 
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
                 />
@@ -196,23 +167,20 @@
             android:layout_width="250dp"
             android:layout_height="250dp">
 
-            <com.emojixer.activities.WrapContentDraweeView
+            <com.emojitwomix.activities.WrapContentDraweeView
 
                 android:id="@+id/emojiforma"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:layout_gravity="center"
+                android:layout_margin="5dp"
 
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
                />
         </FrameLayout>
     </FrameLayout>
-    <com.emojixer.activities.WrapContentDraweeView
+    <com.emojitwomix.activities.WrapContentDraweeView
 
         android:id="@+id/progressBar"
         android:layout_width="250dp"
@@ -224,17 +192,15 @@
         app:lottie_loop="false"
         android:gravity="center"
         android:layout_margin="3dp"/>
-    <com.emojixer.activities.WrapContentDraweeView
+    <com.emojitwomix.activities.WrapContentDraweeView
         android:visibility="gone"
         android:id="@+id/explosion"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_gravity="center"
+        android:layout_margin="5dp"
 
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="5dp"
+
         android:background="@android:color/transparent"
         android:scaleType="centerCrop" />
 </RelativeLayout>

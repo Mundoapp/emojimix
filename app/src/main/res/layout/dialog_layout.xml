@@ -76,7 +76,7 @@
             app:lottie_rawRes="@raw/loading" />
 
 
-        <com.emojixer.activities.WrapContentDraweeView
+        <com.emojitwomix.activities.WrapContentDraweeView
             android:id="@+id/sticker"
             android:layout_width="300dp"
             android:layout_height="300dp"

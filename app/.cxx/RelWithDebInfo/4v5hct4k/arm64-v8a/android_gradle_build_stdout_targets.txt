@@ -1,0 +1,2 @@
+ninja: Entering directory `C:\Users\kaiv\Android studio 3.0\emojixer animated\app\.cxx\RelWithDebInfo\4v5hct4k\arm64-v8a'
+ninja: no work to do.

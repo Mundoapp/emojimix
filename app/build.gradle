@@ -24,12 +24,23 @@ android {
                 "CONTENT_PROVIDER_AUTHORITY",
                 "\"${contentProviderAuthority}\"")
     }
+    signingConfigs {
+        release {
 
+            storeFile file("C:/Users/kaiv/Android studio pruebas/emojikey.jks") // Ruta absoluta al archivo de almacén de claves
+            storePassword project.property("RELEASE_STORE_PASSWORD")
+            keyAlias project.property("key0")
+            keyPassword project.property("RELEASE_STORE_PASSWORD")
+        }
+    }
     buildTypes {
         release {
+            signingConfig signingConfigs.release
+
             debuggable false
             shrinkResources false
             minifyEnabled false
+
         }
         debug {
             debuggable true
@@ -85,4 +96,7 @@ dependencies {
 
     implementation 'androidx.annotation:annotation:1.0.0'
     implementation 'com.facebook.android:audience-network-sdk:6.+'
+
+
+
 }

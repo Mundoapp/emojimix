@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.emojixer.activities.WrapContentDraweeView
+        <com.emojitwomix.activities.WrapContentDraweeView
             android:id="@+id/sticker_preview"
             android:background="@android:color/transparent"
             android:layout_width="wrap_content"

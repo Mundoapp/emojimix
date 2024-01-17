@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.emojixer">
+    package="com.emojitwomix">
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -34,28 +34,28 @@
         </provider>
 
         <provider
-            android:name="com.emojixer.activities.Provider"
+            android:name="com.emojitwomix.activities.Provider"
             android:authorities="${contentProviderAuthority}"
             android:enabled="true"
             android:exported="true"
             android:readPermission="com.whatsapp.sticker.READ" />
 
         <activity
-            android:name="com.emojixer.activities.MainActivity"
+            android:name="com.emojitwomix.activities.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout|uiMode"
             android:screenOrientation="unspecified"
             android:windowSoftInputMode="adjustResize">
 
         </activity>
         <activity
-            android:name="com.emojixer.activities.DisplayBitmapActivity"
+            android:name="com.emojitwomix.activities.DisplayBitmapActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout|uiMode"
             android:screenOrientation="unspecified"
             android:windowSoftInputMode="adjustResize">
 
         </activity>
         <activity
-            android:name="com.emojixer.activities.SplashActivity"
+            android:name="com.emojitwomix.activities.SplashActivity"
             android:screenOrientation="portrait"
             android:exported="true">
         <intent-filter>
@@ -64,31 +64,31 @@
         </intent-filter>
         </activity>
         <activity
-            android:name="com.emojixer.activities.ImageViewerActivity"
+            android:name="com.emojitwomix.activities.ImageViewerActivity"
             android:screenOrientation="portrait"
           />
         <activity
-            android:name="com.emojixer.activities.Emojitop"
+            android:name="com.emojitwomix.activities.Emojitop"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name="com.emojixer.activities.Emojitop_estaticos"
+            android:name="com.emojitwomix.activities.Emojitop_estaticos"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name="com.emojixer.activities.Activityestaticos"
+            android:name="com.emojitwomix.activities.Activityestaticos"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name="com.emojixer.activities.Activityverestaticos"
+            android:name="com.emojitwomix.activities.Activityverestaticos"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name="com.emojixer.activities.Inicio"
+            android:name="com.emojitwomix.activities.Inicio"
             android:screenOrientation="portrait"
             />
         <activity
-            android:name="com.emojixer.activities.DebugActivity"
+            android:name="com.emojitwomix.activities.DebugActivity"
             android:screenOrientation="unspecified" />
 
         <uses-library

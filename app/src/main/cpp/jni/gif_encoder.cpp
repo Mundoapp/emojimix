@@ -13,7 +13,7 @@ Java_com_emojixer_activities_MainActivity_convertFrameToWebP(JNIEnv *env, jobjec
                                                              jstring outputPath, jint quality) {
     int numBitmaps = env->GetArrayLength(bitmaps);
     __android_log_print(ANDROID_LOG_DEBUG, "Native", "Número de bitmaps recibidos: %d", numBitmaps);
-    int duration = 80;
+    int duration = 60; // Esto debe coincidir con FRAME_DELAY_MS en Java
     int timestamp_ms = 0;
     int width = 512; // Define el ancho de tu animación aquí
     int height = 512; // Define la altura de tu animación aquí
@@ -60,19 +60,21 @@ Java_com_emojixer_activities_MainActivity_convertFrameToWebP(JNIEnv *env, jobjec
        //  config.segments = 4;        // Puedes probar con más segmentos para una mayor compresión
     // config.sns_strength = 20;   // Ajusta la fuerza del ruido espacial (50 es un valor moderado)
      // config.filter_strength = 50; // Ajusta la fuerza del filtro (50 es un valor moderado)
-    config.alpha_filtering =  2;
+   // config.alpha_filtering =  2;
 //
-    config.near_lossless = 0;   // Desactiva el modo de pérdida cercana
+ //   config.near_lossless = 0;   // Desactiva el modo de pérdida cercana
 //     //   config.exact = 0;           // Desactiva el modo de compresión exacta
  //
-  config.alpha_quality = 10; // Establece la calidad del canal alfa al máximo
+ // config.alpha_quality = 10; // Establece la calidad del canal alfa al máximo
 //
 //
-if(i==0) {
-    timestamp_ms += 30;
-} else{
-    timestamp_ms += duration;
-}
+//        if (i == 0) {
+//            timestamp_ms += duration;
+//        } else {
+//            timestamp_ms += duration;
+//        }
+
+        timestamp_ms += duration;
 
 
         WebPAnimEncoderAdd(enc, &picture, timestamp_ms, &config);

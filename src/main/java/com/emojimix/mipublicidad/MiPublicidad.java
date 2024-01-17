@@ -1,4 +1,4 @@
-package com.emojixer.mipublicidad;
+package com.emojitwomix.verads;
 
 import android.app.Activity;
 import android.widget.FrameLayout;
@@ -9,7 +9,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 public class MiPublicidad {
 
     private static MiPublicidad miPublicidad = null;
-    private com.emojixer.mipublicidad.Admob admob;
+    private com.emojitwomix.verads.Admob admob;
     private static boolean isGmsAvailable;
     private static boolean isHmsAvailable;
     public static boolean interstitial_cargado = false;
@@ -23,7 +23,7 @@ public class MiPublicidad {
 
         isGmsAvailable = (gmsStatus == ConnectionResult.SUCCESS);
 
-            admob=new com.emojixer.mipublicidad.Admob(context);
+            admob=new com.emojitwomix.verads.Admob(context);
 
     }
 

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/layout/dialog_rating.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/ratingemoji"
+        android:layout_gravity="center"
+
+        android:layout_centerHorizontal="true"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:lottie_fileName="16_16.json"
+        app:lottie_loop="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/opinion"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+<androidx.cardview.widget.CardView
+    android:backgroundTint="#E1F3F6"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+>  <RatingBar
+        android:layout_gravity="center"
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+     android:progressTint="#FDE618"
+    android:progressBackgroundTint="#D6D6D6"
+    android:numStars="5"
+        android:stepSize="1.0"/>
+</androidx.cardview.widget.CardView>
+</LinearLayout>

@@ -1,4 +1,4 @@
-package com.emojixer.functions;
+package com.emojitwomix.functions;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 
-import com.emojixer.BuildConfig;
+import com.emojitwomix.BuildConfig;
 import com.orhanobut.hawk.Hawk;
 
 

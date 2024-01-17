@@ -1,4 +1,4 @@
-package com.emojixer.functions;
+package com.emojitwomix.functions;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import androidx.core.content.FileProvider;
 
-import  com.emojixer.R;
+import  com.emojitwomix.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

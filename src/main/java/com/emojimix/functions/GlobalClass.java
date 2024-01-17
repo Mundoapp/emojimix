@@ -1,4 +1,4 @@
-package com.emojixer.functions;
+package com.emojitwomix.functions;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -11,8 +11,8 @@ import android.util.Log;
 
 import androidx.core.content.FileProvider;
 
- import com.emojixer.BuildConfig;
-import com.emojixer.activities.BitmapTransform;
+ import com.emojitwomix.BuildConfig;
+import com.emojitwomix.activities.BitmapTransform;
 
 import java.io.File;
 

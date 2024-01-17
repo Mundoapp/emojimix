@@ -1,4 +1,4 @@
-package com.emojixer.activities;
+package com.emojitwomix.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -27,10 +27,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.airbnb.lottie.LottieAnimationView;
 
-import com.emojixer.R;
-import com.emojixer.functions.GlobalClass;
-import com.emojixer.functions.Utility;
-import com.emojixer.mipublicidad.Admob;
+import com.emojitwomix.R;
+import com.emojitwomix.functions.GlobalClass;
+import com.emojitwomix.functions.Utility;
+import com.emojitwomix.verads.Admob;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.imagepipeline.core.ImagePipeline;

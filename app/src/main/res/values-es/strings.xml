@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name" translatable="false">Emoji2 mix</string>
+    <string name="save_emoji">Guardar emoji</string>
+    <string name="add_to_whatsapp">Agregar a whatsapp</string>
+    <string name="estatic">Mix estaticos</string>
+    <string name="animated">Mix Animados</string>
+    <string name="top">Emoji top</string>
+    <string name="my">Mi emojis</string>
+    <string name="guardar">Guardar emoji</string>
+    <string name="guardado">Emoji guardadado</string>
+    <string name="mix1">Mi emojis</string>
+    <string name="mix2">Mix animated</string>
+    <string name="desliza">Desliza el slider para fusionar los emojis</string>
+    <string name="opinion">Dejanos tu opinión de la app</string>
+
+    <string name="capturando">Capturando fotogramas</string>
+    <string name="convirtiendo">Convirtiendo archivo</string>
+    <string name="espera">Espera ...</string>
+    <string name="banner_admob" translatable="false"></string>
+    <string name="intersticial_admob" translatable="false"></string>
+
+
+
+</resources>

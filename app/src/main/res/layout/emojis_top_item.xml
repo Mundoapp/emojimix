@@ -20,6 +20,7 @@
             android:layout_toStartOf="@+id/frame_emoji_creation">
 
             <FrameLayout
+                android:id="@+id/fondodescarga"
                 android:layout_width="100dp"
                 android:background="#EADEFF"
                 android:paddingLeft="5dp"
@@ -82,7 +83,7 @@
 
 
 
-        <com.emojixer.activities.WrapContentDraweeView
+        <com.emojitwomix.activities.WrapContentDraweeView
             android:id="@+id/emoji"
             android:layout_width="50dp"
             android:layout_height="50dp"

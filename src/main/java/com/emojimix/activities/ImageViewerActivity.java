@@ -1,4 +1,4 @@
-package com.emojixer.activities;
+package com.emojitwomix.activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -26,18 +26,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.bumptech.glide.Glide;
-import com.emojixer.R;
-import com.emojixer.db.DbHelper;
-import com.emojixer.functions.FileUtil;
-import com.emojixer.functions.GlobalClass;
-import com.emojixer.functions.GlobalVariable;
-import com.emojixer.functions.Sticker;
-import com.emojixer.functions.StickerPack;
-import com.emojixer.functions.Utility;
-import com.emojixer.functions.VariablesEnMemoria;
-import com.emojixer.functions.WhitelistCheck;
-import com.emojixer.mipublicidad.Admob;
-import com.emojixer.mipublicidad.MiPublicidad;
+import com.emojitwomix.R;
+import com.emojitwomix.db.DbHelper;
+import com.emojitwomix.functions.FileUtil;
+import com.emojitwomix.functions.GlobalClass;
+import com.emojitwomix.functions.GlobalVariable;
+import com.emojitwomix.functions.Sticker;
+import com.emojitwomix.functions.StickerPack;
+import com.emojitwomix.functions.Utility;
+import com.emojitwomix.functions.VariablesEnMemoria;
+import com.emojitwomix.functions.WhitelistCheck;
+import com.emojitwomix.verads.Admob;
+import com.emojitwomix.verads.MiPublicidad;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 

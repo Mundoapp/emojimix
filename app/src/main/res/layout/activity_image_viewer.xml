@@ -6,14 +6,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <ImageView
+        android:gravity="center"
 
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:src="@drawable/emojixerlogo">
+
+    </ImageView>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/add_to_whatsapp_button"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="38dp"
         android:layout_marginBottom="5dp"
         android:orientation="vertical">
 
@@ -70,6 +77,8 @@
             android:text="@string/add_to_whatsapp"
             tools:ignore="RtlHardcoded,UnusedAttribute" />
     </FrameLayout>
+
+
     <FrameLayout
         android:layout_marginBottom="60dp"
         android:id="@+id/ad_view_container"

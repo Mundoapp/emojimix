@@ -20,7 +20,7 @@
             android:layout_height="140dp">
 
 
-            <com.emojixer.activities.WrapContentDraweeView
+            <com.emojitwomix.activities.WrapContentDraweeView
                 android:id="@+id/sticker"
                 android:layout_width="140dp"
                 android:layout_height="140dp"

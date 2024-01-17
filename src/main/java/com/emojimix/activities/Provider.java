@@ -1,4 +1,4 @@
-package com.emojixer.activities;
+package com.emojitwomix.activities;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
@@ -18,11 +18,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-import com.emojixer.BuildConfig;
-import com.emojixer.functions.FileUtil;
-import com.emojixer.functions.Sticker;
-import com.emojixer.functions.StickerPack;
-import com.emojixer.functions.VariablesEnMemoria;
+import com.emojitwomix.BuildConfig;
+import com.emojitwomix.functions.FileUtil;
+import com.emojitwomix.functions.Sticker;
+import com.emojitwomix.functions.StickerPack;
+import com.emojitwomix.functions.VariablesEnMemoria;
 import com.orhanobut.hawk.Hawk;
 
 import java.io.File;

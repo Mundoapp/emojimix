@@ -1,4 +1,4 @@
-package com.emojixer.adapters;
+package com.emojitwomix.adapters;
 
 
 import android.app.Activity;
@@ -21,7 +21,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.emojixer.R;
+import com.emojitwomix.R;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import java.util.ArrayList;

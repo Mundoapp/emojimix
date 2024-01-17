@@ -1,4 +1,4 @@
-package com.emojixer.functions;
+package com.emojitwomix.functions;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;

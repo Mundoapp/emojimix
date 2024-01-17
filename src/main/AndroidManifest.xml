@@ -16,7 +16,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name="com.emojixer.ApplicationLoader"
+        android:name="com.emojitwomix.ApplicationLoader"
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
@@ -32,14 +32,14 @@
         </provider>
 
         <provider
-            android:name="com.emojixer.activities.Provider"
+            android:name="com.emojitwomix.activities.Provider"
             android:authorities="${contentProviderAuthority}"
             android:enabled="true"
             android:exported="true"
             android:readPermission="com.whatsapp.sticker.READ" />
 
         <activity
-            android:name="com.emojixer.activities.MainActivity"
+            android:name="com.emojitwomix.activities.MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|smallestScreenSize|screenLayout|uiMode"
             android:exported="true"
             android:screenOrientation="unspecified"
@@ -51,11 +51,11 @@
         </activity>
 
         <activity
-            android:name="com.emojixer.activities.ImageViewerActivity"
+            android:name="com.emojitwomix.activities.ImageViewerActivity"
             android:screenOrientation="portrait"
           />
         <activity
-            android:name="com.emojixer.activities.DebugActivity"
+            android:name="com.emojitwomix.activities.DebugActivity"
             android:screenOrientation="unspecified" />
 
         <uses-library

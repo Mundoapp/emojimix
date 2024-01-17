@@ -1,6 +1,6 @@
-package com.emojixer.functions;
+package com.emojitwomix.functions;
 
-import static com.emojixer.functions.Utils.convertEmojisToUnicode;
+import static com.emojitwomix.functions.Utils.convertEmojisToUnicode;
 
 import android.app.Activity;
 import android.content.Context;

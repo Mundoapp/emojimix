@@ -1,4 +1,4 @@
-package com.emojixer.mipublicidad;
+package com.emojitwomix.verads;
 
 import android.app.Activity;
 import android.util.DisplayMetrics;
@@ -7,7 +7,7 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 
-import com.emojixer.R;
+import com.emojitwomix.R;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;

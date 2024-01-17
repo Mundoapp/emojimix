@@ -1,12 +1,24 @@
 <resources>
-    <string name="app_name" translatable="false">Emojixer</string>
-    <string name="activity_hint_1">Swipe left or right to mix emojis</string>
-    <string name="downloading">Downloading your emoji mix&#8230;</string>
-    <string name="swipe_left_or_right_to_mix_emojis">Swipe left or right to mix emojis</string>
+    <string name="app_name" translatable="false">Emoji2 mix</string>
     <string name="save_emoji">Save emoji</string>
     <string name="add_to_whatsapp">Add to whatsapp</string>
-    <string name="banner_admob" translatable="false">ca-app-pub-4260778504237973/1410083079</string>
-    <string name="intersticial_admob" translatable="false">ca-app-pub-4260778504237973/1457350383</string>
+    <string name="estatic">Mix estatic</string>
+    <string name="animated">Mix Animated</string>
+    <string name="top">Emoji top</string>
+    <string name="my">My emojis</string>
+    <string name="guardar">Save emoji</string>
+    <string name="guardado">Saved emoji</string>
+    <string name="mix1">Mi emojis</string>
+    <string name="mix2">Mix animated</string>
+    <string name="desliza">Desliza el slider para fusionar los emojis</string>
+    <string name="opinion">Dejanos tu opinión de la app</string>
+
+    <string name="capturando">Capturando fotogramas</string>
+    <string name="convirtiendo">Convirtiendo archivo</string>
+    <string name="espera">Wait ...</string>
+    <string name="banner_admob" translatable="false"></string>
+    <string name="intersticial_admob" translatable="false"></string>
+
 
 
 </resources>
